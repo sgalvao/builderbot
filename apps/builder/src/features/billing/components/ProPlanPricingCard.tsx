@@ -44,7 +44,7 @@ type Props = {
   currentSubscription: {
     isYearly?: boolean
   }
-  currency?: 'usd' | 'eur'
+  currency?: 'brl'
   isLoading: boolean
   isYearly: boolean
   onPayClick: (props: {

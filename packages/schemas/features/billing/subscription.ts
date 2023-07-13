@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export const subscriptionSchema = z.object({
   isYearly: z.boolean(),
-  currency: z.enum(['eur', 'usd']),
+  currency: z.enum(['brl']),
   cancelDate: z.date().optional(),
 })
 

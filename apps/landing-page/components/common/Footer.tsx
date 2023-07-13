@@ -20,7 +20,7 @@ const statusPageUrl = 'https://status.typebot.io'
 export const contactUrl = 'https://bot.typebot.io/landing-page-bubble-en'
 export const roadmapLink = 'https://app.typebot.io/feedback'
 export const documentationLink = 'https://docs.typebot.io'
-export const githubRepoLink = 'https://github.com/baptisteArno/typebot.io'
+export const githubRepoLink = 'https://github.com/sgalvao/builderbot'
 
 export const Footer = () => {
   return (
@@ -31,49 +31,51 @@ export const Footer = () => {
             <HStack>
               <Logo boxSize="30px" />
               <Heading as="p" fontSize="lg">
-                Typebot
+                HackLeads
               </Heading>
             </HStack>
+            <Text>
+              Fork do <TextLink href={'https://typebot.io'}>TypeBot</TextLink>{' '}
+            </Text>
             <Text>
               Made with ❤️ by{' '}
               <TextLink href={baptisteTwitterUrl}>@baptisteArno</TextLink>
             </Text>
           </Stack>
           <Stack align={'flex-start'}>
-            <ListHeader>Product</ListHeader>
-            <TextLink href={statusPageUrl} isExternal>
+            <ListHeader>Produto</ListHeader>
+            {/* <TextLink href={statusPageUrl} isExternal>
               Status
-            </TextLink>
+            </TextLink> */}
             <TextLink href={documentationLink} isExternal>
-              Documentation
+              Documentação
             </TextLink>
             <TextLink href={roadmapLink} isExternal>
               Roadmap
             </TextLink>
-            <TextLink href={'/pricing'}>Pricing</TextLink>
+            <TextLink href={'/pricing'}>Planos</TextLink>
           </Stack>
           <Stack align={'flex-start'}>
-            <ListHeader>Community</ListHeader>
+            <ListHeader>Comunidade</ListHeader>
             <TextLink href={githubRepoLink} isExternal>
               GitHub repository
-            </TextLink>
-            <TextLink href={facebookGroupUrl} isExternal>
-              Facebook Group
             </TextLink>
             <TextLink href={typebotTwitterUrl} isExternal>
               Twitter
             </TextLink>
-            <TextLink href={typebotLinkedInUrl} isExternal>
-              LinkedIn
-            </TextLink>
+
             <TextLink href="/oss-friends">OSS Friends</TextLink>
           </Stack>
           <Stack align={'flex-start'}>
             <ListHeader>Company</ListHeader>
-            <TextLink href="/about">About</TextLink>
-            <TextLink href="mailto:baptiste@typebot.io">Contact</TextLink>
-            <TextLink href={'/terms-of-service'}>Terms of Service</TextLink>
-            <TextLink href={'/privacy-policies'}>Privacy Policy</TextLink>
+            <TextLink href="/about">Sobre o HackLeads</TextLink>
+            <TextLink href="mailto:silvio.gabrielgt2000@hotmail.com">
+              Contato
+            </TextLink>
+            <TextLink href={'/terms-of-service'}>Termos de serviço</TextLink>
+            <TextLink href={'/privacy-policies'}>
+              Politica de privacidade
+            </TextLink>
           </Stack>
         </SimpleGrid>
       </Container>

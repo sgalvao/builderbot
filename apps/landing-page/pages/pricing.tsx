@@ -46,7 +46,7 @@ const Pricing = () => {
           <Stack align="center" spacing="12" w="full" px={4}>
             <VStack>
               <Heading fontSize={{ base: '4xl', xl: '6xl' }}>
-                Plans fit for you
+                Planos que combinam com você
               </Heading>
               <Text
                 maxW="900px"
@@ -71,22 +71,6 @@ const Pricing = () => {
               </Text>
             </VStack>
 
-            <HStack
-              maxW="500px"
-              spacing="4"
-              bgColor="gray.800"
-              p="4"
-              rounded="md"
-            >
-              <StripeClimateLogo />
-              <Text fontSize="sm">
-                Typebot is contributing 1% of your subscription to remove CO₂
-                from the atmosphere.{' '}
-                <TextLink href="https://climate.stripe.com/5VCRAq" isExternal>
-                  More info
-                </TextLink>
-              </Text>
-            </HStack>
             <Stack align="flex-end" maxW="1200px" w="full" spacing={4}>
               <HStack>
                 <Text>Monthly</Text>
@@ -96,7 +80,7 @@ const Pricing = () => {
                 />
                 <HStack>
                   <Text>Yearly</Text>
-                  <Tag colorScheme="blue">16% off</Tag>
+                  <Tag colorScheme="blue">economize 20%</Tag>
                 </HStack>
               </HStack>
 

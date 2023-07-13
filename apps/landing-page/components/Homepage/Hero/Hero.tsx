@@ -3,7 +3,6 @@ import {
   Button,
   Flex,
   Heading,
-  SimpleGrid,
   Stack,
   Text,
   VStack,
@@ -12,7 +11,6 @@ import {
 import * as React from 'react'
 import { Header } from '../../common/Header/Header'
 import { BackgroundPolygons } from './BackgroundPolygons'
-import * as Logos from './Brands'
 import Link from 'next/link'
 
 export const Hero = () => {
@@ -32,7 +30,7 @@ export const Hero = () => {
               bgClip="text"
               data-aos="fade-up"
             >
-              Build advanced chatbots visually
+              Crie chatBots avançados
             </Heading>
             <Text
               fontSize={['lg', 'xl']}
@@ -41,9 +39,8 @@ export const Hero = () => {
               data-aos="fade-up"
               data-aos-delay="100"
             >
-              Typebot gives you powerful blocks to create unique chat
-              experiences. Embed them anywhere on your web/mobile apps and start
-              collecting results like magic.
+              HackLeads te proporciona uma experiencia poderosa e unica de
+              criação de chatBots. Consiga novos leads em um passo magica.
             </Text>
             <Stack
               direction={['column-reverse', 'row']}
@@ -58,7 +55,7 @@ export const Hero = () => {
                 height="4rem"
                 px="2rem"
               >
-                Create a typebot for free
+                Crie seu HackLead Gratuitamente
               </Button>
             </Stack>
           </VStack>
@@ -104,28 +101,7 @@ export const Hero = () => {
         </VStack>
       </Stack>
       <Flex justify="center" bgGradient="linear(to-b, gray.900, gray.800)">
-        <VStack spacing="12" pb="32" maxW="7xl" px={4}>
-          <Heading fontSize="25px" fontWeight="semibold" data-aos="fade">
-            Loved by teams and creators from all around the world
-          </Heading>
-          <SimpleGrid
-            columns={{ base: 2, md: 4 }}
-            color="gray.400"
-            alignItems="center"
-            spacing={12}
-            fontSize="4xl"
-            data-aos="fade"
-          >
-            <Logos.IbanFirst />
-            <Logos.Lemlist />
-            <Logos.MakerLead />
-            <Logos.Webisharp />
-            <Logos.SocialHackrs />
-            <Logos.PinpointInteractive />
-            <Logos.Obole />
-            <Logos.Awwwsome />
-          </SimpleGrid>
-        </VStack>
+        <VStack spacing="12" pb="32" maxW="7xl" px={4}></VStack>
       </Flex>
     </Box>
   )

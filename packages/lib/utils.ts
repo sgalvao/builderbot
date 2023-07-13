@@ -45,6 +45,9 @@ export const sendRequest = async <ResponseData>(
           ? JSON.stringify(params.body)
           : undefined,
     })
+
+    console.log(url)
+    console.log('🚀 ~ file: utils.ts:50 ~ url:', url)
     const data = await response.json()
     if (!response.ok) throw 'error' in data ? data.error : data
     return { data }

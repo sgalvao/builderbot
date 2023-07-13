@@ -1,9 +1,7 @@
 import { Stack, HStack, Text, Switch, Tag } from '@chakra-ui/react'
 import { Plan } from '@typebot.io/prisma'
-import { TextLink } from '@/components/TextLink'
 import { useToast } from '@/hooks/useToast'
 import { trpc } from '@/lib/trpc'
-import { guessIfUserIsEuropean } from '@typebot.io/lib/pricing'
 import { Workspace } from '@typebot.io/schemas'
 import { PreCheckoutModal, PreCheckoutModalProps } from './PreCheckoutModal'
 import { useState } from 'react'
@@ -12,7 +10,6 @@ import { useUser } from '@/features/account/hooks/useUser'
 import { StarterPlanPricingCard } from './StarterPlanPricingCard'
 import { ProPlanPricingCard } from './ProPlanPricingCard'
 import { useScopedI18n } from '@/locales'
-import { StripeClimateLogo } from './StripeClimateLogo'
 
 type Props = {
   workspace: Workspace
@@ -83,9 +80,7 @@ export const ChangePlanForm = ({ workspace, onUpgradeSuccess }: Props) => {
       workspaceId: workspace.id,
       additionalChats: selectedChatsLimitIndex,
       additionalStorage: selectedStorageLimitIndex,
-      currency:
-        data?.subscription?.currency ??
-        (guessIfUserIsEuropean() ? 'eur' : 'usd'),
+      currency: 'brl',
       isYearly,
     } as const
     if (workspace.stripeId) {
@@ -102,15 +97,6 @@ export const ChangePlanForm = ({ workspace, onUpgradeSuccess }: Props) => {
 
   return (
     <Stack spacing={6}>
-      <HStack maxW="500px">
-        <StripeClimateLogo />
-        <Text fontSize="xs" color="gray.500">
-          {scopedT('contribution.preLink')}{' '}
-          <TextLink href="https://climate.stripe.com/5VCRAq" isExternal>
-            {scopedT('contribution.link')}
-          </TextLink>
-        </Text>
-      </HStack>
       {!workspace.stripeId && (
         <ParentModalProvider>
           <PreCheckoutModal
@@ -159,13 +145,6 @@ export const ChangePlanForm = ({ workspace, onUpgradeSuccess }: Props) => {
           </HStack>
         </Stack>
       )}
-
-      <Text color="gray.500">
-        {scopedT('customLimit.preLink')}{' '}
-        <TextLink href={'https://typebot.io/enterprise-lead-form'} isExternal>
-          {scopedT('customLimit.link')}
-        </TextLink>
-      </Text>
     </Stack>
   )
 }

@@ -43,7 +43,7 @@ export const Header = () => {
           <HStack as={Link} href="/" rel="home" ml="2">
             <Logo boxSize="35px" />
             <Heading as="p" fontSize="lg">
-              Typebot
+              HackLeads
             </Heading>
           </HStack>
         </Flex>
@@ -64,18 +64,6 @@ export const Header = () => {
           <MobileMenu isOpen={isMobileMenuOpen} />
         </Box>
         <HStack as="nav" spacing={4} display={['none', 'none', 'flex']}>
-          <Flex>
-            <Button
-              rightIcon={<ChevronDownIcon />}
-              onClick={onToggle}
-              variant="ghost"
-              colorScheme="gray"
-              fontWeight={700}
-            >
-              Resources
-            </Button>
-            <ResourcesMenu isOpen={isOpen} />
-          </Flex>
           <Button
             as={Link}
             href="/pricing"
@@ -83,7 +71,7 @@ export const Header = () => {
             colorScheme="gray"
             fontWeight={700}
           >
-            Pricing
+            Planos
           </Button>
           <Button
             as={Link}
@@ -92,7 +80,7 @@ export const Header = () => {
             variant="outline"
             fontWeight={700}
           >
-            Sign in
+            Entrar
           </Button>
           <Button
             as={Link}
@@ -100,7 +88,7 @@ export const Header = () => {
             colorScheme="orange"
             fontWeight={700}
           >
-            Create a typebot
+            Crie um HackLead
           </Button>
         </HStack>
       </HStack>

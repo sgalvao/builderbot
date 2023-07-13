@@ -14,7 +14,6 @@ import {
 } from '@typebot.io/lib/pricing'
 import { chatPriceIds, storagePriceIds } from './getSubscription'
 import { createCheckoutSessionUrl } from './createCheckoutSession'
-
 export const updateSubscription = authenticatedProcedure
   .meta({
     openapi: {
@@ -32,7 +31,7 @@ export const updateSubscription = authenticatedProcedure
       plan: z.enum([Plan.STARTER, Plan.PRO]),
       additionalChats: z.number(),
       additionalStorage: z.number(),
-      currency: z.enum(['usd', 'eur']),
+      currency: z.enum(['brl']),
       isYearly: z.boolean(),
     })
   )
@@ -55,17 +54,21 @@ export const updateSubscription = authenticatedProcedure
       },
       ctx: { user },
     }) => {
+      console.log('DENTRO DA FUNçao')
       if (!process.env.STRIPE_SECRET_KEY)
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: 'Stripe environment variables are missing',
         })
+
       const workspace = await prisma.workspace.findFirst({
         where: {
           id: workspaceId,
           members: { some: { userId: user.id, role: WorkspaceRole.ADMIN } },
         },
       })
+      console.log('🚀 ~ file: updateSubscription.ts:69 ~ workspace:', workspace)
+
       if (!workspace?.stripeId)
         throw new TRPCError({
           code: 'NOT_FOUND',
@@ -156,6 +159,10 @@ export const updateSubscription = authenticatedProcedure
           isQuarantined: false,
         },
       })
+      console.log(
+        '🚀 ~ file: updateSubscription.ts:159 ~ updatedWorkspace:',
+        updatedWorkspace
+      )
 
       await sendTelemetryEvents([
         {

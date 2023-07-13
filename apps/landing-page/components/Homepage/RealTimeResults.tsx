@@ -54,7 +54,7 @@ export const RealTimeResults = () => {
             textAlign="center"
             data-aos="fade"
           >
-            Collect results in real-time
+            Receba seus resultados em tempo real.
           </Heading>
           <Text
             textAlign="center"
@@ -63,9 +63,10 @@ export const RealTimeResults = () => {
             fontSize={{ base: 'lg', xl: 'xl' }}
             data-aos="fade"
           >
-            One of the main advantage of a chat application is that you collect
-            the user&apos;s responses on each question.{' '}
-            <strong>You won&apos;t lose any valuable data.</strong>
+            Uma das vantagens de utilizar uma aplicação para gerenciar os chats
+            é que consegue coletar as respostas dos usuarios em cada questão.
+            <br />
+            <strong>Sem perder nenhum dado valioso.</strong>
           </Text>
           <Flex>
             <Button
@@ -76,7 +77,7 @@ export const RealTimeResults = () => {
               colorScheme="blue"
               data-aos="fade"
             >
-              Try it now
+              Testar Agora
             </Button>
           </Flex>
         </VStack>
@@ -89,8 +90,7 @@ export const RealTimeResults = () => {
         >
           {typebot && (
             <Standard
-              typebot="airtable-real-time"
-              apiHost="https://typebot.io"
+              typebot={typebot}
               onAnswer={handleAnswer}
               style={{
                 borderRadius: '0.375rem',
@@ -101,7 +101,7 @@ export const RealTimeResults = () => {
           )}
           <iframe
             ref={iframeRef}
-            src="https://airtable.com/embed/shr8nkV6DVN88LVIv?backgroundColor=blue"
+            src="https://airtable.com/embed/shrgIHcB3URl58sdI?backgroundColor=orangeDusty"
             width="100%"
             height="533"
             style={{

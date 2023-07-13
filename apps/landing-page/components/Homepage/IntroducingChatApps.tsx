@@ -28,6 +28,8 @@ export const IntroducingChatApps = () => {
 
   const fetchTemplate = async () => {
     const { data, error } = await sendRequest(`/typebots/lead-gen-lp.json`)
+
+    console.log(data)
     if (error) return
     setTypebot(data as PublicTypebot)
   }
@@ -49,7 +51,7 @@ export const IntroducingChatApps = () => {
             textAlign="center"
             data-aos="fade"
           >
-            Replace your old school forms with chatbots
+            Renove a sua forma de conseguir leads utilizando chatBots
           </Heading>
           <Text
             textAlign="center"
@@ -57,9 +59,10 @@ export const IntroducingChatApps = () => {
             color="gray.400"
             data-aos="fade"
           >
-            Typebot is a better way to ask for information. It leads to an
-            increase in customer satisfaction and retention and multiply by 3
-            your conversion rate compared to classical forms.
+            HackLeads é a melhor maneira de conseguir informações de forma
+            interativa. Aumente a retenção dos seus clientes e multiplique sua
+            taxa de conversão em 3 vezes em comparação com as formas
+            ultrapassadas de formulários.
           </Text>
         </Stack>
 
@@ -94,7 +97,7 @@ export const IntroducingChatApps = () => {
             )}
             <Flex top="-20px" right="40px" pos="absolute">
               <Text fontFamily="'Indie Flower'" fontSize="2xl">
-                Try it out!
+                tente desta forma!
               </Text>
               <HandDrawnArrow
                 transform="rotate(30deg)"
@@ -114,8 +117,8 @@ export const IntroducingChatApps = () => {
 const FakeLeadGenForm = () => (
   <Stack borderWidth="1px" spacing="4" padding="6" rounded="md" w="full">
     <FormControl isRequired>
-      <FormLabel htmlFor="full-name">Full name</FormLabel>
-      <Input id="full-name" placeholder="Full name" />
+      <FormLabel htmlFor="full-name">Nome Completo</FormLabel>
+      <Input id="full-name" placeholder="Nome Completo" />
     </FormControl>
     <FormControl isRequired>
       <FormLabel htmlFor="email">Email</FormLabel>
@@ -123,21 +126,21 @@ const FakeLeadGenForm = () => (
     </FormControl>
     <FormControl isRequired>
       <FormLabel htmlFor="services">
-        What services are you interested in?
+        Quais serviços você está interessado?
       </FormLabel>
       <Stack>
         <Checkbox>Website Dev</Checkbox>
-        <Checkbox>Content Marketing</Checkbox>
+        <Checkbox>Marketing</Checkbox>
         <Checkbox>Social Media</Checkbox>
         <Checkbox>UX/UI Design</Checkbox>
       </Stack>
     </FormControl>
     <FormControl isRequired>
-      <FormLabel htmlFor="info">Additional Information</FormLabel>
-      <Textarea id="info" placeholder="Additional Information" />
+      <FormLabel htmlFor="info">Informações adicionais</FormLabel>
+      <Textarea id="info" placeholder="Informações adicionais.." />
     </FormControl>
     <Flex>
-      <Button>Submit</Button>
+      <Button>Enviar</Button>
     </Flex>
   </Stack>
 )

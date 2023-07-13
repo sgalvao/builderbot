@@ -56,21 +56,13 @@ export const createCustomCheckoutSession = authenticatedProcedure
         apiVersion: '2022-11-15',
       })
 
-      const vat =
-        workspace.claimableCustomPlan.vatValue &&
-        workspace.claimableCustomPlan.vatType
-          ? ({
-              type: workspace.claimableCustomPlan.vatType,
-              value: workspace.claimableCustomPlan.vatValue,
-            } as Stripe.CustomerCreateParams.TaxIdDatum)
-          : undefined
-
-      const customer = await stripe.customers.create({
-        email,
-        name: workspace.claimableCustomPlan.companyName ?? workspace.name,
-        metadata: { workspaceId },
-        tax_id_data: vat ? [vat] : undefined,
-      })
+      const customer = workspace.stripeId
+        ? await stripe.customers.retrieve(workspace.stripeId)
+        : await stripe.customers.create({
+            email,
+            name: workspace.claimableCustomPlan.companyName ?? workspace.name,
+            metadata: { workspaceId },
+          })
 
       const session = await stripe.checkout.sessions.create({
         success_url: `${returnUrl}?stripe=${Plan.CUSTOM}&success=true`,
@@ -87,12 +79,10 @@ export const createCustomCheckoutSession = authenticatedProcedure
         },
         currency: workspace.claimableCustomPlan.currency,
         billing_address_collection: 'required',
-        automatic_tax: { enabled: true },
         line_items: [
           {
             price_data: {
               currency: workspace.claimableCustomPlan.currency,
-              tax_behavior: 'exclusive',
               recurring: {
                 interval: workspace.claimableCustomPlan.isYearly
                   ? 'year'

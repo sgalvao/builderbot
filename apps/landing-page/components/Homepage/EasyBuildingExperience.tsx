@@ -35,15 +35,16 @@ export const EasyBuildingExperience = () => {
       >
         <Stack spacing="6" maxW="300px" minW={[0, '300px']}>
           <Heading as="h1" data-aos="fade">
-            Easy building experience
+            Fácil de criar
           </Heading>
           <Text
             color="gray.400"
             fontSize={{ base: 'lg', xl: 'xl' }}
             data-aos="fade"
           >
-            All you have to do is drag and drop blocks to create your app. Even
-            if you have custom needs, you can always add custom code.
+            Tudo que precisa fazer é arrastar e soltar alguns blocos para criar
+            eu ChatBot. Mesmo que precise de algo customizado, você pode
+            adicionar seu próprio código.
           </Text>
           <Flex>
             <Button
@@ -53,7 +54,7 @@ export const EasyBuildingExperience = () => {
               variant="ghost"
               data-aos="fade"
             >
-              Try it now
+              Testar Agora
             </Button>
           </Flex>
         </Stack>

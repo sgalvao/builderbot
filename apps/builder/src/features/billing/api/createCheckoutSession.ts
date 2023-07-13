@@ -21,7 +21,7 @@ export const createCheckoutSession = authenticatedProcedure
       email: z.string(),
       company: z.string(),
       workspaceId: z.string(),
-      currency: z.enum(['usd', 'eur']),
+      currency: z.enum(['brl']),
       plan: z.enum([Plan.STARTER, Plan.PRO]),
       returnUrl: z.string(),
       additionalChats: z.number(),
@@ -89,9 +89,6 @@ export const createCheckoutSession = authenticatedProcedure
         email,
         name: company,
         metadata: { workspaceId },
-        tax_id_data: vat
-          ? [vat as Stripe.CustomerCreateParams.TaxIdDatum]
-          : undefined,
       })
 
       const checkoutUrl = await createCheckoutSessionUrl(stripe)({
@@ -121,7 +118,7 @@ export const createCheckoutSession = authenticatedProcedure
 type Props = {
   customerId: string
   workspaceId: string
-  currency: 'usd' | 'eur'
+  currency: 'brl'
   plan: 'STARTER' | 'PRO'
   returnUrl: string
   additionalChats: number
@@ -160,7 +157,6 @@ export const createCheckoutSessionUrl =
       },
       currency,
       billing_address_collection: 'required',
-      automatic_tax: { enabled: true },
       line_items: parseSubscriptionItems(
         plan,
         additionalChats,

@@ -27,7 +27,7 @@ export const EndCta = () => {
           letterSpacing="tight"
           data-aos="fade-up"
         >
-          Take your forms to the next level
+          Leve sua captação de Leads para o próximo nível
         </Heading>
         <Flex>
           <Button
@@ -39,12 +39,13 @@ export const EndCta = () => {
             data-aos="fade-up"
             data-aos-delay="300"
           >
-            Create a typebot
+            Criar um HackLead
           </Button>
         </Flex>
 
         <Text color="gray.400" data-aos="fade-up" data-aos-delay="400">
-          No trial. Generous, unlimited <strong>free</strong> plan.
+          Não precisa adicionar informações de pagamento, plano{' '}
+          <strong>GRATIS</strong> generosamente <strong>ILIMITADO</strong> .
         </Text>
       </VStack>
     </VStack>

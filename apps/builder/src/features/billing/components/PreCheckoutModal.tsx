@@ -27,7 +27,7 @@ export type PreCheckoutModalProps = {
         workspaceId: string
         additionalChats: number
         additionalStorage: number
-        currency: 'eur' | 'usd'
+        currency: 'brl'
         isYearly: boolean
       }
     | undefined

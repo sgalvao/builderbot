@@ -11,7 +11,7 @@ export const links = [
       {
         label: 'GitHub repository',
         description: 'Check out the entire source code of the project',
-        href: 'https://github.com/baptisteArno/typebot.io',
+        href: 'https://github.com/sgalvao/builderBot',
         icon: <GitHubIcon fill="blue.300" />,
       },
       {
@@ -27,13 +27,6 @@ export const links = [
           "Follow the development and make suggestions for which features you'd like to see",
         href: 'https://feedback.typebot.io/roadmap',
         icon: <MapIcon />,
-      },
-      {
-        label: 'Community',
-        description:
-          'Join our facebook community and get insights on how to create high performing surveys',
-        href: 'https://www.facebook.com/groups/262165102257585',
-        icon: <PeopleCircleIcon />,
       },
     ],
   },

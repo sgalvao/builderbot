@@ -35,16 +35,16 @@ export const EasyEmbed = () => {
       >
         <Stack spacing="6" maxW="300px" minW={[0, '300px']}>
           <Heading as="h1" data-aos="fade">
-            Embed it in a click
+            Integre com apenas um clique
           </Heading>
           <Text
             color="gray.400"
             fontSize={{ base: 'lg', xl: 'xl' }}
             data-aos="fade"
           >
-            Embedding your typebot in your applications is a walk in the park.
-            Typebot gives you several step-by-step platform-specific
-            instructions. Your typebot will always feel &quot;native&quot;.
+            Adicione o HackLeads a suas aplicações em um piscar de olhos. O
+            HackLeads te fornece o passo a passo para integrar nossa solução em
+            sua plataforma.
           </Text>
           <Flex data-aos="fade">
             <Button
@@ -54,7 +54,7 @@ export const EasyEmbed = () => {
               variant="ghost"
               colorScheme="orange"
             >
-              Try it now
+              Testar Agora
             </Button>
           </Flex>
         </Stack>

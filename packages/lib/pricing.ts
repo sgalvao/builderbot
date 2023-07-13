@@ -35,8 +35,8 @@ export const priceIds = {
 }
 
 export const prices = {
-  [Plan.STARTER]: 39,
-  [Plan.PRO]: 89,
+  [Plan.STARTER]: 127,
+  [Plan.PRO]: 387,
 } as const
 
 export const chatsLimit = {
@@ -46,24 +46,24 @@ export const chatsLimit = {
       { totalIncluded: 2000, price: 0 },
       {
         totalIncluded: 2500,
-        price: 10,
+        price: 50,
       },
       {
         totalIncluded: 3000,
-        price: 20,
+        price: 100,
       },
       {
         totalIncluded: 3500,
-        price: 30,
+        price: 120,
       },
     ],
   },
   [Plan.PRO]: {
     graduatedPrice: [
       { totalIncluded: 10000, price: 0 },
-      { totalIncluded: 15000, price: 50 },
-      { totalIncluded: 25000, price: 150 },
-      { totalIncluded: 50000, price: 400 },
+      { totalIncluded: 15000, price: 450 },
+      { totalIncluded: 25000, price: 750 },
+      { totalIncluded: 50000, price: 1500 },
     ],
   },
   [Plan.CUSTOM]: {
@@ -85,15 +85,15 @@ export const storageLimit = {
       { totalIncluded: 2, price: 0 },
       {
         totalIncluded: 3,
-        price: 2,
+        price: 10,
       },
       {
         totalIncluded: 4,
-        price: 4,
+        price: 20,
       },
       {
         totalIncluded: 5,
-        price: 6,
+        price: 30,
       },
     ],
   },
@@ -102,15 +102,15 @@ export const storageLimit = {
       { totalIncluded: 10, price: 0 },
       {
         totalIncluded: 15,
-        price: 8,
+        price: 91.8,
       },
       {
         totalIncluded: 25,
-        price: 24,
+        price: 154,
       },
       {
         totalIncluded: 40,
-        price: 49,
+        price: 244.8,
       },
     ],
   },
@@ -209,68 +209,13 @@ export const computePrice = (
   return frequency === 'monthly' ? price : price - price * 0.16
 }
 
-const europeanUnionCountryCodes = [
-  'AT',
-  'BE',
-  'BG',
-  'CY',
-  'CZ',
-  'DE',
-  'DK',
-  'EE',
-  'ES',
-  'FI',
-  'FR',
-  'GR',
-  'HR',
-  'HU',
-  'IE',
-  'IT',
-  'LT',
-  'LU',
-  'LV',
-  'MT',
-  'NL',
-  'PL',
-  'PT',
-  'RO',
-  'SE',
-  'SI',
-  'SK',
-]
-
-const europeanUnionExclusiveLanguageCodes = [
-  'fr',
-  'de',
-  'it',
-  'el',
-  'pl',
-  'fi',
-  'nl',
-  'hr',
-  'cs',
-  'hu',
-  'ro',
-  'sl',
-  'sv',
-  'bg',
-]
-
-export const guessIfUserIsEuropean = () => {
-  if (typeof window === 'undefined') return false
-  return window.navigator.languages.some((language) => {
-    const [languageCode, countryCode] = language.split('-')
-    return countryCode
-      ? europeanUnionCountryCodes.includes(countryCode)
-      : europeanUnionExclusiveLanguageCodes.includes(languageCode)
-  })
-}
-
-export const formatPrice = (price: number, currency?: 'eur' | 'usd') => {
-  const isEuropean = guessIfUserIsEuropean()
-  const formatter = new Intl.NumberFormat(isEuropean ? 'fr-FR' : 'en-US', {
+export const formatPrice = (
+  price: number,
+  currency?: 'eur' | 'usd' | 'brl'
+) => {
+  const formatter = new Intl.NumberFormat('pt-BR', {
     style: 'currency',
-    currency: currency?.toUpperCase() ?? (isEuropean ? 'EUR' : 'USD'),
+    currency: 'BRL',
     maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
   })
   return formatter.format(price)

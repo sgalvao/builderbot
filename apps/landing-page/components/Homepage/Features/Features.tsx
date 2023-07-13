@@ -20,33 +20,34 @@ const features = [
     Icon: AccessibilityIcon,
     title: 'Hidden fields',
     content:
-      'Include data in your form URL to segment your user and use its data directly in your form.',
+      'Inclua dados em sua URL para segmentar os usuários e usar este dado diretamente no seu formulário.',
   },
   {
     Icon: PersonAddIcon,
-    title: 'Team collaboration',
-    content: 'Invite your teammates to work on your typebots with you',
+    title: 'Colaboradores',
+    content:
+      'Convide seus colegas de trabalho para desenvolver junto com você em seus chatBots',
   },
   {
     Icon: ConditionIcon,
-    title: 'Link to sub typebots',
-    content: 'Reuse your typebots in different parent bots.',
+    title: 'Conecte seus ChatBots',
+    content: 'Reutilize seus chatBots e crie conexões entre eles.',
   },
   {
     Icon: CalculatorIcon,
-    title: 'Custom code',
-    content: 'Customize everything with your own Javascript & CSS code',
+    title: 'Código Customizado',
+    content: 'Customize tudo com seu próprio Javascript & CSS',
   },
   {
     Icon: ShareIcon,
-    title: 'Custom domain',
-    content: 'Connect your typebot to the custom URL of your choice',
+    title: 'Domínios Customizados',
+    content: 'Conecte seus chatBots com um domínio de sua escolha',
   },
   {
     Icon: FolderIcon,
-    title: 'Folder management',
+    title: 'Criação de pastas',
     content:
-      'Organize your typebots in specific folders to keep it clean and work with multiple clients',
+      'Organize seus chatBots em diferentes pastas para manter um ambiente limpo e que consiga trabalhar com diversos clientes.',
   },
 ]
 
@@ -62,7 +63,7 @@ export const Features = () => {
       >
         <VStack>
           <Heading as="h1" textAlign="center" data-aos="fade">
-            And many more features
+            E muitas outras funcionalidades
           </Heading>
           <Text
             color="gray.500"
@@ -70,7 +71,8 @@ export const Features = () => {
             textAlign="center"
             data-aos="fade"
           >
-            Typebot makes form building easy and comes with powerful features
+            HackLeads faz com que a geração de leads seja fácil e fique cada vez
+            mais poderosa.
           </Text>
         </VStack>
         <SimpleGrid columns={[1, 3]} spacing="10" pt="10" data-aos="fade">
