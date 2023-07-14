@@ -72,7 +72,7 @@ export const RealTimeResults = () => {
             <Button
               as={Link}
               rightIcon={<ArrowRight />}
-              href={`https://app.typebot.io/register`}
+              href={`https://app.hackleads.com.br/register`}
               variant="ghost"
               colorScheme="blue"
               data-aos="fade"

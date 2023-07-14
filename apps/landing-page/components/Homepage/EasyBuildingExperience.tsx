@@ -50,7 +50,7 @@ export const EasyBuildingExperience = () => {
             <Button
               as={Link}
               rightIcon={<ArrowRight />}
-              href={`https://app.typebot.io/register`}
+              href={`https://app.hackleads.com.br/register`}
               variant="ghost"
               data-aos="fade"
             >

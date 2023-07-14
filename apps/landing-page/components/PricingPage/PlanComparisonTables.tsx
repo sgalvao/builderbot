@@ -356,7 +356,7 @@ export const PlanComparisonTables = () => (
           Personal
         </Heading>
         <Heading as="h3">Free</Heading>
-        <Link href="https://app.typebot.io/register">
+        <Link href="https://app.hackleads.com.br/register">
           <Button variant="outline" colorScheme="gray">
             Get started
           </Button>
@@ -371,10 +371,10 @@ export const PlanComparisonTables = () => (
           <chakra.span fontSize="lg">/ month</chakra.span>
         </Heading>
         <Link
-          href={`https://app.typebot.io/register?subscribePlan=${Plan.STARTER}`}
+          href={`https://app.hackleads.com.br/register?subscribePlan=${Plan.STARTER}`}
         >
           <Button variant="outline" colorScheme="orange">
-            Subscribe
+            Adquirir
           </Button>
         </Link>
       </Stack>
@@ -387,9 +387,9 @@ export const PlanComparisonTables = () => (
           <chakra.span fontSize="lg">/ month</chakra.span>
         </Heading>
         <Link
-          href={`https://app.typebot.io/register?subscribePlan=${Plan.PRO}`}
+          href={`https://app.hackleads.com.br/register?subscribePlan=${Plan.PRO}`}
         >
-          <Button>Subscribe</Button>
+          <Button>Adquirir</Button>
         </Link>
       </Stack>
     </Stack>

@@ -142,7 +142,7 @@ export const StarterPlanCard = ({ isYearly }: Props) => {
       button={
         <Button
           as={Link}
-          href={`https://app.typebot.io/register?subscribePlan=${Plan.STARTER}&chats=${selectedChatsLimitIndex}&storage=${selectedStorageLimitIndex}&isYearly=${isYearly}`}
+          href={`https://app.hackleads.com.br/register?subscribePlan=${Plan.STARTER}&chats=${selectedChatsLimitIndex}&storage=${selectedStorageLimitIndex}&isYearly=${isYearly}`}
           colorScheme="orange"
           size="lg"
           w="full"
@@ -150,7 +150,7 @@ export const StarterPlanCard = ({ isYearly }: Props) => {
           py={{ md: '8' }}
           variant="outline"
         >
-          Subscribe now
+          Adquirir já
         </Button>
       }
     />

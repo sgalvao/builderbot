@@ -18,7 +18,7 @@ const typebotTwitterUrl = 'https://twitter.com/Typebot_io'
 const baptisteTwitterUrl = 'https://twitter.com/baptisteArno'
 const statusPageUrl = 'https://status.typebot.io'
 export const contactUrl = 'https://bot.typebot.io/landing-page-bubble-en'
-export const roadmapLink = 'https://app.typebot.io/feedback'
+export const roadmapLink = 'https://app.hackleads.com.br/feedback'
 export const documentationLink = 'https://docs.typebot.io'
 export const githubRepoLink = 'https://github.com/sgalvao/builderbot'
 

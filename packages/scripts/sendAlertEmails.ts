@@ -142,7 +142,7 @@ const sendAlertIfLimitReached = async (
           to,
           usagePercent: Math.round((totalChatsUsed / chatsLimit) * 100),
           chatsLimit,
-          url: `https://app.typebot.io/typebots?workspaceId=${workspace.id}`,
+          url: `https://app.hackleads.com.br/typebots?workspaceId=${workspace.id}`,
         })
         await prisma.workspace.update({
           where: { id: workspace.id },
@@ -166,7 +166,7 @@ const sendAlertIfLimitReached = async (
         await sendReachedChatsLimitEmail({
           to,
           chatsLimit,
-          url: `https://app.typebot.io/typebots?workspaceId=${workspace.id}`,
+          url: `https://app.hackleads.com.br/typebots?workspaceId=${workspace.id}`,
         })
         await prisma.workspace.update({
           where: { id: workspace.id },

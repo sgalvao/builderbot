@@ -16,7 +16,7 @@ export const MobileMenu = ({ isOpen }: Props) => (
     >
       <Button
         as={Link}
-        href="https://app.typebot.io/signin"
+        href="https://app.hackleads.com.br/signin"
         colorScheme="blue"
         variant="outline"
         fontWeight={700}
@@ -25,11 +25,11 @@ export const MobileMenu = ({ isOpen }: Props) => (
       </Button>
       <Button
         as={Link}
-        href="https://app.typebot.io/register"
+        href="https://app.hackleads.com.br/register"
         colorScheme="orange"
         fontWeight={700}
       >
-        Create a typebot
+        Crie seu HackLead
       </Button>
       <Button
         as={Link}
@@ -38,7 +38,7 @@ export const MobileMenu = ({ isOpen }: Props) => (
         colorScheme="gray"
         fontWeight={700}
       >
-        Pricing
+        Planos
       </Button>
       <Text fontWeight="700">Resources:</Text>
       {links[0].children?.map((link, idx) => (
