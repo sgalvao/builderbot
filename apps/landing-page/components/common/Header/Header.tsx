@@ -75,7 +75,7 @@ export const Header = () => {
           </Button>
           <Button
             as={Link}
-            href="https://app.typebot.io/signin"
+            href="https://app.hackleads.com.br/signin"
             colorScheme="blue"
             variant="outline"
             fontWeight={700}
@@ -84,7 +84,7 @@ export const Header = () => {
           </Button>
           <Button
             as={Link}
-            href="https://app.typebot.io/register"
+            href="https://app.hackleads.com.br/register"
             colorScheme="orange"
             fontWeight={700}
           >

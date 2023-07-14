@@ -49,7 +49,7 @@ export const Hero = () => {
             >
               <Button
                 as={Link}
-                href="https://app.typebot.io/register"
+                href="https://app.hackleads.com.br/register"
                 colorScheme="orange"
                 size="lg"
                 height="4rem"
