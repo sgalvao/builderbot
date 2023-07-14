@@ -69,7 +69,7 @@ export const getSubscription = authenticatedProcedure
             priceIds.PRO.storage.yearly === item.price.id
           )
         }),
-        currency: subscription.currency as 'usd' | 'eur',
+        currency: subscription.currency as 'brl',
         cancelDate: subscription.cancel_at
           ? new Date(subscription.cancel_at * 1000)
           : undefined,

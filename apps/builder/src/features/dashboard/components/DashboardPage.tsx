@@ -10,7 +10,6 @@ import { Stack, VStack, Spinner, Text } from '@chakra-ui/react'
 import { Plan } from '@typebot.io/prisma'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
-import { guessIfUserIsEuropean } from '@typebot.io/lib/pricing'
 import { DashboardHeader } from './DashboardHeader'
 import { FolderContent } from '@/features/folders/components/FolderContent'
 import { TypebotDndProvider } from '@/features/folders/TypebotDndProvider'
@@ -56,7 +55,7 @@ export const DashboardPage = () => {
         workspaceId: workspace.id,
         additionalChats: chats ? parseInt(chats) : 0,
         additionalStorage: storage ? parseInt(storage) : 0,
-        currency: guessIfUserIsEuropean() ? 'eur' : 'usd',
+        currency: 'brl',
         isYearly: isYearly === 'false' ? false : true,
       })
     }
