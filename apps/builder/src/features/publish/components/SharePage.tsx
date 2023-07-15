@@ -11,6 +11,8 @@ import {
   Stack,
   Wrap,
   Text,
+  Card,
+  CardBody,
 } from '@chakra-ui/react'
 import { Plan } from '@typebot.io/prisma'
 import { isDefined, getViewerUrl, isNotDefined, env } from '@typebot.io/lib'
@@ -59,7 +61,7 @@ export const SharePage = () => {
     if (!isCorrectlyFormatted) {
       showToast({
         description:
-          'Should contain only contain letters, numbers. Words can be separated by dashes.',
+          'Deve conter apenas letras ou números. As palavras devem ser separadas por traços "-".',
       })
       return false
     }
@@ -142,16 +144,25 @@ export const SharePage = () => {
 
           <Stack spacing={4}>
             <Heading fontSize="2xl" as="h1">
-              Embed your typebot
+              Integre seu HackLead
             </Heading>
             <Wrap spacing={7}>
-              {integrationsList.map((IntegrationButton, idx) => (
+              {/* {integrationsList.map((IntegrationButton, idx) => (
                 <IntegrationButton
                   key={idx}
                   publicId={publicId}
                   isPublished={isPublished}
                 />
-              ))}
+              ))} */}
+              <Card>
+                <CardBody>
+                  <Text>
+                    Estamos finalizando novas atualizações, em breve as
+                    integrações estarão disponíveis novamente. Pedimos desculpas
+                    pelo ocorrido. 🥲
+                  </Text>
+                </CardBody>
+              </Card>
             </Wrap>
           </Stack>
         </Stack>

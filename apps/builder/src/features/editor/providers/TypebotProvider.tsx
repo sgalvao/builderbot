@@ -153,7 +153,7 @@ export const TypebotProvider = ({
     if (isFetchingTypebot) return
     if (!typebot) {
       showToast({ status: 'info', description: "Couldn't find typebot" })
-      push('/typebots')
+      push('/hackleads')
       return
     }
     if (
