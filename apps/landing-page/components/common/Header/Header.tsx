@@ -42,7 +42,7 @@ export const Header = () => {
         >
           <HStack as={Link} href="/" rel="home" ml="2">
             <Logo />
-            <Heading as="p" fontSize="lg">
+            <Heading as="p" fontSize="xl">
               HackLeads
             </Heading>
           </HStack>

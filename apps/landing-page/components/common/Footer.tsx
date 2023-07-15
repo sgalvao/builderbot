@@ -29,18 +29,11 @@ export const Footer = () => {
         <SimpleGrid columns={[1, 2, 4]} spacing={8} px={2}>
           <Stack spacing={6}>
             <HStack>
-              <Logo boxSize="30px" />
+              <Logo />
               <Heading as="p" fontSize="lg">
                 HackLeads
               </Heading>
             </HStack>
-            <Text>
-              Fork do <TextLink href={'https://typebot.io'}>TypeBot</TextLink>{' '}
-            </Text>
-            <Text>
-              Made with ❤️ by{' '}
-              <TextLink href={baptisteTwitterUrl}>@baptisteArno</TextLink>
-            </Text>
           </Stack>
           <Stack align={'flex-start'}>
             <ListHeader>Produto</ListHeader>
@@ -58,7 +51,7 @@ export const Footer = () => {
           <Stack align={'flex-start'}>
             <ListHeader>Comunidade</ListHeader>
             <TextLink href={githubRepoLink} isExternal>
-              GitHub repository
+              GitHub
             </TextLink>
             <TextLink href={typebotTwitterUrl} isExternal>
               Twitter
@@ -67,7 +60,7 @@ export const Footer = () => {
             <TextLink href="/oss-friends">OSS Friends</TextLink>
           </Stack>
           <Stack align={'flex-start'}>
-            <ListHeader>Company</ListHeader>
+            <ListHeader>Empresa</ListHeader>
             <TextLink href="/about">Sobre o HackLeads</TextLink>
             <TextLink href="mailto:silvio.gabrielgt2000@hotmail.com">
               Contato
