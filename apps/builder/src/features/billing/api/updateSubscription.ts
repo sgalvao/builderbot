@@ -54,7 +54,6 @@ export const updateSubscription = authenticatedProcedure
       },
       ctx: { user },
     }) => {
-      console.log('DENTRO DA FUNçao')
       if (!process.env.STRIPE_SECRET_KEY)
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
@@ -67,7 +66,6 @@ export const updateSubscription = authenticatedProcedure
           members: { some: { userId: user.id, role: WorkspaceRole.ADMIN } },
         },
       })
-      console.log('🚀 ~ file: updateSubscription.ts:69 ~ workspace:', workspace)
 
       if (!workspace?.stripeId)
         throw new TRPCError({
@@ -159,10 +157,6 @@ export const updateSubscription = authenticatedProcedure
           isQuarantined: false,
         },
       })
-      console.log(
-        '🚀 ~ file: updateSubscription.ts:159 ~ updatedWorkspace:',
-        updatedWorkspace
-      )
 
       await sendTelemetryEvents([
         {

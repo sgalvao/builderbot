@@ -8,11 +8,9 @@ export const isPublished = (
   debug?: boolean
 ) => {
   if (debug)
-    console.log(
-      diff(
-        JSON.parse(JSON.stringify(typebot.groups)),
-        JSON.parse(JSON.stringify(publicTypebot.groups))
-      )
+    diff(
+      JSON.parse(JSON.stringify(typebot.groups)),
+      JSON.parse(JSON.stringify(publicTypebot.groups))
     )
   return (
     dequal(
