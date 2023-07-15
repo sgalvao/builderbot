@@ -61,7 +61,7 @@ export const CreateNewTypebotButtons = () => {
     if (error) showToast({ description: error.message })
     if (data)
       router.push({
-        pathname: `/typebots/${data.id}/edit`,
+        pathname: `/hackleads/${data.id}/edit`,
         query:
           router.query.isFirstBot === 'true'
             ? {

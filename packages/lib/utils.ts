@@ -263,17 +263,12 @@ export const uploadFiles = async ({
 declare const window: any
 
 export const env = (key = ''): string | undefined => {
-  console.log(key)
-  console.log(process.env['NEXT_PUBLIC_' + key])
-
   if (typeof window === 'undefined')
     return isEmpty(process.env['NEXT_PUBLIC_' + key])
       ? undefined
       : (process.env['NEXT_PUBLIC_' + key] as string)
 
   if (typeof window !== 'undefined' && window.__env) {
-    console.log('entrei no segundo')
-
     return isEmpty(window.__env[key]) ? undefined : window.__env[key]
   }
 }

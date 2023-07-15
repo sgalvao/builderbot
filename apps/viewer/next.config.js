@@ -16,9 +16,9 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/api/typebots/:typebotId/blocks/:blockId/storage/upload-url',
+        source: '/api/hackleads/:typebotId/blocks/:blockId/storage/upload-url',
         destination:
-          '/api/v1/typebots/:typebotId/blocks/:blockId/storage/upload-url',
+          '/api/v1/hackleads/:typebotId/blocks/:blockId/storage/upload-url',
       },
     ]
   },

@@ -70,7 +70,7 @@ export const SharePage = () => {
     const isLongerThanAllowed = publicId.length >= 4
     if (!isLongerThanAllowed && isCloudProdInstance) {
       showToast({
-        description: 'Should be longer than 4 characters',
+        description: 'Precisa ter no mínimo 4 caracteres',
       })
       return false
     }
@@ -79,7 +79,7 @@ export const SharePage = () => {
 
     const { data } = await isPublicDomainAvailableQuery(publicId)
     if (!data?.isAvailable) {
-      showToast({ description: 'ID is already taken' })
+      showToast({ description: 'ID já foi utilizado' })
       return false
     }
 
@@ -94,11 +94,11 @@ export const SharePage = () => {
         <Stack maxW="1000px" w="full" pt="10" spacing={10}>
           <Stack spacing={4} align="flex-start">
             <Heading fontSize="2xl" as="h1">
-              Your typebot link
+              Compartilhe seu HackLead
             </Heading>
             {typebot && (
               <EditableUrl
-                hostname={getViewerUrl() ?? 'https://typebot.io'}
+                hostname={getViewerUrl() ?? 'https://chat.hackleads.com.br'}
                 pathname={publicId}
                 isValid={checkIfPublicIdIsValid}
                 onPathnameChange={handlePublicIdChange}

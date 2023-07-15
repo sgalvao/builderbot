@@ -23,7 +23,7 @@ import { UnsplashLogo } from '../logos/UnsplashLogo'
 import { TextLink } from '../TextLink'
 
 const api = createApi({
-  accessKey: env('UNSPLASH_ACCESS_KEY') ?? '',
+  accessKey: process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY as string,
 })
 
 type Props = {
@@ -124,11 +124,6 @@ export const UnsplashPicker = ({ imageSize, onImageSelect }: Props) => {
     searchRandomImages()
   }, [])
 
-  if (isEmpty(env('UNSPLASH_ACCESS_KEY')))
-    return (
-      <Text>NEXT_PUBLIC_UNSPLASH_ACCESS_KEY is missing in environment</Text>
-    )
-
   return (
     <Stack spacing={4} pt="2">
       <HStack align="center">
@@ -143,9 +138,7 @@ export const UnsplashPicker = ({ imageSize, onImageSelect }: Props) => {
         />
         <Link
           isExternal
-          href={`https://unsplash.com/?utm_source=${env(
-            'UNSPLASH_APP_NAME'
-          )}&utm_medium=referral`}
+          href={`https://unsplash.com/?utm_source=${process.env.NEXT_PUBLIC_UNSPLASH_APP_NAME}&utm_medium=referral`}
         >
           <UnsplashLogo width="80px" fill={unsplashLogoFillColor} />
         </Link>

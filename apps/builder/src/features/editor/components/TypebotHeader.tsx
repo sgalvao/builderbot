@@ -96,7 +96,7 @@ export const TypebotHeader = () => {
       >
         <Button
           as={Link}
-          href={`/typebots/${typebot?.id}/edit`}
+          href={`/hackleads/${typebot?.id}/edit`}
           colorScheme={router.pathname.includes('/edit') ? 'blue' : 'gray'}
           variant={router.pathname.includes('/edit') ? 'outline' : 'ghost'}
           size="sm"
@@ -105,7 +105,7 @@ export const TypebotHeader = () => {
         </Button>
         <Button
           as={Link}
-          href={`/typebots/${typebot?.id}/theme`}
+          href={`/hackleads/${typebot?.id}/theme`}
           colorScheme={router.pathname.endsWith('theme') ? 'blue' : 'gray'}
           variant={router.pathname.endsWith('theme') ? 'outline' : 'ghost'}
           size="sm"
@@ -114,7 +114,7 @@ export const TypebotHeader = () => {
         </Button>
         <Button
           as={Link}
-          href={`/typebots/${typebot?.id}/settings`}
+          href={`/hackleads/${typebot?.id}/settings`}
           colorScheme={router.pathname.endsWith('settings') ? 'blue' : 'gray'}
           variant={router.pathname.endsWith('settings') ? 'outline' : 'ghost'}
           size="sm"
@@ -123,7 +123,7 @@ export const TypebotHeader = () => {
         </Button>
         <Button
           as={Link}
-          href={`/typebots/${typebot?.id}/share`}
+          href={`/hackleads/${typebot?.id}/share`}
           colorScheme={router.pathname.endsWith('share') ? 'blue' : 'gray'}
           variant={router.pathname.endsWith('share') ? 'outline' : 'ghost'}
           size="sm"
@@ -133,7 +133,7 @@ export const TypebotHeader = () => {
         {isDefined(publishedTypebot) && (
           <Button
             as={Link}
-            href={`/typebots/${typebot?.id}/results`}
+            href={`/hackleads/${typebot?.id}/results`}
             colorScheme={router.pathname.includes('results') ? 'blue' : 'gray'}
             variant={router.pathname.includes('results') ? 'outline' : 'ghost'}
             size="sm"
@@ -156,10 +156,10 @@ export const TypebotHeader = () => {
             icon={<ChevronLeftIcon fontSize={25} />}
             href={
               router.query.parentId
-                ? `/typebots/${router.query.parentId}/edit`
+                ? `/hackleads/${router.query.parentId}/edit`
                 : typebot?.folderId
-                ? `/typebots/folders/${typebot.folderId}`
-                : '/typebots'
+                ? `/hackleads/folders/${typebot.folderId}`
+                : '/hackleads'
             }
             size="sm"
           />

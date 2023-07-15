@@ -10,7 +10,9 @@ type GiphySearchFormProps = {
   onSubmit: (url: string) => void
 }
 
-const giphyFetch = new GiphyFetch(env('GIPHY_API_KEY') as string)
+const giphyFetch = new GiphyFetch(
+  process.env.NEXT_PUBLIC_GIPHY_API_KEY as string
+)
 
 export const GiphyPicker = ({ onSubmit }: GiphySearchFormProps) => {
   const [inputValue, setInputValue] = useState('')
@@ -21,32 +23,32 @@ export const GiphyPicker = ({ onSubmit }: GiphySearchFormProps) => {
   const fetchGifsTrending = (offset: number) =>
     giphyFetch.trending({ offset, limit: 10 })
 
-  return isEmpty(env('GIPHY_API_KEY')) ? (
-    <Text>NEXT_PUBLIC_GIPHY_API_KEY is missing in environment</Text>
-  ) : (
-    <Stack spacing={4} pt="2">
-      <Flex align="center">
-        <TextInput
-          autoFocus
-          placeholder="Search..."
-          onChange={setInputValue}
-          withVariableButton={false}
-        />
-        <GiphyLogo w="100px" />
-      </Flex>
-      <Flex overflowY="scroll" maxH="400px">
-        <Grid
-          key={inputValue}
-          onGifClick={(gif, e) => {
-            e.preventDefault()
-            onSubmit(gif.images.downsized.url)
-          }}
-          fetchGifs={inputValue === '' ? fetchGifsTrending : fetchGifs}
-          width={475}
-          columns={3}
-          className="my-4"
-        />
-      </Flex>
-    </Stack>
-  )
+  {
+    return (
+      <Stack spacing={4} pt="2">
+        <Flex align="center">
+          <TextInput
+            autoFocus
+            placeholder="Search..."
+            onChange={setInputValue}
+            withVariableButton={false}
+          />
+          <GiphyLogo w="100px" />
+        </Flex>
+        <Flex overflowY="scroll" maxH="400px">
+          <Grid
+            key={inputValue}
+            onGifClick={(gif, e) => {
+              e.preventDefault()
+              onSubmit(gif.images.downsized.url)
+            }}
+            fetchGifs={inputValue === '' ? fetchGifsTrending : fetchGifs}
+            width={475}
+            columns={3}
+            className="my-4"
+          />
+        </Flex>
+      </Stack>
+    )
+  }
 }

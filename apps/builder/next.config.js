@@ -12,7 +12,7 @@ const nextConfig = {
     '@typebot.io/emails',
   ],
   i18n: {
-    defaultLocale: 'en',
+    defaultLocale: 'pt',
     locales: ['en', 'fr', 'pt', 'de'],
   },
   experimental: {

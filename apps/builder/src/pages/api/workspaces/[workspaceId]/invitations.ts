@@ -76,7 +76,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           to: data.email,
           workspaceName: workspace.name,
           guestEmail: data.email,
-          url: `${process.env.NEXTAUTH_URL}/typebots?workspaceId=${workspace.id}`,
+          url: `${process.env.NEXTAUTH_URL}/hackleads?workspaceId=${workspace.id}`,
           hostEmail: user.email ?? '',
         })
       return res.send({ invitation })

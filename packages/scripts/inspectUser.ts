@@ -103,10 +103,6 @@ const inspectUser = async () => {
         '        Public ID:',
         typebot.publishedTypebot?.typebot.publicId
       )
-      console.log(
-        '        URL:',
-        `https://app.hackleads.com.br/typebots/${typebot.id}/edit`
-      )
 
       if (!typebot.publishedTypebot) continue
 

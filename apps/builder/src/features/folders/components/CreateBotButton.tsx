@@ -15,7 +15,7 @@ export const CreateBotButton = ({
 
   const handleClick = () =>
     router.push(
-      `/typebots/create?${stringify({
+      `/hackleads/create?${stringify({
         isFirstBot: !isFirstBot ? undefined : isFirstBot,
         folderId,
       })}`

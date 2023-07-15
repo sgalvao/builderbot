@@ -56,7 +56,7 @@ export const OnboardingModal = ({ totalTypebots }: Props) => {
 
   const handleBotEnd = () => {
     setTimeout(() => {
-      push('/typebots/create', { query: { isFirstBot: true } })
+      push('/hackleads/create', { query: { isFirstBot: true } })
     }, 2000)
   }
 

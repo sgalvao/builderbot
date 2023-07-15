@@ -61,8 +61,8 @@ export const TypebotButton = ({
     if (draggedTypebotDebounced) return
     router.push(
       isMobile
-        ? `/typebots/${typebot.id}/results`
-        : `/typebots/${typebot.id}/edit`
+        ? `/hackleads/${typebot.id}/results`
+        : `/hackleads/${typebot.id}/edit`
     )
   }
 
@@ -89,7 +89,7 @@ export const TypebotButton = ({
       return showToast({
         description: error.message,
       })
-    if (createdTypebot) router.push(`/typebots/${createdTypebot?.id}/edit`)
+    if (createdTypebot) router.push(`/hackleads/${createdTypebot?.id}/edit`)
   }
 
   const handleDeleteClick = (e: React.MouseEvent) => {

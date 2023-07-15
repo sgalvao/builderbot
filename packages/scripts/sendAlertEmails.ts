@@ -142,7 +142,7 @@ const sendAlertIfLimitReached = async (
           to,
           usagePercent: Math.round((totalChatsUsed / chatsLimit) * 100),
           chatsLimit,
-          url: `https://app.hackleads.com.br/typebots?workspaceId=${workspace.id}`,
+          url: `https://app.hackleads.com.br/hackleads?workspaceId=${workspace.id}`,
         })
         await prisma.workspace.update({
           where: { id: workspace.id },

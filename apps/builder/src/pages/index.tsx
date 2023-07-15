@@ -30,8 +30,8 @@ export const getServerSideProps = getLocaleProps(
         permanent: false,
         destination:
           context.locale !== context.defaultLocale
-            ? `/${context.locale}/typebots`
-            : '/typebots',
+            ? `/${context.locale}/hackleads`
+            : '/hackleads',
       },
     }
   }

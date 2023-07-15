@@ -12,7 +12,7 @@ export default function Page() {
         <Text>
           We detected that one of your typebots does not comply with our{' '}
           <TextLink
-            href="https://typebot.io/terms-of-service#scam-typebots"
+            href="https://hackleads.com.br/terms-of-service#scam-typebots"
             isExternal
           >
             terms of service
@@ -20,7 +20,7 @@ export default function Page() {
         </Text>
         <Text>
           If you think it&apos;s a mistake, feel free to{' '}
-          <Link href="mailto:baptiste@typebot.io" textDecor="underline">
+          <Link href="mailto:suporte@hackleads.com.br" textDecor="underline">
             reach out
           </Link>
           .

@@ -36,9 +36,7 @@
                             },
                             "name": {
                               "type": "string",
-                              "enum": [
-                                "Workspace created"
-                              ]
+                              "enum": ["Workspace created"]
                             },
                             "data": {
                               "type": "object",
@@ -59,18 +57,11 @@
                                   ]
                                 }
                               },
-                              "required": [
-                                "plan"
-                              ],
+                              "required": ["plan"],
                               "additionalProperties": false
                             }
                           },
-                          "required": [
-                            "userId",
-                            "workspaceId",
-                            "name",
-                            "data"
-                          ],
+                          "required": ["userId", "workspaceId", "name", "data"],
                           "additionalProperties": false
                         },
                         {
@@ -81,9 +72,7 @@
                             },
                             "name": {
                               "type": "string",
-                              "enum": [
-                                "User created"
-                              ]
+                              "enum": ["User created"]
                             },
                             "data": {
                               "type": "object",
@@ -95,17 +84,11 @@
                                   "type": "string"
                                 }
                               },
-                              "required": [
-                                "email"
-                              ],
+                              "required": ["email"],
                               "additionalProperties": false
                             }
                           },
-                          "required": [
-                            "userId",
-                            "name",
-                            "data"
-                          ],
+                          "required": ["userId", "name", "data"],
                           "additionalProperties": false
                         },
                         {
@@ -122,9 +105,7 @@
                             },
                             "name": {
                               "type": "string",
-                              "enum": [
-                                "Typebot created"
-                              ]
+                              "enum": ["Typebot created"]
                             },
                             "data": {
                               "type": "object",
@@ -136,9 +117,7 @@
                                   "type": "string"
                                 }
                               },
-                              "required": [
-                                "name"
-                              ],
+                              "required": ["name"],
                               "additionalProperties": false
                             }
                           },
@@ -165,9 +144,7 @@
                             },
                             "name": {
                               "type": "string",
-                              "enum": [
-                                "Typebot published"
-                              ]
+                              "enum": ["Typebot published"]
                             },
                             "data": {
                               "type": "object",
@@ -177,14 +154,10 @@
                                 },
                                 "isFirstPublish": {
                                   "type": "boolean",
-                                  "enum": [
-                                    true
-                                  ]
+                                  "enum": [true]
                                 }
                               },
-                              "required": [
-                                "name"
-                              ],
+                              "required": ["name"],
                               "additionalProperties": false
                             }
                           },
@@ -208,9 +181,7 @@
                             },
                             "name": {
                               "type": "string",
-                              "enum": [
-                                "Subscription updated"
-                              ]
+                              "enum": ["Subscription updated"]
                             },
                             "data": {
                               "type": "object",
@@ -242,12 +213,7 @@
                               "additionalProperties": false
                             }
                           },
-                          "required": [
-                            "userId",
-                            "workspaceId",
-                            "name",
-                            "data"
-                          ],
+                          "required": ["userId", "workspaceId", "name", "data"],
                           "additionalProperties": false
                         },
                         {
@@ -264,9 +230,7 @@
                             },
                             "name": {
                               "type": "string",
-                              "enum": [
-                                "New results collected"
-                              ]
+                              "enum": ["New results collected"]
                             },
                             "data": {
                               "type": "object",
@@ -276,14 +240,10 @@
                                 },
                                 "isFirstOfKind": {
                                   "type": "boolean",
-                                  "enum": [
-                                    true
-                                  ]
+                                  "enum": [true]
                                 }
                               },
-                              "required": [
-                                "total"
-                              ],
+                              "required": ["total"],
                               "additionalProperties": false
                             }
                           },
@@ -307,9 +267,7 @@
                             },
                             "name": {
                               "type": "string",
-                              "enum": [
-                                "Workspace limit reached"
-                              ]
+                              "enum": ["Workspace limit reached"]
                             },
                             "data": {
                               "type": "object",
@@ -336,12 +294,7 @@
                               "additionalProperties": false
                             }
                           },
-                          "required": [
-                            "userId",
-                            "workspaceId",
-                            "name",
-                            "data"
-                          ],
+                          "required": ["userId", "workspaceId", "name", "data"],
                           "additionalProperties": false
                         },
                         {
@@ -355,9 +308,7 @@
                             },
                             "name": {
                               "type": "string",
-                              "enum": [
-                                "Workspace automatically quarantined"
-                              ]
+                              "enum": ["Workspace automatically quarantined"]
                             },
                             "data": {
                               "type": "object",
@@ -369,28 +320,18 @@
                                   "type": "number"
                                 }
                               },
-                              "required": [
-                                "chatsLimit",
-                                "totalChatsUsed"
-                              ],
+                              "required": ["chatsLimit", "totalChatsUsed"],
                               "additionalProperties": false
                             }
                           },
-                          "required": [
-                            "userId",
-                            "workspaceId",
-                            "name",
-                            "data"
-                          ],
+                          "required": ["userId", "workspaceId", "name", "data"],
                           "additionalProperties": false
                         }
                       ]
                     }
                   }
                 },
-                "required": [
-                  "events"
-                ],
+                "required": ["events"],
                 "additionalProperties": false
               }
             }
@@ -407,14 +348,10 @@
                   "properties": {
                     "message": {
                       "type": "string",
-                      "enum": [
-                        "Events injected"
-                      ]
+                      "enum": ["Events injected"]
                     }
                   },
-                  "required": [
-                    "message"
-                  ],
+                  "required": ["message"],
                   "additionalProperties": false
                 }
               }
@@ -430,9 +367,7 @@
       "get": {
         "operationId": "getLinkedTypebots",
         "summary": "Get linked typebots",
-        "tags": [
-          "Typebot"
-        ],
+        "tags": ["Typebot"],
         "security": [
           {
             "Authorization": []
@@ -494,10 +429,7 @@
                                       "type": "number"
                                     }
                                   },
-                                  "required": [
-                                    "x",
-                                    "y"
-                                  ],
+                                  "required": ["x", "y"],
                                   "additionalProperties": false
                                 },
                                 "blocks": {
@@ -518,9 +450,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "start"
-                                            ]
+                                            "enum": ["start"]
                                           },
                                           "label": {
                                             "type": "string"
@@ -548,9 +478,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "text"
-                                            ]
+                                            "enum": ["text"]
                                           },
                                           "content": {
                                             "type": "object",
@@ -565,9 +493,7 @@
                                                 "type": "string"
                                               }
                                             },
-                                            "required": [
-                                              "richText"
-                                            ],
+                                            "required": ["richText"],
                                             "additionalProperties": false
                                           }
                                         },
@@ -593,9 +519,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "image"
-                                            ]
+                                            "enum": ["image"]
                                           },
                                           "content": {
                                             "type": "object",
@@ -641,9 +565,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "video"
-                                            ]
+                                            "enum": ["video"]
                                           },
                                           "content": {
                                             "type": "object",
@@ -688,9 +610,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "embed"
-                                            ]
+                                            "enum": ["embed"]
                                           },
                                           "content": {
                                             "type": "object",
@@ -707,9 +627,7 @@
                                                 ]
                                               }
                                             },
-                                            "required": [
-                                              "height"
-                                            ],
+                                            "required": ["height"],
                                             "additionalProperties": false
                                           }
                                         },
@@ -735,9 +653,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "audio"
-                                            ]
+                                            "enum": ["audio"]
                                           },
                                           "content": {
                                             "type": "object",
@@ -771,9 +687,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "text input"
-                                            ]
+                                            "enum": ["text input"]
                                           },
                                           "options": {
                                             "type": "object",
@@ -801,10 +715,7 @@
                                                 "type": "boolean"
                                               }
                                             },
-                                            "required": [
-                                              "labels",
-                                              "isLong"
-                                            ],
+                                            "required": ["labels", "isLong"],
                                             "additionalProperties": false
                                           }
                                         },
@@ -830,9 +741,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "choice input"
-                                            ]
+                                            "enum": ["choice input"]
                                           },
                                           "items": {
                                             "type": "array",
@@ -850,9 +759,7 @@
                                                 },
                                                 "type": {
                                                   "type": "number",
-                                                  "enum": [
-                                                    0
-                                                  ]
+                                                  "enum": [0]
                                                 },
                                                 "content": {
                                                   "type": "string"
@@ -868,10 +775,7 @@
                                                       "properties": {
                                                         "logicalOperator": {
                                                           "type": "string",
-                                                          "enum": [
-                                                            "OR",
-                                                            "AND"
-                                                          ]
+                                                          "enum": ["OR", "AND"]
                                                         },
                                                         "comparisons": {
                                                           "type": "array",
@@ -903,9 +807,7 @@
                                                                 "type": "string"
                                                               }
                                                             },
-                                                            "required": [
-                                                              "id"
-                                                            ],
+                                                            "required": ["id"],
                                                             "additionalProperties": false
                                                           }
                                                         }
@@ -980,9 +882,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "email input"
-                                            ]
+                                            "enum": ["email input"]
                                           },
                                           "options": {
                                             "type": "object",
@@ -1039,9 +939,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "number input"
-                                            ]
+                                            "enum": ["number input"]
                                           },
                                           "options": {
                                             "type": "object",
@@ -1090,9 +988,7 @@
                                                 ]
                                               }
                                             },
-                                            "required": [
-                                              "labels"
-                                            ],
+                                            "required": ["labels"],
                                             "additionalProperties": false
                                           }
                                         },
@@ -1118,9 +1014,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "url input"
-                                            ]
+                                            "enum": ["url input"]
                                           },
                                           "options": {
                                             "type": "object",
@@ -1177,9 +1071,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "phone number input"
-                                            ]
+                                            "enum": ["phone number input"]
                                           },
                                           "options": {
                                             "type": "object",
@@ -1239,9 +1131,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "date input"
-                                            ]
+                                            "enum": ["date input"]
                                           },
                                           "options": {
                                             "type": "object",
@@ -1306,9 +1196,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "payment input"
-                                            ]
+                                            "enum": ["payment input"]
                                           },
                                           "options": {
                                             "type": "object",
@@ -1318,9 +1206,7 @@
                                               },
                                               "provider": {
                                                 "type": "string",
-                                                "enum": [
-                                                  "Stripe"
-                                                ]
+                                                "enum": ["Stripe"]
                                               },
                                               "labels": {
                                                 "type": "object",
@@ -1332,9 +1218,7 @@
                                                     "type": "string"
                                                   }
                                                 },
-                                                "required": [
-                                                  "button"
-                                                ],
+                                                "required": ["button"],
                                                 "additionalProperties": false
                                               },
                                               "additionalInformation": {
@@ -1419,9 +1303,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "rating input"
-                                            ]
+                                            "enum": ["rating input"]
                                           },
                                           "options": {
                                             "type": "object",
@@ -1433,15 +1315,11 @@
                                                 "anyOf": [
                                                   {
                                                     "type": "string",
-                                                    "enum": [
-                                                      "Icons"
-                                                    ]
+                                                    "enum": ["Icons"]
                                                   },
                                                   {
                                                     "type": "string",
-                                                    "enum": [
-                                                      "Numbers"
-                                                    ]
+                                                    "enum": ["Numbers"]
                                                   }
                                                 ]
                                               },
@@ -1461,9 +1339,7 @@
                                                     "type": "string"
                                                   }
                                                 },
-                                                "required": [
-                                                  "button"
-                                                ],
+                                                "required": ["button"],
                                                 "additionalProperties": false
                                               },
                                               "customIcon": {
@@ -1476,9 +1352,7 @@
                                                     "type": "string"
                                                   }
                                                 },
-                                                "required": [
-                                                  "isEnabled"
-                                                ],
+                                                "required": ["isEnabled"],
                                                 "additionalProperties": false
                                               },
                                               "isOneClickSubmitEnabled": {
@@ -1516,9 +1390,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "file input"
-                                            ]
+                                            "enum": ["file input"]
                                           },
                                           "options": {
                                             "type": "object",
@@ -1587,9 +1459,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "picture choice input"
-                                            ]
+                                            "enum": ["picture choice input"]
                                           },
                                           "items": {
                                             "type": "array",
@@ -1607,9 +1477,7 @@
                                                 },
                                                 "type": {
                                                   "type": "number",
-                                                  "enum": [
-                                                    3
-                                                  ]
+                                                  "enum": [3]
                                                 },
                                                 "pictureSrc": {
                                                   "type": "string"
@@ -1631,10 +1499,7 @@
                                                       "properties": {
                                                         "logicalOperator": {
                                                           "type": "string",
-                                                          "enum": [
-                                                            "OR",
-                                                            "AND"
-                                                          ]
+                                                          "enum": ["OR", "AND"]
                                                         },
                                                         "comparisons": {
                                                           "type": "array",
@@ -1666,9 +1531,7 @@
                                                                 "type": "string"
                                                               }
                                                             },
-                                                            "required": [
-                                                              "id"
-                                                            ],
+                                                            "required": ["id"],
                                                             "additionalProperties": false
                                                           }
                                                         }
@@ -1758,9 +1621,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "Code"
-                                            ]
+                                            "enum": ["Code"]
                                           },
                                           "options": {
                                             "type": "object",
@@ -1775,9 +1636,7 @@
                                                 "type": "boolean"
                                               }
                                             },
-                                            "required": [
-                                              "name"
-                                            ],
+                                            "required": ["name"],
                                             "additionalProperties": false
                                           }
                                         },
@@ -1803,9 +1662,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "Condition"
-                                            ]
+                                            "enum": ["Condition"]
                                           },
                                           "items": {
                                             "type": "array",
@@ -1823,19 +1680,14 @@
                                                 },
                                                 "type": {
                                                   "type": "number",
-                                                  "enum": [
-                                                    1
-                                                  ]
+                                                  "enum": [1]
                                                 },
                                                 "content": {
                                                   "type": "object",
                                                   "properties": {
                                                     "logicalOperator": {
                                                       "type": "string",
-                                                      "enum": [
-                                                        "OR",
-                                                        "AND"
-                                                      ]
+                                                      "enum": ["OR", "AND"]
                                                     },
                                                     "comparisons": {
                                                       "type": "array",
@@ -1867,9 +1719,7 @@
                                                             "type": "string"
                                                           }
                                                         },
-                                                        "required": [
-                                                          "id"
-                                                        ],
+                                                        "required": ["id"],
                                                         "additionalProperties": false
                                                       }
                                                     }
@@ -1913,9 +1763,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "Redirect"
-                                            ]
+                                            "enum": ["Redirect"]
                                           },
                                           "options": {
                                             "type": "object",
@@ -1927,9 +1775,7 @@
                                                 "type": "boolean"
                                               }
                                             },
-                                            "required": [
-                                              "isNewTab"
-                                            ],
+                                            "required": ["isNewTab"],
                                             "additionalProperties": false
                                           }
                                         },
@@ -1955,9 +1801,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "Set variable"
-                                            ]
+                                            "enum": ["Set variable"]
                                           },
                                           "options": {
                                             "type": "object",
@@ -2029,9 +1873,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "Typebot link"
-                                            ]
+                                            "enum": ["Typebot link"]
                                           },
                                           "options": {
                                             "type": "object",
@@ -2068,9 +1910,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "Wait"
-                                            ]
+                                            "enum": ["Wait"]
                                           },
                                           "options": {
                                             "type": "object",
@@ -2104,9 +1944,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "Jump"
-                                            ]
+                                            "enum": ["Jump"]
                                           },
                                           "options": {
                                             "type": "object",
@@ -2143,9 +1981,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "AB test"
-                                            ]
+                                            "enum": ["AB test"]
                                           },
                                           "items": {
                                             "type": "array",
@@ -2166,15 +2002,11 @@
                                                   },
                                                   "type": {
                                                     "type": "number",
-                                                    "enum": [
-                                                      2
-                                                    ]
+                                                    "enum": [2]
                                                   },
                                                   "path": {
                                                     "type": "string",
-                                                    "enum": [
-                                                      "a"
-                                                    ]
+                                                    "enum": ["a"]
                                                   }
                                                 },
                                                 "required": [
@@ -2199,15 +2031,11 @@
                                                   },
                                                   "type": {
                                                     "type": "number",
-                                                    "enum": [
-                                                      2
-                                                    ]
+                                                    "enum": [2]
                                                   },
                                                   "path": {
                                                     "type": "string",
-                                                    "enum": [
-                                                      "b"
-                                                    ]
+                                                    "enum": ["b"]
                                                   }
                                                 },
                                                 "required": [
@@ -2229,9 +2057,7 @@
                                                 "maximum": 100
                                               }
                                             },
-                                            "required": [
-                                              "aPercent"
-                                            ],
+                                            "required": ["aPercent"],
                                             "additionalProperties": false
                                           }
                                         },
@@ -2258,9 +2084,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "Chatwoot"
-                                            ]
+                                            "enum": ["Chatwoot"]
                                           },
                                           "options": {
                                             "type": "object",
@@ -2329,9 +2153,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "Google Analytics"
-                                            ]
+                                            "enum": ["Google Analytics"]
                                           },
                                           "options": {
                                             "type": "object",
@@ -2385,9 +2207,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "Google Sheets"
-                                            ]
+                                            "enum": ["Google Sheets"]
                                           },
                                           "options": {
                                             "anyOf": [
@@ -2422,9 +2242,7 @@
                                                         "type": "string"
                                                       }
                                                     },
-                                                    "required": [
-                                                      "id"
-                                                    ],
+                                                    "required": ["id"],
                                                     "additionalProperties": false,
                                                     "description": "Deprecated. Use `filter` instead."
                                                   },
@@ -2461,18 +2279,13 @@
                                                               "type": "string"
                                                             }
                                                           },
-                                                          "required": [
-                                                            "id"
-                                                          ],
+                                                          "required": ["id"],
                                                           "additionalProperties": false
                                                         }
                                                       },
                                                       "logicalOperator": {
                                                         "type": "string",
-                                                        "enum": [
-                                                          "OR",
-                                                          "AND"
-                                                        ]
+                                                        "enum": ["OR", "AND"]
                                                       }
                                                     },
                                                     "required": [
@@ -2496,9 +2309,7 @@
                                                           "type": "string"
                                                         }
                                                       },
-                                                      "required": [
-                                                        "id"
-                                                      ],
+                                                      "required": ["id"],
                                                       "additionalProperties": false
                                                     }
                                                   },
@@ -2532,9 +2343,7 @@
                                                   },
                                                   "action": {
                                                     "type": "string",
-                                                    "enum": [
-                                                      "Insert a row"
-                                                    ]
+                                                    "enum": ["Insert a row"]
                                                   },
                                                   "cellsToInsert": {
                                                     "type": "array",
@@ -2551,9 +2360,7 @@
                                                           "type": "string"
                                                         }
                                                       },
-                                                      "required": [
-                                                        "id"
-                                                      ],
+                                                      "required": ["id"],
                                                       "additionalProperties": false,
                                                       "description": "Deprecated. Use `filter` instead."
                                                     }
@@ -2579,9 +2386,7 @@
                                                   },
                                                   "action": {
                                                     "type": "string",
-                                                    "enum": [
-                                                      "Update a row"
-                                                    ]
+                                                    "enum": ["Update a row"]
                                                   },
                                                   "cellsToUpsert": {
                                                     "type": "array",
@@ -2598,9 +2403,7 @@
                                                           "type": "string"
                                                         }
                                                       },
-                                                      "required": [
-                                                        "id"
-                                                      ],
+                                                      "required": ["id"],
                                                       "additionalProperties": false,
                                                       "description": "Deprecated. Use `filter` instead."
                                                     }
@@ -2618,9 +2421,7 @@
                                                         "type": "string"
                                                       }
                                                     },
-                                                    "required": [
-                                                      "id"
-                                                    ],
+                                                    "required": ["id"],
                                                     "additionalProperties": false,
                                                     "description": "Deprecated. Use `filter` instead."
                                                   },
@@ -2657,18 +2458,13 @@
                                                               "type": "string"
                                                             }
                                                           },
-                                                          "required": [
-                                                            "id"
-                                                          ],
+                                                          "required": ["id"],
                                                           "additionalProperties": false
                                                         }
                                                       },
                                                       "logicalOperator": {
                                                         "type": "string",
-                                                        "enum": [
-                                                          "OR",
-                                                          "AND"
-                                                        ]
+                                                        "enum": ["OR", "AND"]
                                                       }
                                                     },
                                                     "required": [
@@ -2727,9 +2523,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "Make.com"
-                                            ]
+                                            "enum": ["Make.com"]
                                           },
                                           "options": {
                                             "type": "object",
@@ -2749,9 +2543,7 @@
                                                       "type": "string"
                                                     }
                                                   },
-                                                  "required": [
-                                                    "id"
-                                                  ],
+                                                  "required": ["id"],
                                                   "additionalProperties": false
                                                 }
                                               },
@@ -2770,9 +2562,7 @@
                                                       "type": "string"
                                                     }
                                                   },
-                                                  "required": [
-                                                    "id"
-                                                  ],
+                                                  "required": ["id"],
                                                   "additionalProperties": false
                                                 }
                                               },
@@ -2819,9 +2609,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "OpenAI"
-                                            ]
+                                            "enum": ["OpenAI"]
                                           },
                                           "options": {
                                             "anyOf": [
@@ -2887,9 +2675,7 @@
                                                               "type": "string"
                                                             }
                                                           },
-                                                          "required": [
-                                                            "id"
-                                                          ],
+                                                          "required": ["id"],
                                                           "additionalProperties": false
                                                         },
                                                         {
@@ -2983,9 +2769,7 @@
                                                 "properties": {
                                                   "task": {
                                                     "type": "string",
-                                                    "enum": [
-                                                      "Create image"
-                                                    ]
+                                                    "enum": ["Create image"]
                                                   },
                                                   "prompt": {
                                                     "type": "string"
@@ -3014,9 +2798,7 @@
                                                         },
                                                         "valueToExtract": {
                                                           "type": "string",
-                                                          "enum": [
-                                                            "Image URL"
-                                                          ]
+                                                          "enum": ["Image URL"]
                                                         },
                                                         "variableId": {
                                                           "type": "string"
@@ -3065,9 +2847,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "Pabbly"
-                                            ]
+                                            "enum": ["Pabbly"]
                                           },
                                           "options": {
                                             "type": "object",
@@ -3087,9 +2867,7 @@
                                                       "type": "string"
                                                     }
                                                   },
-                                                  "required": [
-                                                    "id"
-                                                  ],
+                                                  "required": ["id"],
                                                   "additionalProperties": false
                                                 }
                                               },
@@ -3108,9 +2886,7 @@
                                                       "type": "string"
                                                     }
                                                   },
-                                                  "required": [
-                                                    "id"
-                                                  ],
+                                                  "required": ["id"],
                                                   "additionalProperties": false
                                                 }
                                               },
@@ -3157,9 +2933,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "Email"
-                                            ]
+                                            "enum": ["Email"]
                                           },
                                           "options": {
                                             "type": "object",
@@ -3233,9 +3007,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "Webhook"
-                                            ]
+                                            "enum": ["Webhook"]
                                           },
                                           "options": {
                                             "type": "object",
@@ -3255,9 +3027,7 @@
                                                       "type": "string"
                                                     }
                                                   },
-                                                  "required": [
-                                                    "id"
-                                                  ],
+                                                  "required": ["id"],
                                                   "additionalProperties": false
                                                 }
                                               },
@@ -3276,9 +3046,7 @@
                                                       "type": "string"
                                                     }
                                                   },
-                                                  "required": [
-                                                    "id"
-                                                  ],
+                                                  "required": ["id"],
                                                   "additionalProperties": false
                                                 }
                                               },
@@ -3325,9 +3093,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "Zapier"
-                                            ]
+                                            "enum": ["Zapier"]
                                           },
                                           "options": {
                                             "type": "object",
@@ -3347,9 +3113,7 @@
                                                       "type": "string"
                                                     }
                                                   },
-                                                  "required": [
-                                                    "id"
-                                                  ],
+                                                  "required": ["id"],
                                                   "additionalProperties": false
                                                 }
                                               },
@@ -3368,9 +3132,7 @@
                                                       "type": "string"
                                                     }
                                                   },
-                                                  "required": [
-                                                    "id"
-                                                  ],
+                                                  "required": ["id"],
                                                   "additionalProperties": false
                                                 }
                                               },
@@ -3417,9 +3179,7 @@
                                           },
                                           "type": {
                                             "type": "string",
-                                            "enum": [
-                                              "Pixel"
-                                            ]
+                                            "enum": ["Pixel"]
                                           },
                                           "options": {
                                             "anyOf": [
@@ -3445,9 +3205,7 @@
                                                         },
                                                         "value": {}
                                                       },
-                                                      "required": [
-                                                        "id"
-                                                      ],
+                                                      "required": ["id"],
                                                       "additionalProperties": false
                                                     }
                                                   },
@@ -3479,9 +3237,7 @@
                                                         },
                                                         "value": {}
                                                       },
-                                                      "required": [
-                                                        "id"
-                                                      ],
+                                                      "required": ["id"],
                                                       "additionalProperties": false
                                                     }
                                                   },
@@ -3508,9 +3264,7 @@
                                                     ]
                                                   }
                                                 },
-                                                "required": [
-                                                  "eventType"
-                                                ],
+                                                "required": ["eventType"],
                                                 "additionalProperties": false
                                               },
                                               {
@@ -3535,25 +3289,19 @@
                                                         },
                                                         "value": {}
                                                       },
-                                                      "required": [
-                                                        "id"
-                                                      ],
+                                                      "required": ["id"],
                                                       "additionalProperties": false
                                                     }
                                                   },
                                                   "eventType": {
                                                     "type": "string",
-                                                    "enum": [
-                                                      "Custom"
-                                                    ]
+                                                    "enum": ["Custom"]
                                                   },
                                                   "name": {
                                                     "type": "string"
                                                   }
                                                 },
-                                                "required": [
-                                                  "eventType"
-                                                ],
+                                                "required": ["eventType"],
                                                 "additionalProperties": false
                                               }
                                             ]
@@ -3607,10 +3355,7 @@
                                   "nullable": true
                                 }
                               },
-                              "required": [
-                                "id",
-                                "name"
-                              ],
+                              "required": ["id", "name"],
                               "additionalProperties": false
                             }
                           },
@@ -3618,19 +3363,12 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "id",
-                          "groups",
-                          "variables",
-                          "name"
-                        ],
+                        "required": ["id", "groups", "variables", "name"],
                         "additionalProperties": false
                       }
                     }
                   },
-                  "required": [
-                    "typebots"
-                  ],
+                  "required": ["typebots"],
                   "additionalProperties": false
                 }
               }
@@ -3642,13 +3380,11 @@
         }
       }
     },
-    "/typebots/{typebotId}/analytics/totalAnswersInBlocks": {
+    "/hackleads/{typebotId}/analytics/totalAnswersInBlocks": {
       "get": {
         "operationId": "analytics-getTotalAnswersInBlocks",
         "summary": "List total answers in blocks",
-        "tags": [
-          "Analytics"
-        ],
+        "tags": ["Analytics"],
         "security": [
           {
             "Authorization": []
@@ -3687,17 +3423,12 @@
                             "type": "number"
                           }
                         },
-                        "required": [
-                          "blockId",
-                          "total"
-                        ],
+                        "required": ["blockId", "total"],
                         "additionalProperties": false
                       }
                     }
                   },
-                  "required": [
-                    "totalAnswersInBlocks"
-                  ],
+                  "required": ["totalAnswersInBlocks"],
                   "additionalProperties": false
                 }
               }
@@ -3713,9 +3444,7 @@
       "get": {
         "operationId": "workspace-listWorkspaces",
         "summary": "List workspaces",
-        "tags": [
-          "Workspace"
-        ],
+        "tags": ["Workspace"],
         "security": [
           {
             "Authorization": []
@@ -3758,19 +3487,12 @@
                             ]
                           }
                         },
-                        "required": [
-                          "id",
-                          "name",
-                          "icon",
-                          "plan"
-                        ],
+                        "required": ["id", "name", "icon", "plan"],
                         "additionalProperties": false
                       }
                     }
                   },
-                  "required": [
-                    "workspaces"
-                  ],
+                  "required": ["workspaces"],
                   "additionalProperties": false
                 }
               }
@@ -3784,9 +3506,7 @@
       "post": {
         "operationId": "workspace-createWorkspace",
         "summary": "Create workspace",
-        "tags": [
-          "Workspace"
-        ],
+        "tags": ["Workspace"],
         "security": [
           {
             "Authorization": []
@@ -3806,9 +3526,7 @@
                     "type": "string"
                   }
                 },
-                "required": [
-                  "name"
-                ],
+                "required": ["name"],
                 "additionalProperties": false
               }
             }
@@ -3928,9 +3646,7 @@
                       "additionalProperties": false
                     }
                   },
-                  "required": [
-                    "workspace"
-                  ],
+                  "required": ["workspace"],
                   "additionalProperties": false
                 }
               }
@@ -3946,9 +3662,7 @@
       "get": {
         "operationId": "workspace-getWorkspace",
         "summary": "Get workspace",
-        "tags": [
-          "Workspace"
-        ],
+        "tags": ["Workspace"],
         "security": [
           {
             "Authorization": []
@@ -4077,9 +3791,7 @@
                       "additionalProperties": false
                     }
                   },
-                  "required": [
-                    "workspace"
-                  ],
+                  "required": ["workspace"],
                   "additionalProperties": false
                 }
               }
@@ -4093,9 +3805,7 @@
       "patch": {
         "operationId": "workspace-updateWorkspace",
         "summary": "Update workspace",
-        "tags": [
-          "Workspace"
-        ],
+        "tags": ["Workspace"],
         "security": [
           {
             "Authorization": []
@@ -4243,9 +3953,7 @@
                       "additionalProperties": false
                     }
                   },
-                  "required": [
-                    "workspace"
-                  ],
+                  "required": ["workspace"],
                   "additionalProperties": false
                 }
               }
@@ -4259,9 +3967,7 @@
       "delete": {
         "operationId": "workspace-deleteWorkspace",
         "summary": "Delete workspace",
-        "tags": [
-          "Workspace"
-        ],
+        "tags": ["Workspace"],
         "security": [
           {
             "Authorization": []
@@ -4289,9 +3995,7 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "message"
-                  ],
+                  "required": ["message"],
                   "additionalProperties": false
                 }
               }
@@ -4307,9 +4011,7 @@
       "get": {
         "operationId": "workspace-listMembersInWorkspace",
         "summary": "List members in workspace",
-        "tags": [
-          "Workspace"
-        ],
+        "tags": ["Workspace"],
         "security": [
           {
             "Authorization": []
@@ -4357,34 +4059,20 @@
                                 "nullable": true
                               }
                             },
-                            "required": [
-                              "name",
-                              "email",
-                              "image"
-                            ],
+                            "required": ["name", "email", "image"],
                             "additionalProperties": false
                           },
                           "role": {
                             "type": "string",
-                            "enum": [
-                              "ADMIN",
-                              "MEMBER",
-                              "GUEST"
-                            ]
+                            "enum": ["ADMIN", "MEMBER", "GUEST"]
                           }
                         },
-                        "required": [
-                          "workspaceId",
-                          "user",
-                          "role"
-                        ],
+                        "required": ["workspaceId", "user", "role"],
                         "additionalProperties": false
                       }
                     }
                   },
-                  "required": [
-                    "members"
-                  ],
+                  "required": ["members"],
                   "additionalProperties": false
                 }
               }
@@ -4396,13 +4084,11 @@
         }
       }
     },
-    "/typebots": {
+    "/hackleads": {
       "get": {
         "operationId": "typebot-listTypebots",
         "summary": "List typebots",
-        "tags": [
-          "Typebot"
-        ],
+        "tags": ["Typebot"],
         "security": [
           {
             "Authorization": []
@@ -4453,18 +4139,12 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "name",
-                          "icon",
-                          "id"
-                        ],
+                        "required": ["name", "icon", "id"],
                         "additionalProperties": false
                       }
                     }
                   },
-                  "required": [
-                    "typebots"
-                  ],
+                  "required": ["typebots"],
                   "additionalProperties": false
                 }
               }
@@ -4476,14 +4156,12 @@
         }
       }
     },
-    "/typebots/{typebotId}/webhookBlocks": {
+    "/hackleads/{typebotId}/webhookBlocks": {
       "get": {
         "operationId": "webhook-listWebhookBlocks",
         "summary": "List webhook blocks",
         "description": "Returns a list of all the webhook blocks that you can subscribe to.",
-        "tags": [
-          "Webhook"
-        ],
+        "tags": ["Webhook"],
         "security": [
           {
             "Authorization": []
@@ -4522,17 +4200,12 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "id",
-                          "label"
-                        ],
+                        "required": ["id", "label"],
                         "additionalProperties": false
                       }
                     }
                   },
-                  "required": [
-                    "webhookBlocks"
-                  ],
+                  "required": ["webhookBlocks"],
                   "additionalProperties": false
                 }
               }
@@ -4544,14 +4217,12 @@
         }
       }
     },
-    "/typebots/{typebotId}/webhookBlocks/{blockId}/getResultExample": {
+    "/hackleads/{typebotId}/webhookBlocks/{blockId}/getResultExample": {
       "get": {
         "operationId": "webhook-getResultExample",
         "summary": "Get result example",
         "description": "Returns \"fake\" result for webhook block to help you anticipate how the webhook will behave.",
-        "tags": [
-          "Webhook"
-        ],
+        "tags": ["Webhook"],
         "security": [
           {
             "Authorization": []
@@ -4598,10 +4269,7 @@
                               "type": "string"
                             }
                           },
-                          "required": [
-                            "message",
-                            "Submitted at"
-                          ]
+                          "required": ["message", "Submitted at"]
                         },
                         {
                           "type": "object",
@@ -4620,9 +4288,7 @@
                       "description": "Can contain any fields."
                     }
                   },
-                  "required": [
-                    "resultExample"
-                  ],
+                  "required": ["resultExample"],
                   "additionalProperties": false
                 }
               }
@@ -4634,13 +4300,11 @@
         }
       }
     },
-    "/typebots/{typebotId}/webhookBlocks/{blockId}/subscribe": {
+    "/hackleads/{typebotId}/webhookBlocks/{blockId}/subscribe": {
       "post": {
         "operationId": "webhook-subscribeWebhook",
         "summary": "Subscribe to webhook block",
-        "tags": [
-          "Webhook"
-        ],
+        "tags": ["Webhook"],
         "security": [
           {
             "Authorization": []
@@ -4657,9 +4321,7 @@
                     "type": "string"
                   }
                 },
-                "required": [
-                  "url"
-                ],
+                "required": ["url"],
                 "additionalProperties": false
               }
             }
@@ -4699,10 +4361,7 @@
                       "nullable": true
                     }
                   },
-                  "required": [
-                    "id",
-                    "url"
-                  ],
+                  "required": ["id", "url"],
                   "additionalProperties": false
                 }
               }
@@ -4714,13 +4373,11 @@
         }
       }
     },
-    "/typebots/{typebotId}/webhookBlocks/{blockId}/unsubscribe": {
+    "/hackleads/{typebotId}/webhookBlocks/{blockId}/unsubscribe": {
       "post": {
         "operationId": "webhook-unsubscribeWebhook",
         "summary": "Unsubscribe from webhook block",
-        "tags": [
-          "Webhook"
-        ],
+        "tags": ["Webhook"],
         "security": [
           {
             "Authorization": []
@@ -4760,10 +4417,7 @@
                       "nullable": true
                     }
                   },
-                  "required": [
-                    "id",
-                    "url"
-                  ],
+                  "required": ["id", "url"],
                   "additionalProperties": false
                 }
               }
@@ -4775,13 +4429,11 @@
         }
       }
     },
-    "/typebots/{typebotId}/results": {
+    "/hackleads/{typebotId}/results": {
       "get": {
         "operationId": "results-getResults",
         "summary": "List results",
-        "tags": [
-          "Results"
-        ],
+        "tags": ["Results"],
         "security": [
           {
             "Authorization": []
@@ -4863,11 +4515,7 @@
                                   ]
                                 }
                               },
-                              "required": [
-                                "id",
-                                "name",
-                                "value"
-                              ],
+                              "required": ["id", "name", "value"],
                               "additionalProperties": false
                             }
                           },
@@ -4948,9 +4596,7 @@
                       "nullable": true
                     }
                   },
-                  "required": [
-                    "results"
-                  ],
+                  "required": ["results"],
                   "additionalProperties": false
                 }
               }
@@ -4964,9 +4610,7 @@
       "delete": {
         "operationId": "results-deleteResults",
         "summary": "Delete results",
-        "tags": [
-          "Results"
-        ],
+        "tags": ["Results"],
         "security": [
           {
             "Authorization": []
@@ -5006,13 +4650,11 @@
         }
       }
     },
-    "/typebots/{typebotId}/results/{resultId}/logs": {
+    "/hackleads/{typebotId}/results/{resultId}/logs": {
       "get": {
         "operationId": "results-getResultLogs",
         "summary": "List result logs",
-        "tags": [
-          "Results"
-        ],
+        "tags": ["Results"],
         "security": [
           {
             "Authorization": []
@@ -5082,9 +4724,7 @@
                       }
                     }
                   },
-                  "required": [
-                    "logs"
-                  ],
+                  "required": ["logs"],
                   "additionalProperties": false
                 }
               }
@@ -5100,9 +4740,7 @@
       "get": {
         "operationId": "billing-getBillingPortalUrl",
         "summary": "Get Stripe billing portal URL",
-        "tags": [
-          "Billing"
-        ],
+        "tags": ["Billing"],
         "security": [
           {
             "Authorization": []
@@ -5130,9 +4768,7 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "billingPortalUrl"
-                  ],
+                  "required": ["billingPortalUrl"],
                   "additionalProperties": false
                 }
               }
@@ -5148,9 +4784,7 @@
       "get": {
         "operationId": "billing-listInvoices",
         "summary": "List invoices",
-        "tags": [
-          "Billing"
-        ],
+        "tags": ["Billing"],
         "security": [
           {
             "Authorization": []
@@ -5196,20 +4830,12 @@
                             "nullable": true
                           }
                         },
-                        "required": [
-                          "id",
-                          "url",
-                          "amount",
-                          "currency",
-                          "date"
-                        ],
+                        "required": ["id", "url", "amount", "currency", "date"],
                         "additionalProperties": false
                       }
                     }
                   },
-                  "required": [
-                    "invoices"
-                  ],
+                  "required": ["invoices"],
                   "additionalProperties": false
                 }
               }
@@ -5225,9 +4851,7 @@
       "post": {
         "operationId": "billing-createCheckoutSession",
         "summary": "Create checkout session to create a new subscription",
-        "tags": [
-          "Billing"
-        ],
+        "tags": ["Billing"],
         "security": [
           {
             "Authorization": []
@@ -5251,17 +4875,11 @@
                   },
                   "currency": {
                     "type": "string",
-                    "enum": [
-                      "usd",
-                      "eur"
-                    ]
+                    "enum": ["usd", "eur"]
                   },
                   "plan": {
                     "type": "string",
-                    "enum": [
-                      "STARTER",
-                      "PRO"
-                    ]
+                    "enum": ["STARTER", "PRO"]
                   },
                   "returnUrl": {
                     "type": "string"
@@ -5282,10 +4900,7 @@
                         "type": "string"
                       }
                     },
-                    "required": [
-                      "type",
-                      "value"
-                    ],
+                    "required": ["type", "value"],
                     "additionalProperties": false
                   },
                   "isYearly": {
@@ -5321,9 +4936,7 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "checkoutUrl"
-                  ],
+                  "required": ["checkoutUrl"],
                   "additionalProperties": false
                 }
               }
@@ -5339,9 +4952,7 @@
       "patch": {
         "operationId": "billing-updateSubscription",
         "summary": "Update subscription",
-        "tags": [
-          "Billing"
-        ],
+        "tags": ["Billing"],
         "security": [
           {
             "Authorization": []
@@ -5362,10 +4973,7 @@
                   },
                   "plan": {
                     "type": "string",
-                    "enum": [
-                      "STARTER",
-                      "PRO"
-                    ]
+                    "enum": ["STARTER", "PRO"]
                   },
                   "additionalChats": {
                     "type": "number"
@@ -5375,10 +4983,7 @@
                   },
                   "currency": {
                     "type": "string",
-                    "enum": [
-                      "usd",
-                      "eur"
-                    ]
+                    "enum": ["usd", "eur"]
                   },
                   "isYearly": {
                     "type": "boolean"
@@ -5530,9 +5135,7 @@
       "get": {
         "operationId": "billing-getSubscription",
         "summary": "List invoices",
-        "tags": [
-          "Billing"
-        ],
+        "tags": ["Billing"],
         "security": [
           {
             "Authorization": []
@@ -5566,34 +5169,24 @@
                             },
                             "currency": {
                               "type": "string",
-                              "enum": [
-                                "eur",
-                                "usd"
-                              ]
+                              "enum": ["eur", "usd"]
                             },
                             "cancelDate": {
                               "type": "string",
                               "format": "date-time"
                             }
                           },
-                          "required": [
-                            "isYearly",
-                            "currency"
-                          ],
+                          "required": ["isYearly", "currency"],
                           "additionalProperties": false
                         },
                         {
-                          "enum": [
-                            "null"
-                          ],
+                          "enum": ["null"],
                           "nullable": true
                         }
                       ]
                     }
                   },
-                  "required": [
-                    "subscription"
-                  ],
+                  "required": ["subscription"],
                   "additionalProperties": false
                 }
               }
@@ -5609,9 +5202,7 @@
       "get": {
         "operationId": "billing-getUsage",
         "summary": "Get current plan usage",
-        "tags": [
-          "Billing"
-        ],
+        "tags": ["Billing"],
         "security": [
           {
             "Authorization": []
@@ -5642,10 +5233,7 @@
                       "type": "number"
                     }
                   },
-                  "required": [
-                    "totalChatsUsed",
-                    "totalStorageUsed"
-                  ],
+                  "required": ["totalChatsUsed", "totalStorageUsed"],
                   "additionalProperties": false
                 }
               }
@@ -5661,9 +5249,7 @@
       "post": {
         "operationId": "billing-createCustomCheckoutSession",
         "summary": "Create custom checkout session to make a workspace pay for a custom plan",
-        "tags": [
-          "Billing"
-        ],
+        "tags": ["Billing"],
         "security": [
           {
             "Authorization": []
@@ -5686,11 +5272,7 @@
                     "type": "string"
                   }
                 },
-                "required": [
-                  "email",
-                  "workspaceId",
-                  "returnUrl"
-                ],
+                "required": ["email", "workspaceId", "returnUrl"],
                 "additionalProperties": false
               }
             }
@@ -5709,9 +5291,7 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "checkoutUrl"
-                  ],
+                  "required": ["checkoutUrl"],
                   "additionalProperties": false
                 }
               }
@@ -5727,9 +5307,7 @@
       "post": {
         "operationId": "credentials-createCredentials",
         "summary": "Create credentials",
-        "tags": [
-          "Credentials"
-        ],
+        "tags": ["Credentials"],
         "security": [
           {
             "Authorization": []
@@ -5760,10 +5338,7 @@
                                     "type": "string"
                                   }
                                 },
-                                "required": [
-                                  "secretKey",
-                                  "publicKey"
-                                ],
+                                "required": ["secretKey", "publicKey"],
                                 "additionalProperties": false
                               },
                               "test": {
@@ -5779,17 +5354,12 @@
                                 "additionalProperties": false
                               }
                             },
-                            "required": [
-                              "live",
-                              "test"
-                            ],
+                            "required": ["live", "test"],
                             "additionalProperties": false
                           },
                           "type": {
                             "type": "string",
-                            "enum": [
-                              "stripe"
-                            ]
+                            "enum": ["stripe"]
                           },
                           "workspaceId": {
                             "type": "string"
@@ -5798,12 +5368,7 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "data",
-                          "type",
-                          "workspaceId",
-                          "name"
-                        ],
+                        "required": ["data", "type", "workspaceId", "name"],
                         "additionalProperties": false
                       },
                       {
@@ -5840,17 +5405,12 @@
                                 "additionalProperties": false
                               }
                             },
-                            "required": [
-                              "port",
-                              "from"
-                            ],
+                            "required": ["port", "from"],
                             "additionalProperties": false
                           },
                           "type": {
                             "type": "string",
-                            "enum": [
-                              "smtp"
-                            ]
+                            "enum": ["smtp"]
                           },
                           "workspaceId": {
                             "type": "string"
@@ -5859,12 +5419,7 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "data",
-                          "type",
-                          "workspaceId",
-                          "name"
-                        ],
+                        "required": ["data", "type", "workspaceId", "name"],
                         "additionalProperties": false
                       },
                       {
@@ -5901,9 +5456,7 @@
                           },
                           "type": {
                             "type": "string",
-                            "enum": [
-                              "google sheets"
-                            ]
+                            "enum": ["google sheets"]
                           },
                           "workspaceId": {
                             "type": "string"
@@ -5912,12 +5465,7 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "data",
-                          "type",
-                          "workspaceId",
-                          "name"
-                        ],
+                        "required": ["data", "type", "workspaceId", "name"],
                         "additionalProperties": false
                       },
                       {
@@ -5930,16 +5478,12 @@
                                 "type": "string"
                               }
                             },
-                            "required": [
-                              "apiKey"
-                            ],
+                            "required": ["apiKey"],
                             "additionalProperties": false
                           },
                           "type": {
                             "type": "string",
-                            "enum": [
-                              "openai"
-                            ]
+                            "enum": ["openai"]
                           },
                           "workspaceId": {
                             "type": "string"
@@ -5948,20 +5492,13 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "data",
-                          "type",
-                          "workspaceId",
-                          "name"
-                        ],
+                        "required": ["data", "type", "workspaceId", "name"],
                         "additionalProperties": false
                       }
                     ]
                   }
                 },
-                "required": [
-                  "credentials"
-                ],
+                "required": ["credentials"],
                 "additionalProperties": false
               }
             }
@@ -5980,9 +5517,7 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "credentialsId"
-                  ],
+                  "required": ["credentialsId"],
                   "additionalProperties": false
                 }
               }
@@ -5996,9 +5531,7 @@
       "get": {
         "operationId": "credentials-listCredentials",
         "summary": "List workspace credentials",
-        "tags": [
-          "Credentials"
-        ],
+        "tags": ["Credentials"],
         "security": [
           {
             "Authorization": []
@@ -6025,31 +5558,23 @@
                       "anyOf": [
                         {
                           "type": "string",
-                          "enum": [
-                            "stripe"
-                          ]
+                          "enum": ["stripe"]
                         },
                         {
                           "type": "string",
-                          "enum": [
-                            "smtp"
-                          ]
+                          "enum": ["smtp"]
                         }
                       ]
                     },
                     {
                       "type": "string",
-                      "enum": [
-                        "google sheets"
-                      ]
+                      "enum": ["google sheets"]
                     }
                   ]
                 },
                 {
                   "type": "string",
-                  "enum": [
-                    "openai"
-                  ]
+                  "enum": ["openai"]
                 }
               ]
             }
@@ -6075,17 +5600,12 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "id",
-                          "name"
-                        ],
+                        "required": ["id", "name"],
                         "additionalProperties": false
                       }
                     }
                   },
-                  "required": [
-                    "credentials"
-                  ],
+                  "required": ["credentials"],
                   "additionalProperties": false
                 }
               }
@@ -6101,9 +5621,7 @@
       "delete": {
         "operationId": "credentials-deleteCredentials",
         "summary": "Delete credentials",
-        "tags": [
-          "Credentials"
-        ],
+        "tags": ["Credentials"],
         "security": [
           {
             "Authorization": []
@@ -6139,9 +5657,7 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "credentialsId"
-                  ],
+                  "required": ["credentialsId"],
                   "additionalProperties": false
                 }
               }
@@ -6157,9 +5673,7 @@
       "get": {
         "operationId": "theme-listThemeTemplates",
         "summary": "List theme templates",
-        "tags": [
-          "Theme template"
-        ],
+        "tags": ["Theme template"],
         "security": [
           {
             "Authorization": []
@@ -6208,26 +5722,17 @@
                                     "properties": {
                                       "type": {
                                         "type": "string",
-                                        "enum": [
-                                          "Color",
-                                          "Image",
-                                          "None"
-                                        ]
+                                        "enum": ["Color", "Image", "None"]
                                       },
                                       "content": {
                                         "type": "string"
                                       }
                                     },
-                                    "required": [
-                                      "type"
-                                    ],
+                                    "required": ["type"],
                                     "additionalProperties": false
                                   }
                                 },
-                                "required": [
-                                  "font",
-                                  "background"
-                                ],
+                                "required": ["font", "background"],
                                 "additionalProperties": false
                               },
                               "chat": {
@@ -6243,9 +5748,7 @@
                                         "type": "string"
                                       }
                                     },
-                                    "required": [
-                                      "isEnabled"
-                                    ],
+                                    "required": ["isEnabled"],
                                     "additionalProperties": false
                                   },
                                   "guestAvatar": {
@@ -6258,9 +5761,7 @@
                                         "type": "string"
                                       }
                                     },
-                                    "required": [
-                                      "isEnabled"
-                                    ],
+                                    "required": ["isEnabled"],
                                     "additionalProperties": false
                                   },
                                   "hostBubbles": {
@@ -6273,10 +5774,7 @@
                                         "type": "string"
                                       }
                                     },
-                                    "required": [
-                                      "backgroundColor",
-                                      "color"
-                                    ],
+                                    "required": ["backgroundColor", "color"],
                                     "additionalProperties": false
                                   },
                                   "guestBubbles": {
@@ -6289,10 +5787,7 @@
                                         "type": "string"
                                       }
                                     },
-                                    "required": [
-                                      "backgroundColor",
-                                      "color"
-                                    ],
+                                    "required": ["backgroundColor", "color"],
                                     "additionalProperties": false
                                   },
                                   "buttons": {
@@ -6305,10 +5800,7 @@
                                         "type": "string"
                                       }
                                     },
-                                    "required": [
-                                      "backgroundColor",
-                                      "color"
-                                    ],
+                                    "required": ["backgroundColor", "color"],
                                     "additionalProperties": false
                                   },
                                   "inputs": {
@@ -6333,11 +5825,7 @@
                                   },
                                   "roundness": {
                                     "type": "string",
-                                    "enum": [
-                                      "none",
-                                      "medium",
-                                      "large"
-                                    ]
+                                    "enum": ["none", "medium", "large"]
                                   }
                                 },
                                 "required": [
@@ -6352,25 +5840,16 @@
                                 "type": "string"
                               }
                             },
-                            "required": [
-                              "general",
-                              "chat"
-                            ],
+                            "required": ["general", "chat"],
                             "additionalProperties": false
                           }
                         },
-                        "required": [
-                          "id",
-                          "name",
-                          "theme"
-                        ],
+                        "required": ["id", "name", "theme"],
                         "additionalProperties": false
                       }
                     }
                   },
-                  "required": [
-                    "themeTemplates"
-                  ],
+                  "required": ["themeTemplates"],
                   "additionalProperties": false
                 }
               }
@@ -6386,9 +5865,7 @@
       "put": {
         "operationId": "theme-saveThemeTemplate",
         "summary": "Save theme template",
-        "tags": [
-          "Theme template"
-        ],
+        "tags": ["Theme template"],
         "security": [
           {
             "Authorization": []
@@ -6421,26 +5898,17 @@
                             "properties": {
                               "type": {
                                 "type": "string",
-                                "enum": [
-                                  "Color",
-                                  "Image",
-                                  "None"
-                                ]
+                                "enum": ["Color", "Image", "None"]
                               },
                               "content": {
                                 "type": "string"
                               }
                             },
-                            "required": [
-                              "type"
-                            ],
+                            "required": ["type"],
                             "additionalProperties": false
                           }
                         },
-                        "required": [
-                          "font",
-                          "background"
-                        ],
+                        "required": ["font", "background"],
                         "additionalProperties": false
                       },
                       "chat": {
@@ -6456,9 +5924,7 @@
                                 "type": "string"
                               }
                             },
-                            "required": [
-                              "isEnabled"
-                            ],
+                            "required": ["isEnabled"],
                             "additionalProperties": false
                           },
                           "guestAvatar": {
@@ -6471,9 +5937,7 @@
                                 "type": "string"
                               }
                             },
-                            "required": [
-                              "isEnabled"
-                            ],
+                            "required": ["isEnabled"],
                             "additionalProperties": false
                           },
                           "hostBubbles": {
@@ -6486,10 +5950,7 @@
                                 "type": "string"
                               }
                             },
-                            "required": [
-                              "backgroundColor",
-                              "color"
-                            ],
+                            "required": ["backgroundColor", "color"],
                             "additionalProperties": false
                           },
                           "guestBubbles": {
@@ -6502,10 +5963,7 @@
                                 "type": "string"
                               }
                             },
-                            "required": [
-                              "backgroundColor",
-                              "color"
-                            ],
+                            "required": ["backgroundColor", "color"],
                             "additionalProperties": false
                           },
                           "buttons": {
@@ -6518,10 +5976,7 @@
                                 "type": "string"
                               }
                             },
-                            "required": [
-                              "backgroundColor",
-                              "color"
-                            ],
+                            "required": ["backgroundColor", "color"],
                             "additionalProperties": false
                           },
                           "inputs": {
@@ -6546,11 +6001,7 @@
                           },
                           "roundness": {
                             "type": "string",
-                            "enum": [
-                              "none",
-                              "medium",
-                              "large"
-                            ]
+                            "enum": ["none", "medium", "large"]
                           }
                         },
                         "required": [
@@ -6565,18 +6016,11 @@
                         "type": "string"
                       }
                     },
-                    "required": [
-                      "general",
-                      "chat"
-                    ],
+                    "required": ["general", "chat"],
                     "additionalProperties": false
                   }
                 },
-                "required": [
-                  "workspaceId",
-                  "name",
-                  "theme"
-                ],
+                "required": ["workspaceId", "name", "theme"],
                 "additionalProperties": false
               }
             }
@@ -6623,26 +6067,17 @@
                                   "properties": {
                                     "type": {
                                       "type": "string",
-                                      "enum": [
-                                        "Color",
-                                        "Image",
-                                        "None"
-                                      ]
+                                      "enum": ["Color", "Image", "None"]
                                     },
                                     "content": {
                                       "type": "string"
                                     }
                                   },
-                                  "required": [
-                                    "type"
-                                  ],
+                                  "required": ["type"],
                                   "additionalProperties": false
                                 }
                               },
-                              "required": [
-                                "font",
-                                "background"
-                              ],
+                              "required": ["font", "background"],
                               "additionalProperties": false
                             },
                             "chat": {
@@ -6658,9 +6093,7 @@
                                       "type": "string"
                                     }
                                   },
-                                  "required": [
-                                    "isEnabled"
-                                  ],
+                                  "required": ["isEnabled"],
                                   "additionalProperties": false
                                 },
                                 "guestAvatar": {
@@ -6673,9 +6106,7 @@
                                       "type": "string"
                                     }
                                   },
-                                  "required": [
-                                    "isEnabled"
-                                  ],
+                                  "required": ["isEnabled"],
                                   "additionalProperties": false
                                 },
                                 "hostBubbles": {
@@ -6688,10 +6119,7 @@
                                       "type": "string"
                                     }
                                   },
-                                  "required": [
-                                    "backgroundColor",
-                                    "color"
-                                  ],
+                                  "required": ["backgroundColor", "color"],
                                   "additionalProperties": false
                                 },
                                 "guestBubbles": {
@@ -6704,10 +6132,7 @@
                                       "type": "string"
                                     }
                                   },
-                                  "required": [
-                                    "backgroundColor",
-                                    "color"
-                                  ],
+                                  "required": ["backgroundColor", "color"],
                                   "additionalProperties": false
                                 },
                                 "buttons": {
@@ -6720,10 +6145,7 @@
                                       "type": "string"
                                     }
                                   },
-                                  "required": [
-                                    "backgroundColor",
-                                    "color"
-                                  ],
+                                  "required": ["backgroundColor", "color"],
                                   "additionalProperties": false
                                 },
                                 "inputs": {
@@ -6748,11 +6170,7 @@
                                 },
                                 "roundness": {
                                   "type": "string",
-                                  "enum": [
-                                    "none",
-                                    "medium",
-                                    "large"
-                                  ]
+                                  "enum": ["none", "medium", "large"]
                                 }
                               },
                               "required": [
@@ -6767,10 +6185,7 @@
                               "type": "string"
                             }
                           },
-                          "required": [
-                            "general",
-                            "chat"
-                          ],
+                          "required": ["general", "chat"],
                           "additionalProperties": false
                         },
                         "workspaceId": {
@@ -6796,9 +6211,7 @@
                       "additionalProperties": false
                     }
                   },
-                  "required": [
-                    "themeTemplate"
-                  ],
+                  "required": ["themeTemplate"],
                   "additionalProperties": false
                 }
               }
@@ -6812,9 +6225,7 @@
       "delete": {
         "operationId": "theme-deleteThemeTemplate",
         "summary": "Delete a theme template",
-        "tags": [
-          "Theme template"
-        ],
+        "tags": ["Theme template"],
         "security": [
           {
             "Authorization": []
@@ -6869,26 +6280,17 @@
                                   "properties": {
                                     "type": {
                                       "type": "string",
-                                      "enum": [
-                                        "Color",
-                                        "Image",
-                                        "None"
-                                      ]
+                                      "enum": ["Color", "Image", "None"]
                                     },
                                     "content": {
                                       "type": "string"
                                     }
                                   },
-                                  "required": [
-                                    "type"
-                                  ],
+                                  "required": ["type"],
                                   "additionalProperties": false
                                 }
                               },
-                              "required": [
-                                "font",
-                                "background"
-                              ],
+                              "required": ["font", "background"],
                               "additionalProperties": false
                             },
                             "chat": {
@@ -6904,9 +6306,7 @@
                                       "type": "string"
                                     }
                                   },
-                                  "required": [
-                                    "isEnabled"
-                                  ],
+                                  "required": ["isEnabled"],
                                   "additionalProperties": false
                                 },
                                 "guestAvatar": {
@@ -6919,9 +6319,7 @@
                                       "type": "string"
                                     }
                                   },
-                                  "required": [
-                                    "isEnabled"
-                                  ],
+                                  "required": ["isEnabled"],
                                   "additionalProperties": false
                                 },
                                 "hostBubbles": {
@@ -6934,10 +6332,7 @@
                                       "type": "string"
                                     }
                                   },
-                                  "required": [
-                                    "backgroundColor",
-                                    "color"
-                                  ],
+                                  "required": ["backgroundColor", "color"],
                                   "additionalProperties": false
                                 },
                                 "guestBubbles": {
@@ -6950,10 +6345,7 @@
                                       "type": "string"
                                     }
                                   },
-                                  "required": [
-                                    "backgroundColor",
-                                    "color"
-                                  ],
+                                  "required": ["backgroundColor", "color"],
                                   "additionalProperties": false
                                 },
                                 "buttons": {
@@ -6966,10 +6358,7 @@
                                       "type": "string"
                                     }
                                   },
-                                  "required": [
-                                    "backgroundColor",
-                                    "color"
-                                  ],
+                                  "required": ["backgroundColor", "color"],
                                   "additionalProperties": false
                                 },
                                 "inputs": {
@@ -6994,11 +6383,7 @@
                                 },
                                 "roundness": {
                                   "type": "string",
-                                  "enum": [
-                                    "none",
-                                    "medium",
-                                    "large"
-                                  ]
+                                  "enum": ["none", "medium", "large"]
                                 }
                               },
                               "required": [
@@ -7013,10 +6398,7 @@
                               "type": "string"
                             }
                           },
-                          "required": [
-                            "general",
-                            "chat"
-                          ],
+                          "required": ["general", "chat"],
                           "additionalProperties": false
                         },
                         "workspaceId": {
@@ -7042,9 +6424,7 @@
                       "additionalProperties": false
                     }
                   },
-                  "required": [
-                    "themeTemplate"
-                  ],
+                  "required": ["themeTemplate"],
                   "additionalProperties": false
                 }
               }
@@ -7087,17 +6467,12 @@
                         "type": "string"
                       }
                     },
-                    "required": [
-                      "message"
-                    ],
+                    "required": ["message"],
                     "additionalProperties": false
                   }
                 }
               },
-              "required": [
-                "message",
-                "code"
-              ],
+              "required": ["message", "code"],
               "additionalProperties": false
             }
           }

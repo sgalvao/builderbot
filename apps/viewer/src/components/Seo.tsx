@@ -35,7 +35,10 @@ export const SEO = ({
       />
 
       <meta property="og:type" content="website" />
-      <meta property="og:url" content={url ?? 'https://bot.typebot.io'} />
+      <meta
+        property="og:url"
+        content={url ?? 'https://chat.hackleads.com.br'}
+      />
       <meta property="og:title" content={title ?? typebotName} />
       <meta property="og:site_name" content={title ?? typebotName} />
       <meta
@@ -48,11 +51,14 @@ export const SEO = ({
       <meta
         property="og:image"
         itemProp="image"
-        content={imageUrl ?? 'https://bot.typebot.io/site-preview.png'}
+        content={imageUrl ?? 'https://chat.hackleads.com.br/site-preview.png'}
       />
 
       <meta property="twitter:card" content="summary_large_image" />
-      <meta property="twitter:url" content={url ?? 'https://bot.typebot.io'} />
+      <meta
+        property="twitter:url"
+        content={url ?? 'https://chat.hackleads.com.br'}
+      />
       <meta property="twitter:title" content={title ?? typebotName} />
       <meta
         property="twitter:description"
@@ -63,7 +69,7 @@ export const SEO = ({
       />
       <meta
         property="twitter:image"
-        content={imageUrl ?? 'https://bot.typebot.io/site-preview.png'}
+        content={imageUrl ?? 'https://chat.hackleads.com.br/site-preview.png'}
       />
     </Head>
     {isNotEmpty(googleTagManagerId) && (
