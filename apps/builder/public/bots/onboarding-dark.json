@@ -1,26 +1,28 @@
 {
-  "id": "cl128l5vx007509il86n74oer",
-  "createdAt": "2022-03-22T14:33:05.037Z",
-  "updatedAt": "2022-03-22T16:33:37.928Z",
-  "name": "Onboarding",
+  "id": "vf6a62p1vyocxxnmikf2awjc",
+  "version": "3",
+  "createdAt": "2023-07-15T01:37:03.019Z",
+  "updatedAt": "2023-07-15T01:43:42.100Z",
+  "icon": null,
+  "name": "Onboarding copy",
   "folderId": null,
   "groups": [
     {
-      "id": "clcueadzi00043b6s1r8wnql8",
+      "id": "oyrzk1eqslnb8lga65qti40c",
       "title": "Start",
       "blocks": [
         {
           "id": "cl1265zct0001mb1afel460do",
           "type": "start",
           "label": "Start",
-          "groupId": "clcueadzi00043b6s1r8wnql8",
-          "outgoingEdgeId": "clcuefdfv000r3b6sqzv3prz3"
+          "groupId": "oyrzk1eqslnb8lga65qti40c",
+          "outgoingEdgeId": "z28ohw1ujjgfl3g8p679gxxz"
         }
       ],
       "graphCoordinates": { "x": 0, "y": 0 }
     },
     {
-      "id": "clcueadzi00063b6sch7b1f32",
+      "id": "d73efb1mmdkryzmorbqa9wdv",
       "title": "Name",
       "blocks": [
         {
@@ -41,35 +43,35 @@
                 ],
                 "logicalOperator": "AND"
               },
-              "outgoingEdgeId": "clcueadzi000l3b6smlf218u7"
+              "outgoingEdgeId": "ks4gezcu4ey4jf70wx3crtv3"
             }
           ],
-          "groupId": "clcueadzi00063b6sch7b1f32"
+          "groupId": "d73efb1mmdkryzmorbqa9wdv"
         },
         {
           "id": "cl1267q2c000e2e6dynjeg83n",
           "type": "text",
           "content": {
             "richText": [
-              { "type": "p", "children": [{ "text": "Welcome 👋" }] }
+              { "type": "p", "children": [{ "text": "Bem Vindo 👋" }] }
             ]
           },
-          "groupId": "clcueadzi00063b6sch7b1f32"
+          "groupId": "d73efb1mmdkryzmorbqa9wdv"
         },
         {
           "id": "cl1267y1u000f2e6d4rlglv6g",
           "type": "text",
           "content": {
             "richText": [
-              { "type": "p", "children": [{ "text": "What's your name?" }] }
+              { "type": "p", "children": [{ "text": "Qual seu nome?" }] }
             ]
           },
-          "groupId": "clcueadzi00063b6sch7b1f32"
+          "groupId": "d73efb1mmdkryzmorbqa9wdv"
         },
         {
           "id": "cl126820m000g2e6dfleq78bt",
           "type": "text input",
-          "groupId": "clcueadzi00063b6sch7b1f32",
+          "groupId": "d73efb1mmdkryzmorbqa9wdv",
           "options": {
             "isLong": false,
             "labels": {
@@ -78,13 +80,13 @@
             },
             "variableId": "cl126f4hf000i2e6d8zvzc3t1"
           },
-          "outgoingEdgeId": "clcuecvjo000q3b6s42ouw3zz"
+          "outgoingEdgeId": "tid99kb6ey5ahfgudkijldwp"
         }
       ],
-      "graphCoordinates": { "x": 328.22861564828236, "y": -1.7421511890097776 }
+      "graphCoordinates": { "x": 328.23, "y": -1.74 }
     },
     {
-      "id": "clcueadzi00073b6sqz8n5vxp",
+      "id": "unq3iwldxm10avgeoeb0r9uj",
       "title": "Company",
       "blocks": [
         {
@@ -92,10 +94,10 @@
           "type": "text",
           "content": {
             "richText": [
-              { "type": "p", "children": [{ "text": "Welcome {{Name}} 👋" }] }
+              { "type": "p", "children": [{ "text": "Bem vindo {{Name}} 👋" }] }
             ]
           },
-          "groupId": "clcueadzi00073b6sqz8n5vxp"
+          "groupId": "unq3iwldxm10avgeoeb0r9uj"
         },
         {
           "id": "cl126hb9m000l2e6d5qk3mohn",
@@ -106,13 +108,13 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "I'm super pumped that you've decided to try out Typebot 😍"
+                    "text": "Estamos muito felizes que está testando o HackLeads 😍"
                   }
                 ]
               }
             ]
           },
-          "groupId": "clcueadzi00073b6sqz8n5vxp"
+          "groupId": "unq3iwldxm10avgeoeb0r9uj"
         },
         {
           "id": "cl126hpw1000m2e6dneousygl",
@@ -123,13 +125,13 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "You are small steps away from meaningful, hyper-personalized experience for your users"
+                    "text": "Você está a poucos passos de ir para o próximo nível quando o assunto é conquistar Leads."
                   }
                 ]
               }
             ]
           },
-          "groupId": "clcueadzi00073b6sqz8n5vxp"
+          "groupId": "unq3iwldxm10avgeoeb0r9uj"
         },
         {
           "id": "cl126guhd000k2e6d6ypkex9z",
@@ -139,12 +141,12 @@
               {
                 "type": "p",
                 "children": [
-                  { "text": "Let's get you set up for your Typebot journey." }
+                  { "text": "Bora preparar sua jornada aqui no HackLeads." }
                 ]
               }
             ]
           },
-          "groupId": "clcueadzi00073b6sqz8n5vxp"
+          "groupId": "unq3iwldxm10avgeoeb0r9uj"
         },
         {
           "id": "cl126ixp9000q2e6dslh0zypi",
@@ -153,11 +155,13 @@
             "richText": [
               {
                 "type": "p",
-                "children": [{ "text": "Do you work for a specific company?" }]
+                "children": [
+                  { "text": "Você trabalha para alguma empresa especifica?" }
+                ]
               }
             ]
           },
-          "groupId": "clcueadzi00073b6sqz8n5vxp"
+          "groupId": "unq3iwldxm10avgeoeb0r9uj"
         },
         {
           "id": "cl126jb2q000r2e6dgqlnxnt8",
@@ -167,23 +171,23 @@
               "id": "cl126jb2q000s2e6dm60yq5p2",
               "type": 0,
               "blockId": "cl126jb2q000r2e6dgqlnxnt8",
-              "content": "Yes"
+              "content": "Sim"
             },
             {
               "id": "cl126jc5a000t2e6dqv91w7j6",
               "type": 0,
               "blockId": "cl126jb2q000r2e6dgqlnxnt8",
-              "content": "No",
-              "outgoingEdgeId": "clcueadzi000f3b6sb7lxyeta"
+              "content": "Não",
+              "outgoingEdgeId": "v16pjvhzroz6rx22gvjo8bgo"
             }
           ],
-          "groupId": "clcueadzi00073b6sqz8n5vxp",
+          "groupId": "unq3iwldxm10avgeoeb0r9uj",
           "options": { "buttonLabel": "Send", "isMultipleChoice": false }
         },
         {
           "id": "cl126jioz000v2e6dwrk1f2cb",
           "type": "text input",
-          "groupId": "clcueadzi00073b6sqz8n5vxp",
+          "groupId": "unq3iwldxm10avgeoeb0r9uj",
           "options": {
             "isLong": false,
             "labels": {
@@ -192,13 +196,13 @@
             },
             "variableId": "cl126jqww000w2e6dq9yv4ifq"
           },
-          "outgoingEdgeId": "clcueb0cl000p3b6sisrc741n"
+          "outgoingEdgeId": "d01weqmqqm5pkqjsu4pw62ed"
         }
       ],
-      "graphCoordinates": { "x": 679.828061917379, "y": 3.351428911218571 }
+      "graphCoordinates": { "x": 679.83, "y": 3.35 }
     },
     {
-      "id": "clcueadzi00093b6s82ivles8",
+      "id": "vlwmmuhkh9cw03y00s3pvi51",
       "title": "Bot category",
       "blocks": [
         {
@@ -210,13 +214,13 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "What type of bots are you planning to build with Typebot?"
+                    "text": "Quais tipos de Bots está planejando construir aqui no HackLeads?"
                   }
                 ]
               }
             ]
           },
-          "groupId": "clcueadzi00093b6s82ivles8"
+          "groupId": "vlwmmuhkh9cw03y00s3pvi51"
         },
         {
           "id": "cl126lb8v00142e6duv5qe08l",
@@ -226,13 +230,13 @@
               "id": "cl126onz9001g2e6dk0nbjeu6",
               "type": 0,
               "blockId": "cl126lb8v00142e6duv5qe08l",
-              "content": "Lead qualification"
+              "content": "Leads Qualificados"
             },
             {
               "id": "cl126lm6c00172e6d1pfvdiju",
               "type": 0,
               "blockId": "cl126lb8v00142e6duv5qe08l",
-              "content": "Customer support"
+              "content": "Suporte ao Cliente"
             },
             {
               "id": "cl126orr2001h2e6d0fqs7737",
@@ -244,19 +248,13 @@
               "id": "cl126oudu001i2e6dktwi7qwv",
               "type": 0,
               "blockId": "cl126lb8v00142e6duv5qe08l",
-              "content": "User onboarding"
+              "content": "Onboarding do Usuario"
             },
             {
               "id": "cl126luv500192e6dl317ssyr",
               "type": 0,
               "blockId": "cl126lb8v00142e6duv5qe08l",
               "content": "Quizzes"
-            },
-            {
-              "id": "cl126lz8q001a2e6d8b9lb3b5",
-              "type": 0,
-              "blockId": "cl126lb8v00142e6duv5qe08l",
-              "content": "Content distribution"
             },
             {
               "id": "cl126nf7k001d2e6dg2zczjgz",
@@ -268,10 +266,10 @@
               "id": "cl126ngy8001e2e6ddfo5s9fm",
               "type": 0,
               "blockId": "cl126lb8v00142e6duv5qe08l",
-              "content": "Other"
+              "content": "Outro"
             }
           ],
-          "groupId": "clcueadzi00093b6s82ivles8",
+          "groupId": "vlwmmuhkh9cw03y00s3pvi51",
           "options": {
             "variableId": "cl126mo3t001b2e6dvyi16bkd",
             "buttonLabel": "Send",
@@ -290,24 +288,24 @@
                 "comparisons": [
                   {
                     "id": "cl1278irq002y2e6dv4965diw",
-                    "value": "Other",
+                    "value": "Outro",
                     "variableId": "cl126mo3t001b2e6dvyi16bkd",
                     "comparisonOperator": "Contains"
                   }
                 ],
                 "logicalOperator": "AND"
               },
-              "outgoingEdgeId": "clcueadzi000g3b6sdb6o0xet"
+              "outgoingEdgeId": "t7hwe2iza3w4vqh7stwatwkp"
             }
           ],
-          "groupId": "clcueadzi00093b6s82ivles8",
-          "outgoingEdgeId": "clcueadzi000h3b6shpxplygo"
+          "groupId": "vlwmmuhkh9cw03y00s3pvi51",
+          "outgoingEdgeId": "h92n5wjd509upglcqtcxhhin"
         }
       ],
-      "graphCoordinates": { "x": 1030.2081982319628, "y": -0.2818258211374715 }
+      "graphCoordinates": { "x": 1030.21, "y": -0.28 }
     },
     {
-      "id": "clcueadzi000a3b6spk404zpz",
+      "id": "uattok54soau8trbuwek5mfz",
       "title": "Bye",
       "blocks": [
         {
@@ -318,12 +316,12 @@
               {
                 "type": "p",
                 "children": [
-                  { "text": "Thank you for answering those questions!" }
+                  { "text": "Obrigado por responder estas perguntas!" }
                 ]
               }
             ]
           },
-          "groupId": "clcueadzi000a3b6spk404zpz"
+          "groupId": "uattok54soau8trbuwek5mfz"
         },
         {
           "id": "cl126rfy6001t2e6d21gcb6b0",
@@ -331,7 +329,7 @@
           "content": {
             "url": "https://media4.giphy.com/media/l0amJzVHIAfl7jMDos/giphy.gif?cid=fe3852a3i4c33635xdtj3nesr9uq4zteujaab6b0jr42gpxx&rid=giphy.gif&ct=g"
           },
-          "groupId": "clcueadzi000a3b6spk404zpz"
+          "groupId": "uattok54soau8trbuwek5mfz"
         },
         {
           "id": "cl126txta001y2e6dtxrbsnek",
@@ -342,13 +340,13 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "You can reach out to me using the contact bubble on the bottom right corner 🤓"
+                    "text": "Qualquer dúvida que tiver pode nos chamar através do chat no canto inferior direito🤓"
                   }
                 ]
               }
             ]
           },
-          "groupId": "clcueadzi000a3b6spk404zpz"
+          "groupId": "uattok54soau8trbuwek5mfz"
         },
         {
           "id": "cl12buyly00172e6991bz38ch",
@@ -357,17 +355,17 @@
             "richText": [
               {
                 "type": "p",
-                "children": [{ "text": "Let's create your first typebot..." }]
+                "children": [{ "text": "Bora criar seu primeiro HackLead..." }]
               }
             ]
           },
-          "groupId": "clcueadzi000a3b6spk404zpz"
+          "groupId": "uattok54soau8trbuwek5mfz"
         }
       ],
-      "graphCoordinates": { "x": 1585.6402200792238, "y": 219.28927860860924 }
+      "graphCoordinates": { "x": 1585.64, "y": 219.29 }
     },
     {
-      "id": "clcueadzi000b3b6sv6936vs4",
+      "id": "b6oktfdabdgm50mctqe2mrr2",
       "title": "Other category",
       "blocks": [
         {
@@ -378,21 +376,21 @@
               { "type": "p", "children": [{ "text": "What else?" }] }
             ]
           },
-          "groupId": "clcueadzi000b3b6sv6936vs4"
+          "groupId": "b6oktfdabdgm50mctqe2mrr2"
         },
         {
           "id": "cl126pv7n001o2e6dajltc4qz",
           "type": "text input",
-          "groupId": "clcueadzi000b3b6sv6936vs4",
+          "groupId": "b6oktfdabdgm50mctqe2mrr2",
           "options": {
             "isLong": false,
             "labels": { "button": "Send", "placeholder": "Type your answer" },
             "variableId": "cl126q38p001q2e6d0hj23f6b"
           },
-          "outgoingEdgeId": "clcuehrt2000s3b6skmk7rhje"
+          "outgoingEdgeId": "vzea68u757ek00e76yr99jz2"
         }
       ],
-      "graphCoordinates": { "x": 1369.6844213687823, "y": -7.90789096298402 }
+      "graphCoordinates": { "x": 1369.68, "y": -7.91 }
     }
   ],
   "variables": [
@@ -403,71 +401,71 @@
   ],
   "edges": [
     {
-      "id": "clcueadzi000f3b6sb7lxyeta",
-      "to": { "groupId": "clcueadzi00093b6s82ivles8" },
+      "id": "v16pjvhzroz6rx22gvjo8bgo",
+      "to": { "groupId": "vlwmmuhkh9cw03y00s3pvi51" },
       "from": {
         "itemId": "cl126jc5a000t2e6dqv91w7j6",
         "blockId": "cl126jb2q000r2e6dgqlnxnt8",
-        "groupId": "clcueadzi00073b6sqz8n5vxp"
+        "groupId": "unq3iwldxm10avgeoeb0r9uj"
       }
     },
     {
-      "id": "clcueadzi000g3b6sdb6o0xet",
-      "to": { "groupId": "clcueadzi000b3b6sv6936vs4" },
+      "id": "t7hwe2iza3w4vqh7stwatwkp",
+      "to": { "groupId": "b6oktfdabdgm50mctqe2mrr2" },
       "from": {
         "itemId": "cl1278gyk002x2e6dwmpzs3nf",
         "blockId": "cl1278gyk002w2e6d744eb87n",
-        "groupId": "clcueadzi00093b6s82ivles8"
+        "groupId": "vlwmmuhkh9cw03y00s3pvi51"
       }
     },
     {
-      "id": "clcueadzi000h3b6shpxplygo",
-      "to": { "groupId": "clcueadzi000a3b6spk404zpz" },
+      "id": "h92n5wjd509upglcqtcxhhin",
+      "to": { "groupId": "uattok54soau8trbuwek5mfz" },
       "from": {
         "blockId": "cl1278gyk002w2e6d744eb87n",
-        "groupId": "clcueadzi00093b6s82ivles8"
+        "groupId": "vlwmmuhkh9cw03y00s3pvi51"
       }
     },
     {
-      "id": "clcueadzi000l3b6smlf218u7",
-      "to": { "groupId": "clcueadzi00073b6sqz8n5vxp" },
+      "id": "ks4gezcu4ey4jf70wx3crtv3",
+      "to": { "groupId": "unq3iwldxm10avgeoeb0r9uj" },
       "from": {
         "itemId": "cl1266bam00052e6dn1sdjnax",
         "blockId": "cl1266bam00042e6dm0gn22vy",
-        "groupId": "clcueadzi00063b6sch7b1f32"
+        "groupId": "d73efb1mmdkryzmorbqa9wdv"
       }
     },
     {
+      "id": "d01weqmqqm5pkqjsu4pw62ed",
+      "to": { "groupId": "vlwmmuhkh9cw03y00s3pvi51" },
       "from": {
-        "groupId": "clcueadzi00073b6sqz8n5vxp",
-        "blockId": "cl126jioz000v2e6dwrk1f2cb"
-      },
-      "to": { "groupId": "clcueadzi00093b6s82ivles8" },
-      "id": "clcueb0cl000p3b6sisrc741n"
+        "blockId": "cl126jioz000v2e6dwrk1f2cb",
+        "groupId": "unq3iwldxm10avgeoeb0r9uj"
+      }
     },
     {
+      "id": "tid99kb6ey5ahfgudkijldwp",
+      "to": { "groupId": "unq3iwldxm10avgeoeb0r9uj" },
       "from": {
-        "groupId": "clcueadzi00063b6sch7b1f32",
-        "blockId": "cl126820m000g2e6dfleq78bt"
-      },
-      "to": { "groupId": "clcueadzi00073b6sqz8n5vxp" },
-      "id": "clcuecvjo000q3b6s42ouw3zz"
+        "blockId": "cl126820m000g2e6dfleq78bt",
+        "groupId": "d73efb1mmdkryzmorbqa9wdv"
+      }
     },
     {
+      "id": "z28ohw1ujjgfl3g8p679gxxz",
+      "to": { "groupId": "d73efb1mmdkryzmorbqa9wdv" },
       "from": {
-        "groupId": "clcueadzi00043b6s1r8wnql8",
-        "blockId": "cl1265zct0001mb1afel460do"
-      },
-      "to": { "groupId": "clcueadzi00063b6sch7b1f32" },
-      "id": "clcuefdfv000r3b6sqzv3prz3"
+        "blockId": "cl1265zct0001mb1afel460do",
+        "groupId": "oyrzk1eqslnb8lga65qti40c"
+      }
     },
     {
+      "id": "vzea68u757ek00e76yr99jz2",
+      "to": { "groupId": "uattok54soau8trbuwek5mfz" },
       "from": {
-        "groupId": "clcueadzi000b3b6sv6936vs4",
-        "blockId": "cl126pv7n001o2e6dajltc4qz"
-      },
-      "to": { "groupId": "clcueadzi000a3b6spk404zpz" },
-      "id": "clcuehrt2000s3b6skmk7rhje"
+        "blockId": "cl126pv7n001o2e6dajltc4qz",
+        "groupId": "b6oktfdabdgm50mctqe2mrr2"
+      }
     }
   ],
   "theme": {
@@ -482,7 +480,7 @@
       "guestBubbles": { "color": "#FFFFFF", "backgroundColor": "#FF8E21" },
       "hostAvatar": {
         "isEnabled": true,
-        "url": "https://s3.eu-west-3.amazonaws.com/typebot/public/typebots/cl0s4zy9m247009l1ybkoojxe/me-square.png"
+        "url": "https://hacklead.s3.amazonaws.com/public/typebots/vf6a62p1vyocxxnmikf2awjc/hostAvatar"
       }
     },
     "general": {
@@ -491,6 +489,7 @@
     },
     "customCss": ".typebot-button {box-shadow: inset 0 1px 0 0 rgb(255 255 255/0.2)}"
   },
+  "selectedThemeTemplateId": null,
   "settings": {
     "general": {
       "isBrandingEnabled": true,
@@ -504,7 +503,7 @@
   },
   "publicId": null,
   "customDomain": null,
-  "workspaceId": "proWorkspace",
+  "workspaceId": "clk3c66uj0002zq7edlukg2od",
   "resultsTablePreferences": null,
   "isArchived": false,
   "isClosed": false
