@@ -48,7 +48,7 @@ export const GuestInvitationEmail = ({
             Make sure to log in as <i>{guestEmail}</i>.
           </Text>
           <MjmlSpacer height="24px" />
-          <Button link={url}>Go to typebot</Button>
+          <Button link={url}>Go to HackLeads</Button>
         </MjmlColumn>
       </MjmlSection>
     </MjmlBody>

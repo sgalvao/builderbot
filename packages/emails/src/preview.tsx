@@ -21,7 +21,7 @@ const createHtmlFile = () => {
     path.resolve(__dirname, 'dist', 'guestInvitation.html'),
     render(
       <GuestInvitationEmail
-        workspaceName={'Typebot'}
+        workspaceName={'HackLead'}
         typebotName={'Lead Generation'}
         url={'https://app.hackleads.com.br'}
         hostEmail={'suporte@hackleads.com.br'}
@@ -57,8 +57,8 @@ const createHtmlFile = () => {
         resultsUrl={'https://app.hackleads.com.br'}
         answers={{
           'Group #1': 'Answer #1',
-          Name: 'Baptiste',
-          Email: 'baptiste.arnaud95@gmail.com',
+          Name: 'Hack Leads Suporte',
+          Email: 'suporte@hackleads.com.br',
         }}
       />
     ).html

@@ -1,7 +1,7 @@
 import { createTransport, SendMailOptions } from 'nodemailer'
 import { env } from '@typebot.io/lib'
 
-export const sendEmail = (
+export const sendEmail = async (
   props: Pick<SendMailOptions, 'to' | 'html' | 'subject'>
 ) => {
   const transporter = createTransport({
@@ -13,8 +13,10 @@ export const sendEmail = (
     },
   })
 
-  return transporter.sendMail({
-    from: process.env.SMTP_FROM ?? env('SMTP_FROM'),
+  const sended = await transporter.sendMail({
+    from: process.env.NEXT_PUBLIC_SMTP_FROM ?? env('SMTP_FROM'),
     ...props,
   })
+
+  return sended
 }
