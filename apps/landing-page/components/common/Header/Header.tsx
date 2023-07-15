@@ -41,7 +41,7 @@ export const Header = () => {
           color={mode('white', 'white')}
         >
           <HStack as={Link} href="/" rel="home" ml="2">
-            <Logo boxSize="35px" />
+            <Logo />
             <Heading as="p" fontSize="lg">
               HackLeads
             </Heading>

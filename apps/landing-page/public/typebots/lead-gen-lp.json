@@ -331,7 +331,7 @@
       },
       "buttons": { "color": "#ffffff", "backgroundColor": "#1a5fff" },
       "hostAvatar": {
-        "url": "http://localhost:9000/typebot/public/typebots/r3lh1bmjzk3sffozu07v1zvr/hostAvatar?v=1689277562543",
+        "url": "https://hacklead.s3.amazonaws.com/public/typebots/vf6a62p1vyocxxnmikf2awjc/hostAvatar",
         "isEnabled": true
       },
       "hostBubbles": { "color": "#ffffff", "backgroundColor": "#1e293b" },
