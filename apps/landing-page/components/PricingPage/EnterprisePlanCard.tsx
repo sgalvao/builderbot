@@ -23,8 +23,8 @@ export const EnterprisePlanCard = () => (
     <Stack maxW="300px" spacing={4}>
       <Heading fontSize="xl">Enterprise</Heading>
       <Text>
-        Ideal for large companies looking to generate leads and automate
-        customer support at scale
+        Ideal para grandes empresas que estão procurando gerar mais Leads e
+        automatizar o processo de suporte aos clientes em escala.
       </Text>
       <Text fontSize="lg">
         <Button

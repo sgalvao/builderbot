@@ -58,7 +58,7 @@ export const PricingCard = ({
             </Heading>
             {typeof price === 'number' && (
               <Text fontWeight="inherit" fontSize="xl">
-                / month
+                / Mês
               </Text>
             )}
           </Flex>

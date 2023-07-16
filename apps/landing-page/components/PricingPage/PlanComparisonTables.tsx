@@ -45,28 +45,28 @@ export const PlanComparisonTables = () => (
         <Tbody>
           <Tr>
             <Td>Total bots</Td>
-            <Td>Unlimited</Td>
-            <Td>Unlimited</Td>
-            <Td>Unlimited</Td>
+            <Td>Ilimitado</Td>
+            <Td>Ilimitado</Td>
+            <Td>Ilimitado</Td>
           </Tr>
           <Tr>
             <Td>Chats</Td>
-            <Td>{chatsLimit.FREE.totalIncluded} / month</Td>
+            <Td>{chatsLimit.FREE.totalIncluded} / mês</Td>
             <Td>
               {parseNumberWithCommas(
                 chatsLimit.STARTER.graduatedPrice[0].totalIncluded
               )}{' '}
-              / month
+              / mês
             </Td>
             <Td>
               {parseNumberWithCommas(
                 chatsLimit.PRO.graduatedPrice[0].totalIncluded
               )}{' '}
-              / month
+              / mês
             </Td>
           </Tr>
           <Tr>
-            <Td>Additional Chats</Td>
+            <Td>Chats Adicionais</Td>
             <Td />
             <Td>
               {formatPrice(chatsLimit.STARTER.graduatedPrice[1].price)} per{' '}
@@ -80,13 +80,13 @@ export const PlanComparisonTables = () => (
             </Td>
           </Tr>
           <Tr>
-            <Td>Storage</Td>
+            <Td>Armazenamento</Td>
             <Td />
             <Td>2 GB</Td>
             <Td>10 GB</Td>
           </Tr>
           <Tr>
-            <Td>Additional Storage</Td>
+            <Td>Armazenamento adicional</Td>
             <Td />
             <Td>
               {formatPrice(storageLimit.STARTER.graduatedPrice[1].price)} per{' '}
@@ -102,16 +102,16 @@ export const PlanComparisonTables = () => (
             </Td>
           </Tr>
           <Tr>
-            <Td>Members</Td>
-            <Td>Just you</Td>
-            <Td>{seatsLimit.STARTER.totalIncluded} seats</Td>
-            <Td>{seatsLimit.PRO.totalIncluded} seats</Td>
+            <Td>Membros</Td>
+            <Td>Apenas Você</Td>
+            <Td>{seatsLimit.STARTER.totalIncluded} vagas</Td>
+            <Td>{seatsLimit.PRO.totalIncluded} vagas</Td>
           </Tr>
           <Tr>
-            <Td>Guests</Td>
-            <Td>Unlimited</Td>
-            <Td>Unlimited</Td>
-            <Td>Unlimited</Td>
+            <Td>Convidados</Td>
+            <Td>Ilimitados</Td>
+            <Td>Ilimitados</Td>
+            <Td>Ilimitados</Td>
           </Tr>
         </Tbody>
       </Table>
@@ -121,7 +121,7 @@ export const PlanComparisonTables = () => (
         <Thead>
           <Tr>
             <Th fontWeight="bold" color="white" w="400px">
-              Features
+              Funcionalidades
             </Th>
             <Th>Free</Th>
             <Th color="orange.200">Starter</Th>
@@ -280,8 +280,8 @@ export const PlanComparisonTables = () => (
               tooltip="Organize your typebots into folders"
             />
             <Td />
-            <Td>Unlimited</Td>
-            <Td>Unlimited</Td>
+            <Td>Ilimitado</Td>
+            <Td>Ilimitado</Td>
           </Tr>
           <Tr>
             <Td>Remove branding</Td>
@@ -297,7 +297,7 @@ export const PlanComparisonTables = () => (
             <Td>Custom domains</Td>
             <Td />
             <Td />
-            <Td>Unlimited</Td>
+            <Td>Ilimitado</Td>
           </Tr>
           <Tr>
             <TdWithTooltip
@@ -318,7 +318,7 @@ export const PlanComparisonTables = () => (
         <Thead>
           <Tr>
             <Th fontWeight="bold" color="white" w="400px">
-              Support
+              Suporte
             </Th>
             <Th>Free</Th>
             <Th color="orange.200">Starter</Th>
@@ -327,7 +327,7 @@ export const PlanComparisonTables = () => (
         </Thead>
         <Tbody>
           <Tr>
-            <Td>Priority support</Td>
+            <Td>Prioridade no suporte</Td>
             <Td />
             <Td />
             <Td>
@@ -335,7 +335,7 @@ export const PlanComparisonTables = () => (
             </Td>
           </Tr>
           <Tr>
-            <Td>Feature request priority</Td>
+            <Td>Prioridade pedidos de novas funcionalidades</Td>
             <Td />
             <Td />
             <Td>
@@ -358,7 +358,7 @@ export const PlanComparisonTables = () => (
         <Heading as="h3">Free</Heading>
         <Link href="https://app.hackleads.com.br/register">
           <Button variant="outline" colorScheme="gray">
-            Get started
+            Comece já
           </Button>
         </Link>
       </Stack>
@@ -368,7 +368,7 @@ export const PlanComparisonTables = () => (
         </Heading>
         <Heading as="h3">
           {formatPrice(prices.STARTER)}{' '}
-          <chakra.span fontSize="lg">/ month</chakra.span>
+          <chakra.span fontSize="lg">/ mês</chakra.span>
         </Heading>
         <Link
           href={`https://app.hackleads.com.br/register?subscribePlan=${Plan.STARTER}`}
@@ -384,7 +384,7 @@ export const PlanComparisonTables = () => (
         </Heading>
         <Heading as="h3">
           {formatPrice(prices.PRO)}{' '}
-          <chakra.span fontSize="lg">/ month</chakra.span>
+          <chakra.span fontSize="lg">/ mês</chakra.span>
         </Heading>
         <Link
           href={`https://app.hackleads.com.br/register?subscribePlan=${Plan.PRO}`}

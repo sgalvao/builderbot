@@ -46,13 +46,13 @@ export const ProPlanCard = ({ isYearly }: Props) => {
       data={{
         price,
         name: 'Pro',
-        featureLabel: 'Everything in Personal, plus:',
+        featureLabel: 'Tudo que tem no grátis, mais:',
         features: [
           <Text key="seats">
             <chakra.span fontWeight="bold">
-              {seatsLimit.PRO.totalIncluded} seats
+              {seatsLimit.PRO.totalIncluded} vagas
             </chakra.span>{' '}
-            included
+            no time
           </Text>,
           <HStack key="chats" spacing={1.5}>
             <Menu>
@@ -81,12 +81,12 @@ export const ProPlanCard = ({ isYearly }: Props) => {
                 ))}
               </MenuList>
             </Menu>{' '}
-            <Text>chats/mo</Text>
+            <Text>chats/mês</Text>
             <Tooltip
               hasArrow
               placement="top"
-              label="A chat is counted whenever a user starts a discussion. It is
-    independant of the number of messages he sends and receives."
+              label="Um bate-papo é contado sempre que um usuário inicia uma conversa. Isso é
+  independente do número de mensagens que envia e recebe."
             >
               <chakra.span cursor="pointer" h="7">
                 <HelpCircleIcon />
@@ -120,21 +120,21 @@ export const ProPlanCard = ({ isYearly }: Props) => {
                 ))}
               </MenuList>
             </Menu>{' '}
-            <Text>GB of storage</Text>
+            <Text>GB armazenamento</Text>
             <Tooltip
               hasArrow
               placement="top"
-              label="You accumulate storage for every file that your user upload
-        into your bot. If you delete the result, it will free up the
-        space."
+              label="Você acumula armazenamento para cada arquivo que seu usuário carrega
+        em seu bot. Se você excluir o resultado, ele liberará o
+        espaço."
             >
               <chakra.span cursor="pointer" h="7">
                 <HelpCircleIcon />
               </chakra.span>
             </Tooltip>
           </HStack>,
-          'Custom domains',
-          'In-depth analytics',
+          'Domínios Customizados',
+          'Analises aprofundadas',
         ],
       }}
       borderWidth="3px"
@@ -149,7 +149,7 @@ export const ProPlanCard = ({ isYearly }: Props) => {
           fontWeight="extrabold"
           py={{ md: '8' }}
         >
-          Subscribe now
+          Adquira já
         </Button>
       }
     />

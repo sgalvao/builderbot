@@ -2,85 +2,86 @@ import { Heading, VStack, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 
 export const Faq = () => (
   <VStack w="full" spacing="10">
-    <Heading textAlign="center">Frequently asked questions</Heading>
+    <Heading textAlign="center">Perguntas Frequentes</Heading>
     <SimpleGrid columns={[1, 2]} spacing={10}>
       <Stack borderWidth={1} p="8" rounded="lg" spacing={4}>
         <Heading as="h2" fontSize="2xl">
-          What is considered a monthly chat?
+          O que é considerado no limite mensal de chat?
         </Heading>
         <Text>
-          A chat is counted whenever a user starts a discussion. It is
-          independant of the number of messages he sends and receives. For
-          example if a user starts a discussion and sends 10 messages to the
-          bot, it will count as 1 chat. If the user chats again later and its
-          session is remembered, it will not be counted as a new chat. <br />
+          Um bate-papo é contado sempre que um usuário inicia uma conversa. Isso
+          é independente do número de mensagens que envia e recebe. Para
+          exemplo, se um usuário iniciar uma discussão e enviar 10 mensagens
+          para o bot, contará como 1 chat. Se o usuário conversar novamente mais
+          tarde e sua sessão for lembrada, ela não será contada como um novo
+          chat. <br />
           <br />
-          An easy way to think about it: 1 chat equals to a row in your Results
-          table
+          Uma maneira fácil de pensar sobre isso: 1 chat equivale a uma linha em
+          sua tabela de resultados.
         </Text>
       </Stack>
       <Stack borderWidth={1} p="8" rounded="lg" spacing={4}>
         <Heading as="h2" fontSize="2xl">
-          What happens once I reach the monthly chats limit?
+          O que acontece quando excedo meus limites de chat?
         </Heading>
         <Text>
-          You will receive a heads up email when you reach 80% of your monthly
-          limit. Once you have reached the limit, you will receive another email
-          alert. Your bots will continue to run. You will be kindly asked to
-          upgrade your subscription. If you don&apos;t provide an answer after
-          ~48h, your bots will be closed for the remaining of the month. For a
-          FREE workspace, If you exceed 600 chats, your bots will be
-          automatically closed.
+          Você receberá um e-mail de aviso quando atingir 80% do seu limite.
+          Depois de atingir o limite, você receberá outro e-mail alerta. Seus
+          bots continuarão em execução. Você será gentilmente solicitado a
+          atualize sua assinatura. Se você não fornecer uma resposta após ~48h,
+          seus bots estarão fechados pelo restante do mês. Para Espaço de
+          trabalho GRATUITO, se você exceder 600 chats, seus bots serão fechado
+          automaticamente.
         </Text>
       </Stack>
       <Stack borderWidth={1} p="8" rounded="lg" spacing={4}>
         <Heading as="h2" fontSize="2xl">
-          What is considered as storage?
+          O que é considerado armazenamento?
         </Heading>
         <Text>
-          You accumulate storage for every file that your user upload into your
-          bot. If you delete the associated result, it will free up the used
-          space.
+          Você acumula armazenamento para cada arquivo que seu usuário carrega
+          em seu chatBot. Se você excluir o resultado associado, ele liberará o
+          usado espaço.
         </Text>
       </Stack>
       <Stack borderWidth={1} p="8" rounded="lg" spacing={4}>
         <Heading as="h2" fontSize="2xl">
-          What happens once I reach the storage limit?
+          O que acontece se eu exceder o limite de armazenamento?
         </Heading>
         <Text>
-          When you exceed the storage size included in your plan, you will
-          receive a heads up by email. There won&apos;t be any immediate
-          additional charges and your bots will continue to store new files. If
-          you continue to exceed the limit, you will be kindly asked you to
-          upgrade your subscription.
+          Ao exceder o tamanho de armazenamento incluído em seu plano, você
+          receba um alerta por e-mail. Não haverá nenhuma resposta imediata
+          cobranças adicionais e seus bots continuarão a armazenar novos
+          arquivos. Se você continuar a exceder o limite, você será gentilmente
+          solicitado a atualizar sua assinatura.
         </Text>
       </Stack>
       <Stack borderWidth={1} p="8" rounded="lg" spacing={4}>
         <Heading as="h2" fontSize="2xl">
-          Can I cancel or change my subscription any time?
+          Posso cancelar meu plano a qualquer momento?
         </Heading>
         <Text>
-          Yes, you can cancel, upgrade or downgrade your subscription at any
-          time. There is no minimum time commitment or lock-in.
+          Sim, você pode cancelar, atualizar ou fazer downgrade da sua
+          assinatura a qualquer tempo. Não há compromisso de tempo mínimo ou
+          bloqueio.
           <br />
           <br />
-          When you upgrade or downgrade your subscription, you&apos;ll get
-          access to the new options right away. Your next invoice will have a
-          prorated amount.
+          Ao fazer upgrade ou downgrade de sua assinatura, você receberá acesso
+          às novas opções imediatamente. Sua próxima fatura terá um montante
+          rateado.
         </Text>
       </Stack>
       <Stack borderWidth={1} p="8" rounded="lg" spacing={4}>
         <Heading as="h2" fontSize="2xl">
-          Do you offer annual payments?
+          Oferecem pagamentos anuais?
         </Heading>
         <Text>
-          Yes. Starter and Pro plans can be purchased with monthly or annual
-          billing.
+          Sim, os planos Starter e Pro podem ser adquiridos com pagamentos
+          mensais ou anuais cobrança.
           <br />
           <br />
-          Annual plans are cheaper and give you a 16% discount compared to
-          monthly payments. Enterprise plans are only available with annual
-          billing.
+          Os planos anuais são mais baratos e oferecem um desconto de 16% em
+          comparação com pagamentos mensais.
         </Text>
       </Stack>
     </SimpleGrid>

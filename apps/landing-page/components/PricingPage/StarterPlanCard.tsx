@@ -45,13 +45,13 @@ export const StarterPlanCard = ({ isYearly }: Props) => {
       data={{
         price,
         name: 'Starter',
-        featureLabel: 'Everything in Personal, plus:',
+        featureLabel: 'Tudo que tem no grátis, mais:',
         features: [
           <Text key="seats">
             <chakra.span fontWeight="bold">
-              {seatsLimit.STARTER.totalIncluded} seats
+              {seatsLimit.STARTER.totalIncluded} vagas
             </chakra.span>{' '}
-            included
+            no time
           </Text>,
           <HStack key="chats" spacing={1.5}>
             <Menu>
@@ -78,12 +78,12 @@ export const StarterPlanCard = ({ isYearly }: Props) => {
                 ))}
               </MenuList>
             </Menu>{' '}
-            <Text>chats/mo</Text>
+            <Text>chats/mês</Text>
             <Tooltip
               hasArrow
               placement="top"
-              label="A chat is counted whenever a user starts a discussion. It is
-    independant of the number of messages he sends and receives."
+              label="Um bate-papo é contado sempre que um usuário inicia uma conversa. Isso é
+  independente do número de mensagens que envia e recebe."
             >
               <chakra.span cursor="pointer" h="7">
                 <HelpCircleIcon />
@@ -119,7 +119,7 @@ export const StarterPlanCard = ({ isYearly }: Props) => {
                 ))}
               </MenuList>
             </Menu>{' '}
-            <Text>GB of storage</Text>
+            <Text>GB armazenamento</Text>
             <Tooltip
               hasArrow
               placement="top"
@@ -132,9 +132,9 @@ export const StarterPlanCard = ({ isYearly }: Props) => {
               </chakra.span>
             </Tooltip>
           </HStack>,
-          'Branding removed',
-          'Collect files from users',
-          'Create folders',
+          'Marca D`Agua removida',
+          'Receba arquivo de usuários',
+          'Crie Pastas',
         ],
       }}
       borderWidth="1px"
@@ -150,7 +150,7 @@ export const StarterPlanCard = ({ isYearly }: Props) => {
           py={{ md: '8' }}
           variant="outline"
         >
-          Adquirir já
+          Adquira já
         </Button>
       }
     />

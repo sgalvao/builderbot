@@ -36,7 +36,7 @@ const Pricing = () => {
         bgGradient="linear(to-b, gray.900, gray.800)"
         pb={40}
       >
-        <SocialMetaTags currentUrl={`https://www.typebot.io/pricing`} />
+        <SocialMetaTags currentUrl={`https://www.hackleads.com.br/pricing`} />
         <BackgroundPolygons />
         <DarkMode>
           <Header />
@@ -53,34 +53,33 @@ const Pricing = () => {
                 textAlign="center"
                 fontSize={{ base: 'lg', xl: 'xl' }}
               >
-                Whether you&apos;re a{' '}
+                Não importa se você é um {''}
                 <Text as="span" color="orange.200" fontWeight="bold">
-                  solo business owner
+                  empreendedor solo
                 </Text>
-                , a{' '}
+                ,{' '}
                 <Text as="span" color="blue.200" fontWeight="bold">
-                  growing startup
+                  Startup em crescimento
                 </Text>{' '}
-                or a{' '}
+                ou uma{' '}
                 <Text as="span" fontWeight="bold">
-                  large company
+                  Grande empresa
                 </Text>
-                , Typebot is here to help you build high-performing chat forms
-                for the right price. Pay for as little or as much usage as you
-                need.
+                , HackLeads está aqui para te ajudar a conquistar novos leads
+                pelo menor preço.
               </Text>
             </VStack>
 
             <Stack align="flex-end" maxW="1200px" w="full" spacing={4}>
               <HStack>
-                <Text>Monthly</Text>
+                <Text>Mensal</Text>
                 <Switch
                   isChecked={isYearly}
                   onChange={() => setIsYearly(!isYearly)}
                 />
                 <HStack>
-                  <Text>Yearly</Text>
-                  <Tag colorScheme="blue">economize 20%</Tag>
+                  <Text>Anual</Text>
+                  <Tag colorScheme="blue">economize 16%</Tag>
                 </HStack>
               </HStack>
 
@@ -97,12 +96,12 @@ const Pricing = () => {
               </Stack>
             </Stack>
 
-            <EnterprisePlanCard />
+            {/* <EnterprisePlanCard /> */}
           </Stack>
 
           <VStack maxW="1200px" w="full" spacing={[12, 20]} px="4">
             <Stack w="full" spacing={10} display={['none', 'flex']}>
-              <Heading>Compare plans & features</Heading>
+              <Heading>Compare os planos e funcionalidades</Heading>
               <PlanComparisonTables />
             </Stack>
             <Faq />

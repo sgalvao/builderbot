@@ -8,30 +8,30 @@ import { chatsLimit } from '@typebot.io/lib/pricing'
 export const FreePlanCard = () => (
   <PricingCard
     data={{
-      price: 'Free',
+      price: 'Grátis',
       name: 'Personal',
       features: [
-        'Unlimited typebots',
+        'ChatBots Ilimitados',
         <>
           <Text>
             <chakra.span fontWeight="bold">
               {chatsLimit.FREE.totalIncluded}
             </chakra.span>{' '}
-            chats/month
+            chats/mês
           </Text>
           &nbsp;
           <Tooltip
             hasArrow
             placement="top"
-            label="A chat is counted whenever a user starts a discussion. It is
-  independant of the number of messages he sends and receives."
+            label="Um bate-papo é contado sempre que um usuário inicia uma conversa. Isso é
+  independente do número de mensagens que envia e recebe."
           >
             <chakra.span cursor="pointer" h="7">
               <HelpCircleIcon />
             </chakra.span>
           </Tooltip>
         </>,
-        'Native integrations',
+        'Integrações Nativas',
         'Webhooks',
         'Custom Javascript & CSS',
       ],
@@ -47,7 +47,7 @@ export const FreePlanCard = () => (
         fontWeight="extrabold"
         py={{ md: '8' }}
       >
-        Get started
+        Comece já
       </Button>
     }
   />

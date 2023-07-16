@@ -30,7 +30,6 @@ type WorkspaceForDigest = Pick<
 export const sendTotalResultsDigest = async () => {
   await promptAndSetEnvironment('production')
 
-  console.log("Generating total results yesterday's digest...")
   const todayMidnight = new Date()
   todayMidnight.setUTCHours(0, 0, 0, 0)
   const yesterday = new Date(todayMidnight)
