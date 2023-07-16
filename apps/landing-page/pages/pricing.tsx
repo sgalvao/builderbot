@@ -15,12 +15,9 @@ import { SocialMetaTags } from 'components/common/SocialMetaTags'
 import { BackgroundPolygons } from 'components/Homepage/Hero/BackgroundPolygons'
 import { PlanComparisonTables } from 'components/PricingPage/PlanComparisonTables'
 import { useState } from 'react'
-import { StripeClimateLogo } from 'assets/logos/StripeClimateLogo'
 import { FreePlanCard } from 'components/PricingPage/FreePlanCard'
 import { StarterPlanCard } from 'components/PricingPage/StarterPlanCard'
 import { ProPlanCard } from 'components/PricingPage/ProPlanCard'
-import { TextLink } from 'components/common/TextLink'
-import { EnterprisePlanCard } from 'components/PricingPage/EnterprisePlanCard'
 import { Faq } from 'components/PricingPage/Faq'
 
 const Pricing = () => {

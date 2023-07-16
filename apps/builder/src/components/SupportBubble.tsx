@@ -13,8 +13,8 @@ export const SupportBubble = (props: Omit<BubbleProps, 'typebot'>) => {
 
   return (
     <Bubble
-      apiHost="https://viewer.typebot.io"
-      typebot="typebot-support"
+      apiHost="https://chat.hackleads.com.br"
+      typebot="hacklead-support"
       prefilledVariables={{
         'User ID': user?.id,
         'First name': user?.name?.split(' ')[0] ?? undefined,

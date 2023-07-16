@@ -12,12 +12,8 @@ import {
 import { Logo } from 'assets/icons/Logo'
 import { TextLink } from './TextLink'
 
-const facebookGroupUrl = 'https://www.facebook.com/groups/typebot'
-const typebotLinkedInUrl = 'https://www.linkedin.com/company/typebot'
-const typebotTwitterUrl = 'https://twitter.com/Typebot_io'
-const baptisteTwitterUrl = 'https://twitter.com/baptisteArno'
-const statusPageUrl = 'https://status.typebot.io'
-export const contactUrl = 'https://bot.typebot.io/landing-page-bubble-en'
+const typebotTwitterUrl = 'https://twitter.com/silvao1503'
+export const contactUrl = 'https://chat.hackleads.com.br/landing-page-bubble-en'
 export const roadmapLink = 'https://app.hackleads.com.br/feedback'
 export const documentationLink = 'https://docs.typebot.io'
 export const githubRepoLink = 'https://github.com/sgalvao/builderbot'
@@ -30,10 +26,13 @@ export const Footer = () => {
           <Stack spacing={6}>
             <HStack>
               <Logo />
-              <Heading as="p" fontSize="lg">
+              <Heading as="h2" fontSize="lg">
                 HackLeads
               </Heading>
             </HStack>
+            <TextLink href={'https://typebot.io'} isExternal>
+              Fork TypeBot.io
+            </TextLink>
           </Stack>
           <Stack align={'flex-start'}>
             <ListHeader>Produto</ListHeader>
@@ -43,9 +42,9 @@ export const Footer = () => {
             <TextLink href={documentationLink} isExternal>
               Documentação
             </TextLink>
-            <TextLink href={roadmapLink} isExternal>
+            {/* <TextLink href={roadmapLink} isExternal>
               Roadmap
-            </TextLink>
+            </TextLink> */}
             <TextLink href={'/pricing'}>Planos</TextLink>
           </Stack>
           <Stack align={'flex-start'}>
@@ -62,9 +61,7 @@ export const Footer = () => {
           <Stack align={'flex-start'}>
             <ListHeader>Empresa</ListHeader>
             <TextLink href="/about">Sobre o HackLeads</TextLink>
-            <TextLink href="mailto:silvio.gabrielgt2000@hotmail.com">
-              Contato
-            </TextLink>
+            <TextLink href="mailto:suporte@hackleads.com.br">Contato</TextLink>
             <TextLink href={'/terms-of-service'}>Termos de serviço</TextLink>
             <TextLink href={'/privacy-policies'}>
               Politica de privacidade

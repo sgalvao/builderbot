@@ -1,4 +1,4 @@
-import { Stack, Text, Box, Flex, Heading, Image } from '@chakra-ui/react'
+import { Stack, Text, Flex, Heading } from '@chakra-ui/react'
 import { Header } from 'components/common/Header/Header'
 import { SocialMetaTags } from 'components/common/SocialMetaTags'
 import React from 'react'
@@ -19,56 +19,79 @@ const AboutPage = () => {
         textAlign="justify"
       >
         <Flex w="full">
-          <Heading as="h1">Typebot&apos;s story</Heading>
+          <Heading as="h1">Sobre o HackLeads</Heading>
         </Flex>
 
         <Text>
-          Typebot&apos;s team is composed of only me, Baptiste Arnaud, a
-          Software Engineer based in France.
+          Plataforma Open-source de criação de chatBots especializada em
+          captação de leads.
         </Text>
-        <Flex w="full" justify="center">
-          <Box as="figure" maxW="200px">
-            <Image src="https://s3.typebot.io/selfie.png" alt="selfie" />
-          </Box>
+        <Flex w="full">
+          <Heading as="h2">Somos um Fork do TypeBot</Heading>
         </Flex>
-
         <Text>
-          I&apos;m passionate about great product UX and, during the first COVID
-          lockdown, I decided to create my own Typeform alternative.
-        </Text>
-
-        <Text>
-          Typebot was launched in July 2020. It is completely independent,
-          self-funded, and bootstrapped. At the current stage, I&apos;m not
-          interested in raising funds or taking investments.
-        </Text>
-        <Text>
-          Because I love open-source SaaS, I decided in early 2022, alongside
-          the launch of a major 2.0 release, to open-source the project
-          entirely. Anyone can now read the source code and contribute to the
-          project. You can also self-host your own version of Typebot on your
-          server.
-        </Text>
-        <Text>
-          With Typebot, I want to create the best bot-building experience. My
-          goal is to empower you as a user and help you build great user
-          experiences. Also, privacy comes first. While using Typebot, you
-          aren&apos;t tracked by some third-party analytics tool.
-        </Text>
-        <Text>
-          I&apos;m working hard on making a living from Typebot with a simple
-          business model: <br />
-          <br /> You can use the tool for free but your forms will contain a
-          &quot;Made with Typebot&quot; small badge that potentially gets people
-          to know about the product. If you want to remove it and also have
-          access to other advanced features, you have to subscribe for $39 per
-          month.
-        </Text>
-        <Text>
-          If you have any questions, feel free to reach out to me at{' '}
-          <TextLink href={'mailto:baptiste@typebot.io'}>
-            baptiste@typebot.io
+          Gostaria de começar expressando nossa sincera gratidão ao{' '}
+          <TextLink href={'https://twitter.com/baptisteArno'}>
+            Baptiste Arnaud
           </TextLink>
+          , criador do{' '}
+          <TextLink href={'https://typebot.io/about'}>TypeBot</TextLink>, pelo
+          seu trabalho inovador e por disponibilizar sua criação como uma
+          plataforma de código aberto. Nós, como uma comunidade de
+          desenvolvedores, tivemos o privilégio de aproveitar essa base sólida
+          para criar um fork do TypeBot focado no mercado digital brasileiro e
+          com ênfase na venda direta por meio de chatbots.
+        </Text>
+        <Flex w="full">
+          <Heading as="h2">Nosso sistema e melhorias</Heading>
+        </Flex>
+        <Text>
+          Nosso software de funis de venda online é uma plataforma open-source
+          desenvolvida para atender às demandas do mercado digital brasileiro.
+          Utilizando o código-fonte original do TypeBot como ponto de partida,
+          aprimoramos e adaptamos a plataforma para oferecer uma experiência
+          aprimorada de vendas por meio de chatbots. Essa abordagem colaborativa
+          e de código aberto nos permitiu expandir e personalizar o software de
+          acordo com as necessidades específicas dos empreendedores brasileiros.
+        </Text>
+        <Flex w="full">
+          <Heading as="h3">Melhorias e integrações</Heading>
+        </Flex>
+
+        <ul>
+          <li>
+            Integração com as principais plataformas de pagamento utilizadas no
+            Brasil: Agora é possível integrar facilmente seu chatbot com as
+            principais opções de pagamento brasileiras, proporcionando uma
+            experiência de compra fluida e segura para seus clientes.
+          </li>
+          <li>
+            Suporte a múltiplos idiomas, incluindo o português brasileiro:
+            Reconhecendo a importância da comunicação em um contexto localizado,
+            nosso software foi adaptado para permitir a criação de chatbots em
+            português brasileiro, garantindo uma interação mais natural e
+            eficiente com seu público.
+          </li>
+          <li>
+            Personalização de acordo com as práticas de marketing do mercado
+            brasileiro: Levamos em consideração as melhores práticas de
+            marketing digital no Brasil e implementamos recursos que permitem
+            segmentar seu público, personalizar mensagens e oferecer ofertas
+            especiais de acordo com as preferências dos consumidores
+            brasileiros. (EM DESENVOLVIMENTO)
+          </li>
+        </ul>
+        <Flex w="full">
+          <Heading as="h2">Agradecimentos</Heading>
+        </Flex>
+        <Text>
+          Gostaríamos de expressar nosso profundo agradecimento ao Baptiste
+          Arnaud pela criação do TypeBot e por disponibilizá-lo como um projeto
+          open-source. Sua visão e dedicação abriram portas para que pudéssemos
+          desenvolver uma solução de funis de venda online adaptada
+          especificamente para o mercado digital brasileiro. Estamos gratos pela
+          oportunidade de construir sobre a base sólida do TypeBot e de
+          contribuir para a evolução contínua dessa plataforma.
         </Text>
       </Stack>
       <Footer />
