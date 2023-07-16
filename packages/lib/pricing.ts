@@ -46,24 +46,24 @@ export const chatsLimit = {
       { totalIncluded: 2000, price: 0 },
       {
         totalIncluded: 2500,
-        price: 50,
+        price: 38.5,
       },
       {
         totalIncluded: 3000,
-        price: 100,
+        price: 77,
       },
       {
         totalIncluded: 3500,
-        price: 120,
+        price: 115.5,
       },
     ],
   },
   [Plan.PRO]: {
     graduatedPrice: [
       { totalIncluded: 10000, price: 0 },
-      { totalIncluded: 15000, price: 450 },
-      { totalIncluded: 25000, price: 750 },
-      { totalIncluded: 50000, price: 1500 },
+      { totalIncluded: 15000, price: 150 },
+      { totalIncluded: 25000, price: 450 },
+      { totalIncluded: 50000, price: 1200 },
     ],
   },
   [Plan.CUSTOM]: {
@@ -102,15 +102,15 @@ export const storageLimit = {
       { totalIncluded: 10, price: 0 },
       {
         totalIncluded: 15,
-        price: 91.8,
+        price: 50,
       },
       {
         totalIncluded: 25,
-        price: 154,
+        price: 150,
       },
       {
         totalIncluded: 40,
-        price: 244.8,
+        price: 178.89,
       },
     ],
   },

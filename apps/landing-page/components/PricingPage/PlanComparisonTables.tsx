@@ -69,12 +69,12 @@ export const PlanComparisonTables = () => (
             <Td>Chats Adicionais</Td>
             <Td />
             <Td>
-              {formatPrice(chatsLimit.STARTER.graduatedPrice[1].price)} per{' '}
+              {formatPrice(chatsLimit.STARTER.graduatedPrice[1].price)} por{' '}
               {chatsLimit.STARTER.graduatedPrice[1].totalIncluded -
                 chatsLimit.STARTER.graduatedPrice[0].totalIncluded}
             </Td>
             <Td>
-              {formatPrice(chatsLimit.PRO.graduatedPrice[1].price)} per{' '}
+              {formatPrice(chatsLimit.PRO.graduatedPrice[1].price)} por{' '}
               {chatsLimit.PRO.graduatedPrice[1].totalIncluded -
                 chatsLimit.PRO.graduatedPrice[0].totalIncluded}
             </Td>
@@ -89,13 +89,13 @@ export const PlanComparisonTables = () => (
             <Td>Armazenamento adicional</Td>
             <Td />
             <Td>
-              {formatPrice(storageLimit.STARTER.graduatedPrice[1].price)} per{' '}
+              {formatPrice(storageLimit.STARTER.graduatedPrice[1].price)} por{' '}
               {storageLimit.STARTER.graduatedPrice[1].totalIncluded -
                 storageLimit.STARTER.graduatedPrice[0].totalIncluded}{' '}
               GB
             </Td>
             <Td>
-              {formatPrice(storageLimit.PRO.graduatedPrice[1].price)} per{' '}
+              {formatPrice(storageLimit.PRO.graduatedPrice[1].price)} por{' '}
               {storageLimit.PRO.graduatedPrice[1].totalIncluded -
                 storageLimit.PRO.graduatedPrice[0].totalIncluded}{' '}
               GB
