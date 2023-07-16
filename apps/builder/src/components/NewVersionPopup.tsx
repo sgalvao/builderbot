@@ -66,8 +66,8 @@ export const NewVersionPopup = () => {
                 </HStack>
 
                 <Text fontSize="sm" color="gray.100">
-                  An improved version of Typebot is available. Please reload now
-                  to upgrade.
+                  Uma nova versão do HackLeads está disponível. Atualize a
+                  pagina para fazer o upgrade para a versão mais atual.
                 </Text>
               </Stack>
               <Flex justifyContent="flex-end">
