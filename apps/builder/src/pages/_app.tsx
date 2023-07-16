@@ -59,9 +59,7 @@ const App = ({ Component, pageProps }: AppProps) => {
               <TypebotProvider typebotId={typebotId}>
                 <WorkspaceProvider typebotId={typebotId}>
                   <Component {...pageProps} />
-                  {!pathname.endsWith('edit') && isCloudProdInstance && (
-                    <SupportBubble />
-                  )}
+                  {!pathname.endsWith('edit') && <SupportBubble />}
                   <NewVersionPopup />
                 </WorkspaceProvider>
               </TypebotProvider>

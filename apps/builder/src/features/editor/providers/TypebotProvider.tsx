@@ -270,7 +270,6 @@ export const TypebotProvider = ({
 
   const updateLocalTypebot = (updates: UpdateTypebotPayload) =>
     localTypebot && setLocalTypebot({ ...localTypebot, ...updates })
-
   const publishTypebot = async () => {
     if (!localTypebot) return
     const newLocalTypebot = { ...localTypebot }

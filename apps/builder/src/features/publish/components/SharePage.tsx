@@ -70,7 +70,7 @@ export const SharePage = () => {
 
   const checkIfPublicIdIsValid = async (publicId: string) => {
     const isLongerThanAllowed = publicId.length >= 4
-    if (!isLongerThanAllowed && isCloudProdInstance) {
+    if (!isLongerThanAllowed) {
       showToast({
         description: 'Precisa ter no mínimo 4 caracteres',
       })
