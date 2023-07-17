@@ -55,7 +55,7 @@ export const PublishButton = (props: ButtonProps) => {
   const handlePublishClick = () => {
     if (isFreePlan(workspace) && hasInputFile) return onOpen()
     publishTypebot()
-    if (!publishedTypebot) push(`/typebots/${query.typebotId}/share`)
+    if (!publishedTypebot) push(`/hackleads/${query.typebotId}/share`)
   }
 
   const closeTypebot = async () => {
