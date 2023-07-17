@@ -40,7 +40,7 @@ export const Hero = () => {
               data-aos-delay="100"
             >
               HackLeads te proporciona uma experiencia poderosa e unica de
-              criação de chatBots. Consiga novos leads em um passo magica.
+              criação de chatBots. Consiga novos leads em um passo de magica.
             </Text>
             <Stack
               direction={['column-reverse', 'row']}
