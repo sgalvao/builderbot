@@ -59,10 +59,10 @@ export const IntroducingChatApps = () => {
             color="gray.400"
             data-aos="fade"
           >
-            HackLeads é a melhor maneira de conseguir informações de forma
-            interativa. Aumente a retenção dos seus clientes e multiplique sua
-            taxa de conversão em 3 vezes em comparação com as formas
-            ultrapassadas de formulários.
+            HackLeads é a melhor maneira de conseguir leads de forma interativa.
+            Aumente a retenção dos seus clientes e multiplique sua taxa de
+            conversão em 3 vezes em comparação com as formas ultrapassadas de
+            formulários.
           </Text>
         </Stack>
 
