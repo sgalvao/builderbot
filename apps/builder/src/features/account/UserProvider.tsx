@@ -47,7 +47,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       router.replace({
         pathname: '/signin',
         query:
-          router.pathname !== '/typebots'
+          router.pathname !== '/hackleads'
             ? {
                 redirectPath: router.asPath,
               }

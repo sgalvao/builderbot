@@ -50,7 +50,7 @@ export const getBillingPortalUrl = authenticatedProcedure
     })
     const portalSession = await stripe.billingPortal.sessions.create({
       customer: workspace.stripeId,
-      return_url: `${process.env.NEXTAUTH_URL}/typebots`,
+      return_url: `${process.env.NEXTAUTH_URL}/hackleads`,
     })
     return {
       billingPortalUrl: portalSession.url,

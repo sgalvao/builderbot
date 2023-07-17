@@ -61,7 +61,7 @@ export const TypebotsDropdown = ({
           aria-label="Navigate to typebot"
           icon={<ExternalLinkIcon />}
           as={Link}
-          href={`/typebots/${typebotId}/edit?parentId=${query.typebotId}`}
+          href={`/hackleads/${typebotId}/edit?parentId=${query.typebotId}`}
         />
       )}
     </HStack>
