@@ -7,7 +7,7 @@ export const createTypebotQuery = async ({
 }: Pick<Typebot, 'folderId' | 'workspaceId'>) => {
   const typebot = {
     folderId,
-    name: 'My typebot',
+    name: 'Meu Hacklead',
     workspaceId,
   }
   return sendRequest<Typebot>({
