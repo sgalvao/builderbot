@@ -8,12 +8,12 @@ export const links = [
   {
     label: 'Resources',
     children: [
-      {
-        label: 'GitHub repository',
-        description: 'Check out the entire source code of the project',
-        href: 'https://github.com/sgalvao/builderBot',
-        icon: <GitHubIcon fill="blue.300" />,
-      },
+      // {
+      //   label: 'GitHub repository',
+      //   description: 'Check out the entire source code of the project',
+      //   href: 'https://github.com/sgalvao/builderBot',
+      //   icon: <GitHubIcon fill="blue.300" />,
+      // },
       {
         label: 'Documentation',
         description:
@@ -21,13 +21,13 @@ export const links = [
         href: 'https://docs.typebot.io',
         icon: <DocIcon />,
       },
-      {
-        label: 'Roadmap',
-        description:
-          "Follow the development and make suggestions for which features you'd like to see",
-        href: 'https://feedback.typebot.io/roadmap',
-        icon: <MapIcon />,
-      },
+      // {
+      //   label: 'Roadmap',
+      //   description:
+      //     "Follow the development and make suggestions for which features you'd like to see",
+      //   href: 'https://feedback.typebot.io/roadmap',
+      //   icon: <MapIcon />,
+      // },
     ],
   },
   { label: 'Pricing', href: '/pricing' },

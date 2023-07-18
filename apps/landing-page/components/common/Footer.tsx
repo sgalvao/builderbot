@@ -49,9 +49,9 @@ export const Footer = () => {
           </Stack>
           <Stack align={'flex-start'}>
             <ListHeader>Comunidade</ListHeader>
-            <TextLink href={githubRepoLink} isExternal>
+            {/* <TextLink href={githubRepoLink} isExternal>
               GitHub
-            </TextLink>
+            </TextLink> */}
             <TextLink href={typebotTwitterUrl} isExternal>
               Twitter
             </TextLink>
