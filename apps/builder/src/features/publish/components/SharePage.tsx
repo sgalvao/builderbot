@@ -122,8 +122,7 @@ export const SharePage = () => {
                 />
               </HStack>
             )}
-            {isNotDefined(typebot?.customDomain) &&
-            env('VERCEL_VIEWER_PROJECT_NAME') ? (
+            {isNotDefined(typebot?.customDomain) ? (
               <>
                 {isProPlan(workspace) ? (
                   <CustomDomainsDropdown
@@ -134,7 +133,7 @@ export const SharePage = () => {
                     colorScheme="gray"
                     limitReachedType={t('billing.limitMessage.customDomain')}
                   >
-                    <Text mr="2">Add my domain</Text>{' '}
+                    <Text mr="2">Adicionar meu domínio</Text>{' '}
                     <LockTag plan={Plan.PRO} />
                   </UpgradeButton>
                 )}

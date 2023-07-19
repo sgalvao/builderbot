@@ -18,7 +18,7 @@ export const SupportBubble = (props: Omit<BubbleProps, 'typebot'>) => {
       prefilledVariables={{
         'User ID': user?.id,
         'First name': user?.name?.split(' ')[0] ?? undefined,
-        Email: user?.email ?? undefined,
+        "Email": user?.email,
         'Typebot ID': typebot?.id,
         'Avatar URL': user?.image ?? undefined,
         Plan: planToReadable(workspace?.plan),
