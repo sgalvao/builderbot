@@ -56,7 +56,7 @@ export const SignInPage = ({ type }: Props) => {
       </Text>
       <Text>
         Veja nossas melhorias clicando{' '}
-        <TextLink href="http://localhost:3002/about#features" isExternal>
+        <TextLink href="http://hackleads.com.br/about#features" isExternal>
           aqui
         </TextLink>
       </Text>

@@ -141,4 +141,30 @@ export const galleryTemplates: Pick<ThemeTemplate, 'id' | 'name' | 'theme'>[] =
         },
       },
     },
+
+    {
+      id: 'ray-of-lights',
+      name: 'Ray of Lights',
+      theme: {
+        chat: {
+          inputs: {
+            color: '#303235',
+            backgroundColor: '#FFFFFF',
+            placeholderColor: '#9095A0',
+          },
+          buttons: { color: '#fff', backgroundColor: '#1A2249' },
+          hostAvatar: { isEnabled: true },
+          hostBubbles: { color: '#303235', backgroundColor: '#F7F8FF' },
+          guestBubbles: { color: '#fff', backgroundColor: '#1A2249' },
+        },
+        general: {
+          font: 'Raleway',
+          background: {
+            type: BackgroundType.IMAGE,
+            content:
+              'https://s3.fr-par.scw.cloud/typebot/public/typebots/hlmywyje0sbz1lfogu86pyks/blocks/uc2dyf63eeogaivqzm4z2hdb',
+          },
+        },
+      },
+    },
   ]
