@@ -1,6 +1,6 @@
 import { Avatar, Flex, HStack, Stack, Text, Image } from '@chakra-ui/react'
 import * as React from 'react'
-import { TestimonialData } from './Testimonials'
+import { TestimonialData } from './TypebotSection'
 import {
   CapterraIcon,
   EmailIcon,
@@ -8,7 +8,7 @@ import {
   RedditIcon,
 } from 'assets/icons'
 
-export const Testimonial = ({
+export const TypebotReference = ({
   avatarSrc,
   content,
   name,

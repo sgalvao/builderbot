@@ -64,7 +64,7 @@ export const ThemeSideMenu = () => {
               <TableIcon />
               <Heading fontSize="lg">
                 <HStack>
-                  <span>Templates</span> <Tag colorScheme="orange">New!</Tag>
+                  <span>Templates</span> <Tag colorScheme="orange">Novo!</Tag>
                 </HStack>
               </Heading>
             </HStack>
@@ -87,7 +87,7 @@ export const ThemeSideMenu = () => {
           <AccordionButton py={6}>
             <HStack flex="1" pl={2}>
               <DropletIcon />
-              <Heading fontSize="lg">Font & Background</Heading>
+              <Heading fontSize="lg">Fontes & Cor de fundo</Heading>
             </HStack>
             <AccordionIcon />
           </AccordionButton>

@@ -7,7 +7,6 @@ import {
   HStack,
   SimpleGrid,
   Stack,
-  Text,
 } from '@chakra-ui/react'
 import { Logo } from 'assets/icons/Logo'
 import { TextLink } from './TextLink'
@@ -49,9 +48,9 @@ export const Footer = () => {
           </Stack>
           <Stack align={'flex-start'}>
             <ListHeader>Comunidade</ListHeader>
-            {/* <TextLink href={githubRepoLink} isExternal>
+            <TextLink href={githubRepoLink} isExternal>
               GitHub
-            </TextLink> */}
+            </TextLink>
             <TextLink href={typebotTwitterUrl} isExternal>
               Twitter
             </TextLink>

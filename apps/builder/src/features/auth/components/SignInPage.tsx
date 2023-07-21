@@ -48,6 +48,18 @@ export const SignInPage = ({ type }: Props) => {
         </Text>
       )}
       <SignInForm defaultEmail={query.g?.toString()} />
+      <Text>
+        Somos uma versão modificada do{' '}
+        <TextLink href="https://typebot.io" isExternal>
+          Typebot
+        </TextLink>
+      </Text>
+      <Text>
+        Veja nossas melhorias clicando{' '}
+        <TextLink href="http://localhost:3002/about#features" isExternal>
+          aqui
+        </TextLink>
+      </Text>
     </VStack>
   )
 }

@@ -8,8 +8,6 @@ import { Features } from 'components/Homepage/Features'
 import { Hero } from 'components/Homepage/Hero'
 import { Integrations } from 'components/Homepage/Integrations'
 import { IntroducingChatApps } from 'components/Homepage/IntroducingChatApps'
-import { RealTimeResults } from 'components/Homepage/RealTimeResults'
-import { Testimonials } from 'components/Homepage/Testimonials'
 
 const App = () => {
   return (
@@ -22,7 +20,6 @@ const App = () => {
       <Integrations />
       {/* <RealTimeResults /> */}
       <Features />
-      {/* <Testimonials /> */}
       <EndCta />
       <Footer />
     </Stack>

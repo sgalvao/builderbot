@@ -9,7 +9,7 @@ const AboutPage = () => {
   return (
     <div className="flex flex-col items-center w-full overflow-x-hidden ">
       <Header />
-      <SocialMetaTags currentUrl={`https://www.typebot.io/about`} />
+      <SocialMetaTags currentUrl={`https://www.hackleads.com.br/about`} />
       <Stack
         spacing={10}
         mx="auto"
@@ -27,7 +27,7 @@ const AboutPage = () => {
           captação de leads.
         </Text>
         <Flex w="full">
-          <Heading as="h2">Somos um Fork do TypeBot</Heading>
+          <Heading as="h2">Somos um Fork do Typebot</Heading>
         </Flex>
         <Text>
           Gostaria de começar expressando nossa sincera gratidão ao{' '}
@@ -35,20 +35,20 @@ const AboutPage = () => {
             Baptiste Arnaud
           </TextLink>
           , criador do{' '}
-          <TextLink href={'https://typebot.io/about'}>TypeBot</TextLink>, pelo
+          <TextLink href={'https://typebot.io/about'}>Typebot</TextLink>, pelo
           seu trabalho inovador e por disponibilizar sua criação como uma
           plataforma de código aberto. Nós, como uma comunidade de
           desenvolvedores, tivemos o privilégio de aproveitar essa base sólida
-          para criar um fork do TypeBot focado no mercado digital brasileiro e
+          para criar um fork do Typebot focado no mercado digital brasileiro e
           com ênfase na venda direta por meio de chatbots.
         </Text>
         <Flex w="full">
           <Heading as="h2">Nosso sistema e melhorias</Heading>
         </Flex>
-        <Text>
+        <Text id="features">
           Nosso software de funis de venda online é uma plataforma open-source
           desenvolvida para atender às demandas do mercado digital brasileiro.
-          Utilizando o código-fonte original do TypeBot como ponto de partida,
+          Utilizando o código-fonte original do Typebot como ponto de partida,
           aprimoramos e adaptamos a plataforma para oferecer uma experiência
           aprimorada de vendas por meio de chatbots. Essa abordagem colaborativa
           e de código aberto nos permitiu expandir e personalizar o software de
@@ -86,11 +86,11 @@ const AboutPage = () => {
         </Flex>
         <Text>
           Gostaríamos de expressar nosso profundo agradecimento ao Baptiste
-          Arnaud pela criação do TypeBot e por disponibilizá-lo como um projeto
+          Arnaud pela criação do Typebot e por disponibilizá-lo como um projeto
           open-source. Sua visão e dedicação abriram portas para que pudéssemos
           desenvolver uma solução de funis de venda online adaptada
           especificamente para o mercado digital brasileiro. Estamos gratos pela
-          oportunidade de construir sobre a base sólida do TypeBot e de
+          oportunidade de construir sobre a base sólida do Typebot e de
           contribuir para a evolução contínua dessa plataforma.
         </Text>
       </Stack>
