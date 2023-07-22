@@ -71,13 +71,13 @@ export const BoardMenuButton = (props: FlexProps) => {
         />
         <MenuList>
           <MenuItem icon={<BookIcon />} onClick={redirectToDocumentation}>
-            Documentation
+            Documentação
           </MenuItem>
           <MenuItem icon={<SettingsIcon />} onClick={onOpen}>
-            Editor settings
+            Configurações do editor
           </MenuItem>
           <MenuItem icon={<DownloadIcon />} onClick={downloadFlow}>
-            Export flow
+            Exportar Fluxo
           </MenuItem>
         </MenuList>
         <EditorSettingsModal isOpen={isOpen} onClose={onClose} />

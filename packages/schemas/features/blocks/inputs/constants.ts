@@ -1,1 +1,1 @@
-export const defaultButtonLabel = 'Send'
+export const defaultButtonLabel = 'Enviar'

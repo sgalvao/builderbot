@@ -20,7 +20,7 @@ export const RedirectSettings = ({ options, onOptionsChange }: Props) => {
       <TextInput
         label="Url:"
         defaultValue={options.url ?? ''}
-        placeholder="Type a URL..."
+        placeholder="Digite uma URL..."
         onChange={handleUrlChange}
       />
       <SwitchWithLabel

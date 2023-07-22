@@ -22,7 +22,7 @@ export const urlInputSchema = blockBaseSchema.merge(
 export const defaultUrlInputOptions: UrlInputOptions = {
   labels: {
     button: defaultButtonLabel,
-    placeholder: 'Type a URL...',
+    placeholder: 'Digite uma URL...',
   },
   retryMessageContent:
     "This URL doesn't seem to be valid. Can you type it again?",

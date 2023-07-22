@@ -55,7 +55,7 @@ export const TextInput = ({
           onChange={handleChange}
           value={inputValue}
           placeholder={
-            block.options?.labels?.placeholder ?? 'Type your answer...'
+            block.options?.labels?.placeholder ?? 'Digite sua resposta...'
           }
         />
       ) : (
@@ -64,7 +64,7 @@ export const TextInput = ({
           onChange={handleChange}
           value={inputValue}
           placeholder={
-            block.options?.labels?.placeholder ?? 'Type your answer...'
+            block.options?.labels?.placeholder ?? 'Digite sua resposta...'
           }
         />
       )}

@@ -30,7 +30,7 @@ export const EditableEmojiOrImageIcon = ({
     <Popover isLazy>
       {({ onClose }: { onClose: () => void }) => (
         <>
-          <Tooltip label="Change icon">
+          <Tooltip label="Trocar Ícone">
             <Flex
               cursor="pointer"
               p="2"

@@ -20,7 +20,7 @@ export const textInputOptionsSchema = textInputOptionsBaseSchema
 
 export const defaultTextInputOptions: TextInputOptions = {
   isLong: false,
-  labels: { button: defaultButtonLabel, placeholder: 'Type your answer...' },
+  labels: { button: defaultButtonLabel, placeholder: 'Digite sua resposta...' },
 }
 
 export const textInputSchema = blockBaseSchema.merge(

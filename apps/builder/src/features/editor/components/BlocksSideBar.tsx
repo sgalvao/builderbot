@@ -102,7 +102,13 @@ export const BlocksSideBar = () => {
         className="hide-scrollbar"
       >
         <Flex justifyContent="flex-end">
-          <Tooltip label={isLocked ? 'Unlock sidebar' : 'Lock sidebar'}>
+          <Tooltip
+            label={
+              isLocked
+                ? 'Desbloquear barra de tarefas'
+                : 'Bloquear barra de tarefas'
+            }
+          >
             <IconButton
               icon={isLocked ? <LockedIcon /> : <UnlockedIcon />}
               aria-label={isLocked ? 'Unlock' : 'Lock'}
@@ -125,7 +131,7 @@ export const BlocksSideBar = () => {
 
         <Stack>
           <Text fontSize="sm" fontWeight="semibold">
-            Inputs
+            Entradas
           </Text>
           <SimpleGrid columns={2} spacing="3">
             {Object.values(InputBlockType).map((type) => (
@@ -136,7 +142,7 @@ export const BlocksSideBar = () => {
 
         <Stack>
           <Text fontSize="sm" fontWeight="semibold">
-            Logic
+            Lógicas
           </Text>
           <SimpleGrid columns={2} spacing="3">
             {Object.values(LogicBlockType).map((type) => (
@@ -147,7 +153,7 @@ export const BlocksSideBar = () => {
 
         <Stack>
           <Text fontSize="sm" fontWeight="semibold">
-            Integrations
+            Integrações
           </Text>
           <SimpleGrid columns={2} spacing="3">
             {Object.values(IntegrationBlockType).map((type) => (

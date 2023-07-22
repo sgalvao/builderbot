@@ -101,7 +101,7 @@ export const TypebotHeader = () => {
           variant={router.pathname.includes('/edit') ? 'outline' : 'ghost'}
           size="sm"
         >
-          Flow
+          Fluxo
         </Button>
         <Button
           as={Link}
@@ -110,7 +110,7 @@ export const TypebotHeader = () => {
           variant={router.pathname.endsWith('theme') ? 'outline' : 'ghost'}
           size="sm"
         >
-          Theme
+          Tema
         </Button>
         <Button
           as={Link}
@@ -119,7 +119,7 @@ export const TypebotHeader = () => {
           variant={router.pathname.endsWith('settings') ? 'outline' : 'ghost'}
           size="sm"
         >
-          Settings
+          Configurações
         </Button>
         <Button
           as={Link}
@@ -128,7 +128,7 @@ export const TypebotHeader = () => {
           variant={router.pathname.endsWith('share') ? 'outline' : 'ghost'}
           size="sm"
         >
-          Share
+          Compartilhar
         </Button>
         {isDefined(publishedTypebot) && (
           <Button
@@ -138,7 +138,7 @@ export const TypebotHeader = () => {
             variant={router.pathname.includes('results') ? 'outline' : 'ghost'}
             size="sm"
           >
-            Results
+            Resultados
           </Button>
         )}
       </HStack>
@@ -182,7 +182,9 @@ export const TypebotHeader = () => {
 
           <HStack>
             <Tooltip
-              label={isUndoShortcutTooltipOpen ? 'Changes reverted!' : 'Undo'}
+              label={
+                isUndoShortcutTooltipOpen ? 'Mudança desfeita!' : 'Desfazer'
+              }
               isOpen={isUndoShortcutTooltipOpen ? true : undefined}
               hasArrow={isUndoShortcutTooltipOpen}
             >
@@ -196,7 +198,7 @@ export const TypebotHeader = () => {
               />
             </Tooltip>
 
-            <Tooltip label="Redo">
+            <Tooltip label="Refazer">
               <IconButton
                 display={['none', 'flex']}
                 icon={<RedoIcon />}
@@ -208,14 +210,14 @@ export const TypebotHeader = () => {
             </Tooltip>
           </HStack>
           <Button leftIcon={<BuoyIcon />} onClick={handleHelpClick} size="sm">
-            Help
+            Ajuda
           </Button>
         </HStack>
         {isSavingLoading && (
           <HStack>
             <Spinner speed="0.7s" size="sm" color="gray.400" />
             <Text fontSize="sm" color="gray.400">
-              Saving...
+              Salvando...
             </Text>
           </HStack>
         )}
@@ -230,7 +232,7 @@ export const TypebotHeader = () => {
             isLoading={isNotDefined(typebot)}
             size="sm"
           >
-            Preview
+            Prévia
           </Button>
         )}
         <PublishButton size="sm" />

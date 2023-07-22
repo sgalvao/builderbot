@@ -107,9 +107,9 @@ export const PublishButton = (props: ButtonProps) => {
         >
           {isPublished
             ? typebot?.isClosed
-              ? 'Closed'
-              : 'Published'
-            : 'Publish'}
+              ? 'Fechado'
+              : 'Publicado'
+            : 'Publicar'}
         </Button>
       </Tooltip>
 
@@ -127,20 +127,20 @@ export const PublishButton = (props: ButtonProps) => {
           <MenuList>
             {!isPublished && (
               <MenuItem onClick={restorePublishedTypebot}>
-                Restore published version
+                Restaurar versão publicada
               </MenuItem>
             )}
             {!typebot?.isClosed ? (
               <MenuItem onClick={closeTypebot} icon={<LockedIcon />}>
-                Close typebot to new responses
+                Encerrar bot para não receber novas respostas
               </MenuItem>
             ) : (
               <MenuItem onClick={openTypebot} icon={<UnlockedIcon />}>
-                Reopen typebot to new responses
+                Reabrir bot para novas respostas
               </MenuItem>
             )}
             <MenuItem onClick={unpublishTypebot} icon={<CloudOffIcon />}>
-              Unpublish typebot
+              Remover Publicação
             </MenuItem>
           </MenuList>
         </Menu>

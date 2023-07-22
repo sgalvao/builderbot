@@ -10,7 +10,7 @@ export const SetVariableContent = ({ block }: { block: SetVariableBlock }) => {
   return (
     <Text color={'gray.500'} noOfLines={4}>
       {variableName === '' && isEmpty(block.options.expressionToEvaluate)
-        ? 'Click to edit...'
+        ? 'Clique para editar...'
         : getExpression(typebot?.variables ?? [])(block.options)}
     </Text>
   )

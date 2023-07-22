@@ -23,10 +23,10 @@ export const phoneNumberInputBlockSchema = blockBaseSchema.merge(
 export const defaultPhoneInputOptions: PhoneNumberInputOptions = {
   labels: {
     button: defaultButtonLabel,
-    placeholder: 'Type your phone number...',
+    placeholder: 'Digite seu número de telefone...',
   },
   retryMessageContent:
-    "This phone number doesn't seem to be valid. Can you type it again?",
+    'Este número de telefone não parece válido. Poderia digitar novamente?',
 }
 
 export type PhoneNumberInputBlock = z.infer<typeof phoneNumberInputBlockSchema>

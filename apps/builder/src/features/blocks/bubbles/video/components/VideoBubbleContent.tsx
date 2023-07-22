@@ -3,7 +3,7 @@ import { VideoBubbleBlock, VideoBubbleContentType } from '@typebot.io/schemas'
 
 export const VideoBubbleContent = ({ block }: { block: VideoBubbleBlock }) => {
   if (!block.content?.url || !block.content.type)
-    return <Text color="gray.500">Click to edit...</Text>
+    return <Text color="gray.500">Clique para editar...</Text>
   switch (block.content.type) {
     case VideoBubbleContentType.URL:
       return (

@@ -48,7 +48,7 @@ const groupsActions = (
         const newGroup: Group = {
           id,
           graphCoordinates,
-          title: `Group #${typebot.groups.length}`,
+          title: `Grupo #${typebot.groups.length}`,
           blocks: [],
         }
         typebot.groups.push(newGroup)
@@ -77,7 +77,7 @@ const groupsActions = (
           ...group,
           title: isEmpty(group.title)
             ? ''
-            : `${parseGroupTitle(group.title)} copy`,
+            : `${parseGroupTitle(group.title)} copia`,
           id,
           blocks: group.blocks.map((block) =>
             duplicateBlockDraft(id)(block, onWebhookBlockDuplicated)

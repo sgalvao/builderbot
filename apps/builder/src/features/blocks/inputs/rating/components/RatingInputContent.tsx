@@ -12,7 +12,7 @@ export const RatingInputContent = ({ variableId, block }: Props) =>
     <WithVariableContent variableId={variableId} />
   ) : (
     <Text noOfLines={1} pr="6">
-      Rate from {block.options.buttonType === 'Icons' ? 1 : 0} to{' '}
+      Avalie de {block.options.buttonType === 'Icons' ? 1 : 0} a{' '}
       {block.options.length}
     </Text>
   )

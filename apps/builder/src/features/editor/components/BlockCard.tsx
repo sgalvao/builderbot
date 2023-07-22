@@ -33,7 +33,7 @@ export const BlockCard = (
       return (
         <BlockCardLayout
           {...props}
-          tooltip="Embed a pdf, an iframe, a website..."
+          tooltip="Implemente um pdf, iframe ou website..."
         >
           <BlockIcon type={props.type} />
           <BlockLabel type={props.type} />
@@ -41,7 +41,7 @@ export const BlockCard = (
       )
     case InputBlockType.FILE:
       return (
-        <BlockCardLayout {...props} tooltip="Upload Files">
+        <BlockCardLayout {...props} tooltip="Enviar Arquivos">
           <BlockIcon type={props.type} />
           <HStack>
             <BlockLabel type={props.type} />
@@ -51,24 +51,24 @@ export const BlockCard = (
       )
     case LogicBlockType.SCRIPT:
       return (
-        <BlockCardLayout {...props} tooltip="Execute Javascript code">
+        <BlockCardLayout {...props} tooltip="Executar código Javascript">
           <BlockIcon type={props.type} />
           <BlockLabel type={props.type} />
         </BlockCardLayout>
       )
     case LogicBlockType.TYPEBOT_LINK:
       return (
-        <BlockCardLayout {...props} tooltip="Link and jump to another typebot">
+        <BlockCardLayout
+          {...props}
+          tooltip="Linkar e pular para um outro chatBot"
+        >
           <BlockIcon type={props.type} />
           <BlockLabel type={props.type} />
         </BlockCardLayout>
       )
     case LogicBlockType.JUMP:
       return (
-        <BlockCardLayout
-          {...props}
-          tooltip="Fast forward the flow to another group"
-        >
+        <BlockCardLayout {...props} tooltip="Pular para outro grupo de fluxo.">
           <BlockIcon type={props.type} />
           <BlockLabel type={props.type} />
         </BlockCardLayout>

@@ -23,7 +23,7 @@ export const numberInputSchema = blockBaseSchema.merge(
 )
 
 export const defaultNumberInputOptions: NumberInputOptions = {
-  labels: { button: defaultButtonLabel, placeholder: 'Type a number...' },
+  labels: { button: defaultButtonLabel, placeholder: 'Digite um número...' },
 }
 
 export type NumberInputBlock = z.infer<typeof numberInputSchema>

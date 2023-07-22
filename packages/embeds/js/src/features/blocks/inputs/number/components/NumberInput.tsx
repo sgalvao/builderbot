@@ -45,7 +45,7 @@ export const NumberInput = (props: NumberInputProps) => {
         ref={inputRef}
         value={inputValue()}
         placeholder={
-          props.block.options?.labels?.placeholder ?? 'Type your answer...'
+          props.block.options?.labels?.placeholder ?? 'Digite sua resposta...'
         }
         onInput={handleInput}
         type="number"

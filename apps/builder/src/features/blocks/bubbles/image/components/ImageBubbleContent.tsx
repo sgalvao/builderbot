@@ -5,7 +5,7 @@ export const ImageBubbleContent = ({ block }: { block: ImageBubbleBlock }) => {
   const containsVariables =
     block.content?.url?.includes('{{') && block.content.url.includes('}}')
   return !block.content?.url ? (
-    <Text color={'gray.500'}>Click to edit...</Text>
+    <Text color={'gray.500'}>Clique para editar...</Text>
   ) : (
     <Box w="full">
       <Image
