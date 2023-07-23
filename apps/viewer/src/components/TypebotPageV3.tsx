@@ -33,7 +33,7 @@ export const TypebotPageV3 = ({ url, typebot }: TypebotPageProps) => {
             ? background?.content
             : background?.type === BackgroundType.NONE
             ? undefined
-            : '#fff',
+            : '#f3f3f3',
       }}
     >
       <SEO

@@ -1,6 +1,6 @@
 {
-  "version": "2.15.1",
-  "name": "typebot-os",
+  "version": "1.0",
+  "name": "hackleads",
   "private": true,
   "license": "AGPL-3.0-or-later",
   "scripts": {

@@ -19,6 +19,7 @@
   left: auto !important;
   bottom: 20px !important;
   transition: background-color 0.2s ease-in-out !important;
+  display: flex !important;
 }
 
 #lite-badge:hover {

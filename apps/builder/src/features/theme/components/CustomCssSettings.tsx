@@ -1,4 +1,5 @@
 import { CodeEditor } from '@/components/inputs/CodeEditor'
+import sanitizeCSS from '@/helpers/cssSanitizer'
 import React from 'react'
 
 type Props = {
@@ -7,11 +8,13 @@ type Props = {
 }
 
 export const CustomCssSettings = ({ customCss, onCustomCssChange }: Props) => {
+  const handleCssChange = (css: string) => {
+    const forbiddenClasses = ['a#lite-badge', 'no-watermark', 'big-text']
+    const sanitizedCSS = sanitizeCSS(css, forbiddenClasses)
+    onCustomCssChange(sanitizedCSS)
+  }
+
   return (
-    <CodeEditor
-      value={customCss ?? ''}
-      lang="css"
-      onChange={onCustomCssChange}
-    />
+    <CodeEditor value={customCss ?? ''} lang="css" onChange={handleCssChange} />
   )
 }
