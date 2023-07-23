@@ -55,7 +55,7 @@ export const ThemeSideMenu = () => {
       position="relative"
     >
       <Heading fontSize="xl" textAlign="center">
-        Customize the theme
+        Customize seu tema
       </Heading>
       <Accordion allowMultiple>
         <AccordionItem>

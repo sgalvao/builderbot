@@ -4,7 +4,7 @@ export const galleryTemplates: Pick<ThemeTemplate, 'id' | 'name' | 'theme'>[] =
   [
     {
       id: 'typebot-light',
-      name: 'Typebot Light',
+      name: 'HackLead Light',
       theme: {
         chat: {
           inputs: {
@@ -27,7 +27,7 @@ export const galleryTemplates: Pick<ThemeTemplate, 'id' | 'name' | 'theme'>[] =
     },
     {
       id: 'typebot-dark',
-      name: 'Typebot Dark',
+      name: 'HackLead Dark',
       theme: {
         chat: {
           inputs: {
@@ -50,7 +50,7 @@ export const galleryTemplates: Pick<ThemeTemplate, 'id' | 'name' | 'theme'>[] =
     },
     {
       id: 'minimalist-black',
-      name: 'Minimalist Black',
+      name: 'Minimalista Escuro',
       theme: {
         chat: {
           inputs: {
@@ -71,7 +71,7 @@ export const galleryTemplates: Pick<ThemeTemplate, 'id' | 'name' | 'theme'>[] =
     },
     {
       id: 'minimalist-teal',
-      name: 'Minimalist Teal',
+      name: 'Minimalista Claro',
       theme: {
         chat: {
           inputs: {
@@ -93,7 +93,7 @@ export const galleryTemplates: Pick<ThemeTemplate, 'id' | 'name' | 'theme'>[] =
 
     {
       id: 'bright-rain',
-      name: 'Bright Rain',
+      name: 'Chuva de brilho',
       theme: {
         chat: {
           inputs: {
@@ -118,33 +118,7 @@ export const galleryTemplates: Pick<ThemeTemplate, 'id' | 'name' | 'theme'>[] =
     },
     {
       id: 'ray-of-lights',
-      name: 'Ray of Lights',
-      theme: {
-        chat: {
-          inputs: {
-            color: '#303235',
-            backgroundColor: '#FFFFFF',
-            placeholderColor: '#9095A0',
-          },
-          buttons: { color: '#fff', backgroundColor: '#1A2249' },
-          hostAvatar: { isEnabled: true },
-          hostBubbles: { color: '#303235', backgroundColor: '#F7F8FF' },
-          guestBubbles: { color: '#fff', backgroundColor: '#1A2249' },
-        },
-        general: {
-          font: 'Raleway',
-          background: {
-            type: BackgroundType.IMAGE,
-            content:
-              'https://s3.fr-par.scw.cloud/typebot/public/typebots/hlmywyje0sbz1lfogu86pyks/blocks/uc2dyf63eeogaivqzm4z2hdb',
-          },
-        },
-      },
-    },
-
-    {
-      id: 'ray-of-lights',
-      name: 'Ray of Lights',
+      name: 'Raios de luz',
       theme: {
         chat: {
           inputs: {
