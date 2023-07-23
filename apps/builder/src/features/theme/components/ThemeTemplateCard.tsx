@@ -92,7 +92,7 @@ export const ThemeTemplateCard = ({
       <ChangePlanModal
         isOpen={isOpen}
         onClose={onClose}
-        type={'Você precisa ser um assinante para selecionar este tema'}
+        type={'selecionar este tema '}
       />
       <Stack
         borderWidth={borderWidth}
