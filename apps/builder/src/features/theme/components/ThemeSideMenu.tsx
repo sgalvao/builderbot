@@ -32,12 +32,13 @@ export const ThemeSideMenu = () => {
     typebot && updateTypebot({ theme: { ...typebot.theme, customCss } })
 
   const selectedTemplate = (
-    selectedTemplate: Partial<Pick<ThemeTemplate, 'id' | 'theme'>>
+    selectedTemplate: Partial<Pick<ThemeTemplate, 'id' | 'theme' | 'settings'>>
   ) => {
     if (!typebot) return
-    const { theme, id } = selectedTemplate
+    const { theme, settings, id } = selectedTemplate
     updateTypebot({
       selectedThemeTemplateId: id,
+      settings: settings ? { ...settings } : typebot.settings,
       theme: theme ? { ...theme } : typebot.theme,
     })
   }

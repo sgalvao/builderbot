@@ -89,7 +89,7 @@ export const GeneralSettingsForm = ({
         onClick={isWorkspaceFreePlan ? onOpen : undefined}
       >
         <FormLabel htmlFor="branding" mb="0">
-          Typebot.io branding{' '}
+          HackLeads Marca d&apos;água{' '}
           {isWorkspaceFreePlan && <LockTag plan={Plan.STARTER} />}
         </FormLabel>
         <Switch
@@ -102,17 +102,17 @@ export const GeneralSettingsForm = ({
         label="Prefill input"
         initialValue={generalSettings.isInputPrefillEnabled ?? true}
         onCheckChange={handleInputPrefillChange}
-        moreInfoContent="Inputs are automatically pre-filled whenever their associated variable has a value"
+        moreInfoContent="As entradas são pré-preenchidas automaticamente sempre que sua variável associada tiver um valor"
       />
       <SwitchWithLabel
-        label="Hide query params on bot start"
+        label="Esconder os query params quando o bot for iniciado"
         initialValue={generalSettings.isHideQueryParamsEnabled ?? true}
         onCheckChange={handleHideQueryParamsChange}
-        moreInfoContent="If your URL contains query params, they will be automatically hidden when the bot starts."
+        moreInfoContent="Se sua URL contiver parâmetros eles serão escondidos automaticamente quando o bot iniciar."
       />
       <SwitchWithRelatedSettings
         label={'Remember user'}
-        moreInfoContent="If enabled, user previous variables will be prefilled and his new answers will override the previous ones."
+        moreInfoContent="Se estiver habilitado, a sessão de um usuario será armazenada e caso ele responda novamente o formulário as respostas anteriores serão sobrescritas"
         initialValue={
           generalSettings.rememberUser?.isEnabled ??
           (isDefined(generalSettings.isNewResultOnRefreshEnabled)

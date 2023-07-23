@@ -22,6 +22,10 @@
   display: flex !important;
 }
 
+a#lite-badge {
+  display: flex !important;
+}
+
 #lite-badge:hover {
   background-color: #f7f8ff !important;
 }

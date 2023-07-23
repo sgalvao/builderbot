@@ -14,10 +14,17 @@ import {
   Text,
   Image,
   useColorModeValue,
+  useDisclosure,
 } from '@chakra-ui/react'
 import { BackgroundType, ThemeTemplate } from '@typebot.io/schemas'
 import { useState } from 'react'
 import { DefaultAvatar } from './DefaultAvatar'
+import { LockTag } from '@/features/billing/components/LockTag'
+import { useWorkspace } from '@/features/workspace/WorkspaceProvider'
+import { isFreePlan } from '@/features/billing/helpers/isFreePlan'
+import { Plan } from '@typebot.io/prisma'
+import { ChangePlanModal } from '@/features/billing/components/ChangePlanModal'
+import { ThemeTutorialModal } from '@/features/theme/components/ThemeTutorialModal'
 
 export const ThemeTemplateCard = ({
   workspaceId,
@@ -28,7 +35,7 @@ export const ThemeTemplateCard = ({
   onDeleteSuccess,
 }: {
   workspaceId: string
-  themeTemplate: Pick<ThemeTemplate, 'name' | 'theme' | 'id'>
+  themeTemplate: Pick<ThemeTemplate, 'name' | 'theme' | 'id' | 'isPayed'>
   isSelected: boolean
   onRenameClick?: () => void
   onClick: () => void
@@ -36,6 +43,10 @@ export const ThemeTemplateCard = ({
 }) => {
   const borderWidth = useColorModeValue(undefined, '1px')
   const [isDeleting, setIsDeleting] = useState(false)
+  const [tutorialOpen, setTutorialOpen] = useState(false)
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { workspace } = useWorkspace()
+  const isWorkspaceFreePlan = isFreePlan(workspace)
 
   const {
     theme: {
@@ -55,6 +66,16 @@ export const ThemeTemplateCard = ({
     mutate({ themeTemplateId: themeTemplate.id, workspaceId })
   }
 
+  const handleSelectTheme = () => {
+    if (themeTemplate.isPayed && isWorkspaceFreePlan) {
+      return onOpen()
+    }
+    onClick()
+    if (themeTemplate.id === 'whatsapp-theme') {
+      setTutorialOpen(true)
+    }
+  }
+
   const rounded =
     themeTemplate.theme.chat.roundness === 'large'
       ? 'md'
@@ -63,126 +84,146 @@ export const ThemeTemplateCard = ({
       : 'sm'
 
   return (
-    <Stack
-      borderWidth={borderWidth}
-      cursor="pointer"
-      onClick={onClick}
-      spacing={0}
-      opacity={isDeleting ? 0.5 : 1}
-      pointerEvents={isDeleting ? 'none' : undefined}
-      rounded="md"
-      boxShadow={
-        isSelected
-          ? `${colors['blue']['400']} 0 0 0 4px`
-          : `rgba(0, 0, 0, 0.08) 0px 2px 4px`
-      }
-      style={{
-        willChange: 'box-shadow',
-        transition: 'box-shadow 0.2s ease 0s',
-      }}
-    >
-      <Box
-        borderTopRadius="md"
-        backgroundSize="cover"
-        {...parseBackground(themeTemplate.theme.general.background)}
-        borderColor={isSelected ? 'blue.400' : undefined}
+    <>
+      <ThemeTutorialModal
+        isOpen={tutorialOpen}
+        onClose={() => setTutorialOpen(false)}
+      />
+      <ChangePlanModal
+        isOpen={isOpen}
+        onClose={onClose}
+        type={'Você precisa ser um assinante para selecionar este tema'}
+      />
+      <Stack
+        borderWidth={borderWidth}
+        cursor="pointer"
+        onClick={handleSelectTheme}
+        spacing={0}
+        opacity={isDeleting ? 0.5 : 1}
+        position={'relative'}
+        pointerEvents={isDeleting ? 'none' : undefined}
+        rounded="md"
+        boxShadow={
+          isSelected
+            ? `${colors['blue']['400']} 0 0 0 4px`
+            : `rgba(0, 0, 0, 0.08) 0px 2px 4px`
+        }
+        style={{
+          willChange: 'box-shadow',
+          transition: 'box-shadow 0.2s ease 0s',
+        }}
       >
-        <HStack mt="4" ml="4" spacing={0.5} alignItems="flex-end">
-          <AvatarPreview avatar={themeTemplate.theme.chat.hostAvatar} />
-          <Box
-            rounded="sm"
-            w="80px"
-            h="16px"
-            background={themeTemplate.theme.chat.hostBubbles.backgroundColor}
-          />
-        </HStack>
-
-        <HStack
-          mt="1"
-          mr="4"
-          ml="auto"
-          justifyContent="flex-end"
-          alignItems="flex-end"
+        <Box
+          borderTopRadius="md"
+          backgroundSize="cover"
+          {...parseBackground(themeTemplate.theme.general.background)}
+          borderColor={isSelected ? 'blue.400' : undefined}
+          filter={
+            isWorkspaceFreePlan && themeTemplate.isPayed
+              ? 'blur(2px)'
+              : 'blur(0px)'
+          }
         >
-          <Box
-            rounded="sm"
-            w="80px"
-            h="16px"
-            background={themeTemplate.theme.chat.guestBubbles.backgroundColor}
-          />
-          <AvatarPreview avatar={themeTemplate.theme.chat.guestAvatar} />
-        </HStack>
-
-        <HStack mt="1" ml="4" spacing={0.5} alignItems="flex-end">
-          <AvatarPreview avatar={themeTemplate.theme.chat.hostAvatar} />
-          <Box
-            rounded="sm"
-            w="80px"
-            h="16px"
-            background={themeTemplate.theme.chat.hostBubbles.backgroundColor}
-          />
-        </HStack>
-        <Flex
-          mt="1"
-          mb="4"
-          pr="4"
-          ml="auto"
-          w="full"
-          justifyContent="flex-end"
-          gap="1"
-        >
-          <Box
-            rounded={rounded}
-            w="20px"
-            h="10px"
-            background={themeTemplate.theme.chat.buttons.backgroundColor}
-          />
-          <Box
-            rounded={rounded}
-            w="20px"
-            h="10px"
-            background={themeTemplate.theme.chat.buttons.backgroundColor}
-          />
-          <Box
-            rounded={rounded}
-            w="20px"
-            h="10px"
-            background={themeTemplate.theme.chat.buttons.backgroundColor}
-          />
-        </Flex>
-      </Box>
-      <HStack p="2" justifyContent="space-between">
-        <Text fontSize="sm" noOfLines={1}>
-          {themeTemplate.name}
-        </Text>
-        {onDeleteSuccess && onRenameClick && (
-          <Menu isLazy>
-            <MenuButton
-              as={IconButton}
-              icon={<MoreHorizontalIcon />}
-              aria-label="Open template menu"
-              variant="ghost"
-              size="xs"
-              onClick={(e) => e.stopPropagation()}
+          <HStack mt="4" ml="4" spacing={0.5} alignItems="flex-end">
+            <AvatarPreview avatar={themeTemplate.theme.chat.hostAvatar} />
+            <Box
+              rounded="sm"
+              w="80px"
+              h="16px"
+              background={themeTemplate.theme.chat.hostBubbles.backgroundColor}
             />
-            <MenuList onClick={(e) => e.stopPropagation()}>
-              {isSelected && (
-                <MenuItem icon={<EditIcon />} onClick={onRenameClick}>
-                  Rename
+          </HStack>
+
+          <HStack
+            mt="1"
+            mr="4"
+            ml="auto"
+            justifyContent="flex-end"
+            alignItems="flex-end"
+          >
+            <Box
+              rounded="sm"
+              w="80px"
+              h="16px"
+              background={themeTemplate.theme.chat.guestBubbles.backgroundColor}
+            />
+            <AvatarPreview avatar={themeTemplate.theme.chat.guestAvatar} />
+          </HStack>
+
+          <HStack mt="1" ml="4" spacing={0.5} alignItems="flex-end">
+            <AvatarPreview avatar={themeTemplate.theme.chat.hostAvatar} />
+            <Box
+              rounded="sm"
+              w="80px"
+              h="16px"
+              background={themeTemplate.theme.chat.hostBubbles.backgroundColor}
+            />
+          </HStack>
+          <Flex
+            mt="1"
+            mb="4"
+            pr="4"
+            ml="auto"
+            w="full"
+            justifyContent="flex-end"
+            gap="1"
+          >
+            <Box
+              rounded={rounded}
+              w="20px"
+              h="10px"
+              background={themeTemplate.theme.chat.buttons.backgroundColor}
+            />
+            <Box
+              rounded={rounded}
+              w="20px"
+              h="10px"
+              background={themeTemplate.theme.chat.buttons.backgroundColor}
+            />
+            <Box
+              rounded={rounded}
+              w="20px"
+              h="10px"
+              background={themeTemplate.theme.chat.buttons.backgroundColor}
+            />
+          </Flex>
+        </Box>
+        <HStack p="2" justifyContent="space-between">
+          <Text fontSize="sm" noOfLines={1}>
+            {themeTemplate.name}{' '}
+            {isWorkspaceFreePlan && themeTemplate.isPayed && (
+              <LockTag plan={Plan.STARTER} />
+            )}
+          </Text>
+          {onDeleteSuccess && onRenameClick && (
+            <Menu isLazy>
+              <MenuButton
+                as={IconButton}
+                icon={<MoreHorizontalIcon />}
+                aria-label="Open template menu"
+                variant="ghost"
+                size="xs"
+                onClick={(e) => e.stopPropagation()}
+              />
+              <MenuList onClick={(e) => e.stopPropagation()}>
+                {isSelected && (
+                  <MenuItem icon={<EditIcon />} onClick={onRenameClick}>
+                    Rename
+                  </MenuItem>
+                )}
+                <MenuItem
+                  icon={<TrashIcon />}
+                  color="red.500"
+                  onClick={deleteThemeTemplate}
+                >
+                  Delete
                 </MenuItem>
-              )}
-              <MenuItem
-                icon={<TrashIcon />}
-                color="red.500"
-                onClick={deleteThemeTemplate}
-              >
-                Delete
-              </MenuItem>
-            </MenuList>
-          </Menu>
-        )}
-      </HStack>
-    </Stack>
+              </MenuList>
+            </Menu>
+          )}
+        </HStack>
+      </Stack>
+    </>
   )
 }
 

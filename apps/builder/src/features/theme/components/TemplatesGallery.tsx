@@ -8,7 +8,7 @@ type Props = {
   currentTheme: ThemeTemplate['theme']
   workspaceId: string
   onTemplateSelect: (
-    template: Partial<Pick<ThemeTemplate, 'id' | 'theme'>>
+    template: Partial<Pick<ThemeTemplate, 'id' | 'theme' | 'isPayed'>>
   ) => void
 }
 

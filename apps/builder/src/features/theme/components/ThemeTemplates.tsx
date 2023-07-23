@@ -32,7 +32,7 @@ export const ThemeTemplates = ({
           colorScheme={selectedTab === 'my-templates' ? 'blue' : 'gray'}
           onClick={() => setSelectedTab('my-templates')}
         >
-          My templates
+          Meus Templates
         </Button>
         <Button
           flex="1"
@@ -40,7 +40,7 @@ export const ThemeTemplates = ({
           colorScheme={selectedTab === 'gallery' ? 'blue' : 'gray'}
           onClick={() => setSelectedTab('gallery')}
         >
-          Gallery
+          Galeria
         </Button>
       </HStack>
       <ThemeTemplatesBody

@@ -1,6 +1,7 @@
 import { ThemeTemplate as ThemeTemplatePrisma } from '@typebot.io/prisma'
 import { z } from 'zod'
 import { BackgroundType } from './enums'
+import { settingsSchema } from '../settings'
 
 const avatarPropsSchema = z.object({
   isEnabled: z.boolean(),
@@ -48,6 +49,8 @@ export const themeTemplateSchema = z.object({
   id: z.string(),
   name: z.string(),
   theme: themeSchema,
+  isPayed: z.boolean().optional(),
+  settings: settingsSchema,
   workspaceId: z.string(),
   createdAt: z.date(),
   updatedAt: z.date(),
