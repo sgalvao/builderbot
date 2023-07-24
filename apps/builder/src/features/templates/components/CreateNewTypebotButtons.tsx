@@ -17,6 +17,7 @@ import { useUser } from '@/features/account/hooks/useUser'
 import { useToast } from '@/hooks/useToast'
 import { createTypebotQuery } from '@/features/dashboard/queries/createTypebotQuery'
 import { importTypebotQuery } from '@/features/dashboard/queries/importTypebotQuery'
+import sanitizeCSS from '@/helpers/cssSanitizer'
 
 export const CreateNewTypebotButtons = () => {
   const { workspace } = useWorkspace()
@@ -32,6 +33,8 @@ export const CreateNewTypebotButtons = () => {
     if (!user || !workspace) return
     setIsLoading(true)
     const folderId = router.query.folderId?.toString() ?? null
+
+    console.log('TYPEBOT TEMA', typebot?.theme)
     const { error, data } = typebot
       ? await importTypebotQuery(
           {
@@ -40,6 +43,9 @@ export const CreateNewTypebotButtons = () => {
             workspaceId: workspace.id,
             theme: {
               ...typebot.theme,
+              customCss:
+                typebot.theme.customCss &&
+                sanitizeCSS(typebot.theme.customCss, ['a#lite-badge', '#lite-badge']),
               chat: {
                 ...typebot.theme.chat,
                 hostAvatar: {

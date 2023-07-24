@@ -120,6 +120,7 @@
     "eslint-config-custom": "workspace:*",
     "superjson": "^1.12.3",
     "typescript": "5.0.4",
+    "ts-node": "^10.4.0",
     "zod": "3.21.4"
   }
 }
