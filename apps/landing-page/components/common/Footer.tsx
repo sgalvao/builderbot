@@ -30,7 +30,7 @@ export const Footer = () => {
               </Heading>
             </HStack>
             <TextLink href={'https://typebot.io'} isExternal>
-              Fork TypeBot.io
+              Fork Typebot.io
             </TextLink>
           </Stack>
           <Stack align={'flex-start'}>
