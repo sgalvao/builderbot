@@ -129,7 +129,7 @@ type Props = {
   additionalStorage: number
   isYearly: boolean
   userId: string
-  partner: Partner | null
+  partner?: Partner | null
 }
 
 export const createCheckoutSessionUrl =
