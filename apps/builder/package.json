@@ -52,6 +52,7 @@
     "@upstash/ratelimit": "^0.4.3",
     "@upstash/redis": "^1.21.0",
     "@use-gesture/react": "^10.2.27",
+    "@vercel/analytics": "1.0.1",
     "aws-sdk": "2.1384.0",
     "browser-image-compression": "2.0.2",
     "canvas-confetti": "1.6.0",
@@ -119,8 +120,8 @@
     "eslint": "8.41.0",
     "eslint-config-custom": "workspace:*",
     "superjson": "^1.12.3",
-    "typescript": "5.0.4",
     "ts-node": "^10.4.0",
+    "typescript": "5.0.4",
     "zod": "3.21.4"
   }
 }

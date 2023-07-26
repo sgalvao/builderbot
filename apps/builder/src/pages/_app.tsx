@@ -19,7 +19,7 @@ import { I18nProvider } from '@/locales'
 import { TypebotProvider } from '@/features/editor/providers/TypebotProvider'
 import { WorkspaceProvider } from '@/features/workspace/WorkspaceProvider'
 import { isCloudProdInstance } from '@/helpers/isCloudProdInstance'
-
+import { Analytics } from '@vercel/analytics/react'
 const { ToastContainer, toast } = createStandaloneToast(customTheme)
 
 const App = ({ Component, pageProps }: AppProps) => {
@@ -59,6 +59,7 @@ const App = ({ Component, pageProps }: AppProps) => {
               <TypebotProvider typebotId={typebotId}>
                 <WorkspaceProvider typebotId={typebotId}>
                   <Component {...pageProps} />
+                  <Analytics />
                   {!pathname.endsWith('edit') && <SupportBubble />}
                   <NewVersionPopup />
                 </WorkspaceProvider>
