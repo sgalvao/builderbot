@@ -5,7 +5,11 @@ import React from 'react'
 import { PricingCard } from './PricingCard'
 import { chatsLimit } from '@typebot.io/lib/pricing'
 
-export const FreePlanCard = () => (
+type Props = {
+  refCode?: string
+}
+
+export const FreePlanCard = ({ refCode }: Props) => (
   <PricingCard
     data={{
       price: 'Grátis',
@@ -39,7 +43,7 @@ export const FreePlanCard = () => (
     button={
       <Button
         as={Link}
-        href="https://app.hackleads.com.br/register"
+        href={`https://app.hackleads.com.br/register${refCode}`}
         variant="outline"
         colorScheme="gray"
         size="lg"

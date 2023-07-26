@@ -1,6 +1,6 @@
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["extendedWhereUnique", "filterJson"]
+  previewFeatures = ["extendedWhereUnique"]
 }
 
 datasource db {
@@ -55,6 +55,8 @@ model User {
   CollaboratorsOnTypebots CollaboratorsOnTypebots[]
   workspaces              MemberInWorkspace[]
   sessions                Session[]
+  partnerCode             String?
+  partner                 Partner?                  @relation(fields: [partnerCode], references: [partnerCode], onDelete: Cascade)
 }
 
 model ApiToken {
@@ -322,6 +324,17 @@ model ThemeTemplate {
   theme       Json
   workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
   workspaceId String
+}
+
+model Partner {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+  partnerCode String   @unique
+  stripeId    String
+  name        String
+  percentFee  Int
+  User        User[]
 }
 
 enum WorkspaceRole {

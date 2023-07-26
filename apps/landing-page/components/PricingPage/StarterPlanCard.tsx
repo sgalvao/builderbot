@@ -25,8 +25,9 @@ import { PricingCard } from './PricingCard'
 
 type Props = {
   isYearly: boolean
+  refCode?: string
 }
-export const StarterPlanCard = ({ isYearly }: Props) => {
+export const StarterPlanCard = ({ refCode, isYearly }: Props) => {
   const [selectedChatsLimitIndex, setSelectedChatsLimitIndex] =
     useState<number>(0)
   const [selectedStorageLimitIndex, setSelectedStorageLimitIndex] =
@@ -142,7 +143,7 @@ export const StarterPlanCard = ({ isYearly }: Props) => {
       button={
         <Button
           as={Link}
-          href={`https://app.hackleads.com.br/register?subscribePlan=${Plan.STARTER}&chats=${selectedChatsLimitIndex}&storage=${selectedStorageLimitIndex}&isYearly=${isYearly}`}
+          href={`https://app.hackleads.com.br/register${refCode}?subscribePlan=${Plan.STARTER}&chats=${selectedChatsLimitIndex}&storage=${selectedStorageLimitIndex}&isYearly=${isYearly}`}
           colorScheme="orange"
           size="lg"
           w="full"

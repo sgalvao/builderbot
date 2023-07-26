@@ -56,6 +56,23 @@ export const createCustomCheckoutSession = authenticatedProcedure
         apiVersion: '2022-11-15',
       })
 
+      const userData = await prisma.user.findUnique({
+        where: { id: user.id },
+        include: { partner: true },
+      })
+      const partner = userData?.partner
+      let partnerData: any
+      if (partner) {
+        partnerData = {
+          subscription_data: {
+            transfer_data: {
+              destination: partner.stripeId,
+              amount_percent: partner.percentFee,
+            },
+          },
+        }
+      }
+
       const customer = workspace.stripeId
         ? await stripe.customers.retrieve(workspace.stripeId)
         : await stripe.customers.create({
@@ -67,13 +84,14 @@ export const createCustomCheckoutSession = authenticatedProcedure
       const session = await stripe.checkout.sessions.create({
         success_url: `${returnUrl}?stripe=${Plan.CUSTOM}&success=true`,
         cancel_url: `${returnUrl}?stripe=cancel`,
-        allow_promotion_codes: true,
         customer: customer.id,
+        allow_promotion_codes: true,
         customer_update: {
           address: 'auto',
           name: 'never',
         },
         mode: 'subscription',
+        ...partnerData,
         metadata: {
           claimableCustomPlanId: workspace.claimableCustomPlan.id,
         },

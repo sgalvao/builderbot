@@ -12,8 +12,18 @@ import * as React from 'react'
 import { Header } from '../../common/Header/Header'
 import { BackgroundPolygons } from './BackgroundPolygons'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
 export const Hero = () => {
+  const [refCode, setRefCode] = useState('')
+
+  useEffect(() => {
+    const ref = sessionStorage.getItem('@referral')
+    if (ref) {
+      setRefCode(`?referralCode=${ref}`)
+    }
+  }, [])
+
   return (
     <Box as="section" overflow="hidden">
       <Header />
@@ -49,7 +59,7 @@ export const Hero = () => {
             >
               <Button
                 as={Link}
-                href="https://app.hackleads.com.br/register"
+                href={`https://app.hackleads.com.br/register${refCode}`}
                 colorScheme="orange"
                 size="lg"
                 height="4rem"

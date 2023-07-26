@@ -35,14 +35,22 @@ export const SignInPage = ({ type }: Props) => {
       {type === 'signin' ? (
         <Text>
           {scopedT('signin.noAccountLabel.preLink')}{' '}
-          <TextLink href="/register">
+          <TextLink
+            href={`/register${
+              query.referralCode ? `?referralCode=${query.referralCode}` : ''
+            }`}
+          >
             {scopedT('signin.noAccountLabel.link')}
           </TextLink>
         </Text>
       ) : (
         <Text>
           {scopedT('register.alreadyHaveAccountLabel.preLink')}{' '}
-          <TextLink href="/signin">
+          <TextLink
+            href={`/signin${
+              query.referralCode ? `?referralCode=${query.referralCode}` : ''
+            }`}
+          >
             {scopedT('register.alreadyHaveAccountLabel.link')}
           </TextLink>
         </Text>
