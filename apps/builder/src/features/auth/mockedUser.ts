@@ -13,4 +13,5 @@ export const mockedUser: User = {
   lastActivityAt: new Date('2022-01-01'),
   onboardingCategories: [],
   updatedAt: new Date('2022-01-01'),
+  partnerCode:null
 }
