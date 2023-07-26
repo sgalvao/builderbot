@@ -14,7 +14,7 @@ import { Header } from 'components/common/Header/Header'
 import { SocialMetaTags } from 'components/common/SocialMetaTags'
 import { BackgroundPolygons } from 'components/Homepage/Hero/BackgroundPolygons'
 import { PlanComparisonTables } from 'components/PricingPage/PlanComparisonTables'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FreePlanCard } from 'components/PricingPage/FreePlanCard'
 import { StarterPlanCard } from 'components/PricingPage/StarterPlanCard'
 import { ProPlanCard } from 'components/PricingPage/ProPlanCard'
@@ -22,6 +22,14 @@ import { Faq } from 'components/PricingPage/Faq'
 
 const Pricing = () => {
   const [isYearly, setIsYearly] = useState(true)
+  const [refCode, setRefCode] = useState('')
+  useEffect(() => {
+    const ref = sessionStorage.getItem('@referral')
+
+    if (ref) {
+      setRefCode(`?referralCode=${ref}`)
+    }
+  }, [])
 
   return (
     <Stack overflowX="hidden" bgColor="gray.900">
@@ -33,7 +41,9 @@ const Pricing = () => {
         bgGradient="linear(to-b, gray.900, gray.800)"
         pb={40}
       >
-        <SocialMetaTags currentUrl={`https://www.hackleads.com.br/pricing`} />
+        <SocialMetaTags
+          currentUrl={`https://www.hackleads.com.br/pricing${refCode}`}
+        />
         <BackgroundPolygons />
         <DarkMode>
           <Header />
@@ -87,9 +97,9 @@ const Pricing = () => {
                 w="full"
                 maxW="1200px"
               >
-                <FreePlanCard />
-                <StarterPlanCard isYearly={isYearly} />
-                <ProPlanCard isYearly={isYearly} />
+                <FreePlanCard refCode={refCode} />
+                <StarterPlanCard isYearly={isYearly} refCode={refCode} />
+                <ProPlanCard isYearly={isYearly} refCode={refCode} />
               </Stack>
             </Stack>
 

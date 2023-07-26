@@ -1,7 +1,7 @@
 import prisma from '@/lib/prisma'
 import { authenticatedProcedure } from '@/helpers/server/trpc'
 import { TRPCError } from '@trpc/server'
-import { Plan, WorkspaceRole } from '@typebot.io/prisma'
+import { Partner, Plan, WorkspaceRole } from '@typebot.io/prisma'
 import Stripe from 'stripe'
 import { z } from 'zod'
 import { parseSubscriptionItems } from '../helpers/parseSubscriptionItems'
@@ -76,12 +76,15 @@ export const createCheckoutSession = authenticatedProcedure
         apiVersion: '2022-11-15',
       })
 
-      await prisma.user.updateMany({
+      const userUpdated = await prisma.user.update({
         where: {
           id: user.id,
         },
         data: {
           company,
+        },
+        include: {
+          partner: true,
         },
       })
 
@@ -101,6 +104,7 @@ export const createCheckoutSession = authenticatedProcedure
         additionalChats,
         additionalStorage,
         isYearly,
+        partner: userUpdated.partner,
       })
 
       if (!checkoutUrl)
@@ -125,6 +129,7 @@ type Props = {
   additionalStorage: number
   isYearly: boolean
   userId: string
+  partner: Partner | null
 }
 
 export const createCheckoutSessionUrl =
@@ -138,16 +143,36 @@ export const createCheckoutSessionUrl =
     additionalChats,
     additionalStorage,
     isYearly,
+    partner,
   }: Props) => {
+    let partnerData: any
+    if (partner) {
+      const promotionCode = await stripe.promotionCodes.list({
+        code: partner.partnerCode,
+        limit: 1,
+      })
+      partnerData = {
+        discounts: [{ promotion_code: promotionCode.data[0].id }],
+        subscription_data: {
+          transfer_data: {
+            destination: partner.stripeId,
+            amount_percent: partner.percentFee,
+          },
+        },
+      }
+    } else {
+      partnerData = { allow_promotion_codes: true }
+    }
+
     const session = await stripe.checkout.sessions.create({
       success_url: `${returnUrl}?stripe=${plan}&success=true`,
       cancel_url: `${returnUrl}?stripe=cancel`,
-      allow_promotion_codes: true,
       customer: customerId,
       customer_update: {
         address: 'auto',
         name: 'never',
       },
+      ...partnerData,
       mode: 'subscription',
       metadata: {
         workspaceId,

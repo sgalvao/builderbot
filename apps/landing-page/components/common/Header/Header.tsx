@@ -10,17 +10,27 @@ import {
   Link,
 } from '@chakra-ui/react'
 import { HamburgerIcon } from 'assets/icons'
-import { ChevronDownIcon } from 'assets/icons/ChevronDownIcon'
 import { CloseIcon } from 'assets/icons/CloseIcon'
 import { Logo } from 'assets/icons/Logo'
 import * as React from 'react'
 import { MobileMenu } from './MobileMenu'
-import { ResourcesMenu } from './ResourcesMenu'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 
 export const Header = () => {
-  const { isOpen, onToggle } = useDisclosure()
   const { isOpen: isMobileMenuOpen, onToggle: onMobileMenuToggle } =
     useDisclosure()
+  const [refCode, setRefCode] = useState('')
+  const router = useRouter()
+
+  useEffect(() => {
+    const { referralCode } = router.query
+
+    if (referralCode) {
+      sessionStorage.setItem('@referral', JSON.stringify(referralCode))
+      setRefCode(`?referralCode=${referralCode}`)
+    }
+  }, [router.query])
 
   return (
     <Flex pos="relative" zIndex={10} w="full">
@@ -75,7 +85,7 @@ export const Header = () => {
           </Button>
           <Button
             as={Link}
-            href="https://app.hackleads.com.br/signin"
+            href={`https://app.hackleads.com.br/signin${refCode}`}
             colorScheme="blue"
             variant="outline"
             fontWeight={700}
@@ -84,7 +94,7 @@ export const Header = () => {
           </Button>
           <Button
             as={Link}
-            href="https://app.hackleads.com.br/register"
+            href={`https://app.hackleads.com.br/register${refCode}`}
             colorScheme="orange"
             fontWeight={700}
           >

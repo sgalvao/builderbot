@@ -1,9 +1,18 @@
 import { Heading, Button, Text, Flex, VStack } from '@chakra-ui/react'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { BackgroundPolygons } from './Hero/BackgroundPolygons'
 
 export const EndCta = () => {
+  const [refCode, setRefCode] = useState('')
+
+  useEffect(() => {
+    const ref = sessionStorage.getItem('@referral')
+    if (ref) {
+      setRefCode(`?referralCode=${ref}`)
+    }
+  }, [])
+
   return (
     <VStack
       as="section"
@@ -32,7 +41,7 @@ export const EndCta = () => {
         <Flex>
           <Button
             as={Link}
-            href="https://app.hackleads.com.br/register"
+            href={`https://app.hackleads.com.br/register${refCode}`}
             size="lg"
             colorScheme="orange"
             height="4rem"

@@ -8,6 +8,7 @@ import { Plan, WorkspaceRole } from '@typebot.io/prisma'
 import { RequestHandler } from 'next/dist/server/next'
 import { sendTelemetryEvents } from '@typebot.io/lib/telemetry/sendTelemetryEvent'
 import { PublicTypebot, Typebot } from '@typebot.io/schemas'
+import { TRPCError } from '@trpc/server'
 
 if (!process.env.STRIPE_SECRET_KEY || !process.env.STRIPE_WEBHOOK_SECRET)
   throw new Error('STRIPE_SECRET_KEY or STRIPE_WEBHOOK_SECRET missing')
@@ -39,6 +40,7 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         sig.toString(),
         webhookSecret
       )
+
       switch (event.type) {
         case 'checkout.session.completed': {
           const session = event.data.object as Stripe.Checkout.Session
@@ -76,6 +78,31 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
                 },
               },
             })
+            if (!process.env.STRIPE_SECRET_KEY)
+              throw new TRPCError({
+                code: 'INTERNAL_SERVER_ERROR',
+                message: 'Stripe environment variables are missing',
+              })
+            const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+              apiVersion: '2022-11-15',
+            })
+            const { data } = await stripe.subscriptions.list({
+              customer: workspace.stripeId as string,
+              limit: 1,
+              status: 'active',
+            })
+
+            const subscription = data[0] as Stripe.Subscription
+
+            if (subscription.transfer_data) {
+              await stripe.subscriptions.update(subscription.id, {
+                transfer_data: {
+                  destination: subscription.transfer_data
+                    ?.destination as string,
+                  amount_percent: 5,
+                },
+              })
+            }
 
             for (const user of workspace.members.map((member) => member.user)) {
               if (!user?.id) continue
