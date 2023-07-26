@@ -130,7 +130,7 @@ export const StripeConfigModal = ({
               isRequired
               label="Account name:"
               onChange={handleNameChange}
-              placeholder="Typebot"
+              placeholder="HackLead"
               withVariableButton={false}
               debounceTimeout={0}
             />

@@ -5,7 +5,7 @@ export const SocialMetaTags = ({
   title = 'HackLeads - Hackeando a forma de conseguir leads',
   description = 'Powerful blocks to create unique chat experiences. Embed them anywhere on your apps and start collecting results like magic.',
   currentUrl,
-  imagePreviewUrl = 'https://s3.typebot.io/preview.png',
+  imagePreviewUrl = 'https://hacklead.s3.amazonaws.com/public/preview-image.png',
 }: {
   title?: string
   description?: string
