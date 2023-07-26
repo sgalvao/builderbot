@@ -87,7 +87,7 @@ export const CustomDomainsDropdown = ({
         {...props}
       >
         <Text noOfLines={1} overflowY="visible" h="20px">
-          {currentCustomDomain ?? 'Add my domain'}
+          {currentCustomDomain ?? 'Adicionar meu domínio'}
         </Text>
       </MenuButton>
       <MenuList maxW="500px" shadow="lg">
