@@ -120,11 +120,16 @@ const sendAlertIfLimitReached = async (
   const events: TelemetryEvent[] = []
   const taggedWorkspaces: string[] = []
   for (const workspace of workspaces) {
+    console.log(workspaces.length)
+
     if (taggedWorkspaces.includes(workspace.id) || workspace.isQuarantined)
       continue
     taggedWorkspaces.push(workspace.id)
     const { totalChatsUsed } = await getUsage(workspace.id)
     const chatsLimit = getChatsLimit(workspace)
+    console.log(
+      `This Workspace ${workspace.id} PLAN: ${workspace.plan} have ${chatsLimit}-Chat Limit and they used ${totalChatsUsed}`
+    )
     if (
       chatsLimit > 0 &&
       totalChatsUsed >= chatsLimit * LIMIT_EMAIL_TRIGGER_PERCENT &&
@@ -177,7 +182,16 @@ const sendAlertIfLimitReached = async (
       }
     }
 
-    if (totalChatsUsed > chatsLimit * 3 && workspace.plan === Plan.FREE) {
+    // function hasPassed48Hours(date: Date): boolean {
+    //   const now = new Date()
+    //   const diffInMilliseconds = now.getTime() - date.getTime()
+
+    //   const hoursPassed = diffInMilliseconds / (1000 * 60 * 60)
+
+    //   return hoursPassed >= 48
+    // }
+
+    if (totalChatsUsed >= chatsLimit && workspace.plan === Plan.FREE) {
       console.log(`Automatically quarantine workspace ${workspace.id}...`)
       await prisma.workspace.update({
         where: { id: workspace.id },

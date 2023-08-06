@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { HStack, Flex, Button, useDisclosure } from '@chakra-ui/react'
 import { HardDriveIcon, SettingsIcon } from '@/components/icons'
 import { signOut } from 'next-auth/react'
@@ -10,11 +10,22 @@ import { useScopedI18n } from '@/locales'
 import { useWorkspace } from '@/features/workspace/WorkspaceProvider'
 import { WorkspaceDropdown } from '@/features/workspace/components/WorkspaceDropdown'
 import { WorkspaceSettingsModal } from '@/features/workspace/components/WorkspaceSettingsModal'
+import { Plan } from '@typebot.io/prisma'
+import { ChangePlanModal } from '@/features/billing/components/ChangePlanModal'
 
 export const DashboardHeader = () => {
   const scopedT = useScopedI18n('dashboard.header')
   const { user } = useUser()
   const { workspace, switchWorkspace, createWorkspace } = useWorkspace()
+  const [billingModalOpen, setBillingModalOpen] = useState(false)
+
+  const handleOpen = () => {
+    setBillingModalOpen(true)
+  }
+
+  const handleClose = () => {
+    setBillingModalOpen(false)
+  }
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -50,6 +61,7 @@ export const DashboardHeader = () => {
               workspace={workspace}
             />
           )}
+
           <Button
             leftIcon={<SettingsIcon />}
             onClick={onOpen}
@@ -57,6 +69,17 @@ export const DashboardHeader = () => {
           >
             {scopedT('settingsButton.label')}
           </Button>
+          {workspace?.plan === Plan.FREE && (
+            <Button
+              colorScheme="orange"
+              border={'1px'}
+              onClick={handleOpen}
+              isLoading={isNotDefined(workspace)}
+            >
+              Planos
+            </Button>
+          )}
+          <ChangePlanModal isOpen={billingModalOpen} onClose={handleClose} />
           <WorkspaceDropdown
             currentWorkspace={workspace}
             onLogoutClick={handleLogOut}
