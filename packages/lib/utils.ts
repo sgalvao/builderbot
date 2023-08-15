@@ -283,7 +283,9 @@ export const hasValue = (
 export const getViewerUrl = (props?: {
   returnAll?: boolean
 }): string | undefined =>
-  props?.returnAll ? env('VIEWER_URL') : env('VIEWER_URL')?.split(',')[0]
+  props?.returnAll
+    ? 'https://chat.hackleads.com.br'
+    : env('VIEWER_URL')?.split(',')[0]
 
 export const parseNumberWithCommas = (num: number) =>
   num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
