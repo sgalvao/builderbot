@@ -179,8 +179,8 @@ const App = ({
         }
       />
     )
-  if (!publishedTypebot || publishedTypebot.typebot.isArchived) {
-    console.log('PUBLISHED?', Boolean(publishedTypebot))
+  if (!publishedTypebot.typebot || publishedTypebot.typebot.isArchived) {
+    console.log('PUBLISHED?', publishedTypebot)
     return <NotFoundPage />
   }
   if (publishedTypebot.typebot.isClosed)
