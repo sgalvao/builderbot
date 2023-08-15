@@ -104,7 +104,7 @@ const getTypebotFromPublicId = async (
       },
     },
   })
-  if (isNotDefined(publishedTypebot)) return null
+  if (!publishedTypebot) return null
   return omit(
     publishedTypebot,
     'createdAt',
@@ -158,8 +158,7 @@ const App = ({
         }
       />
     )
-  if (!publishedTypebot || publishedTypebot.typebot.isArchived)
-    return <NotFoundPage />
+  if (publishedTypebot.typebot.isArchived) return <NotFoundPage />
   if (publishedTypebot.typebot.isClosed)
     return <ErrorPage error={new Error('This bot is now closed')} />
   return publishedTypebot.version === '3' ? (
