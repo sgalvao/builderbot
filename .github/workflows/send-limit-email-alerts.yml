@@ -11,7 +11,7 @@ jobs:
       run:
         working-directory: ./packages/scripts
     env:
-      DATABASE_URL: '${{ secrets.DATABASE_URL }}'
+      DATABASE_URL_ENV: '${{ secrets.DATABASE_URL }}'
       TELEMETRY_WEBHOOK_URL: '${{ secrets.TELEMETRY_WEBHOOK_URL }}'
       TELEMETRY_WEBHOOK_BEARER_TOKEN: '${{ secrets.TELEMETRY_WEBHOOK_BEARER_TOKEN }}'
       SMTP_USERNAME: '${{ secrets.SMTP_USERNAME }}'
