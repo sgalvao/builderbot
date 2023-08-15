@@ -15,7 +15,8 @@
     "build": {
       "dependsOn": ["^build", "@typebot.io/prisma#db:generate"],
       "outputs": [".next/**", "dist/**", "build/**"],
-      "outputMode": "new-only"
+      "outputMode": "new-only",
+      "cache": false
     },
     "build:docker": {
       "dependsOn": ["^build", "@typebot.io/prisma#db:generate"],

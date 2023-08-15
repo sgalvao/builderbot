@@ -1,7 +1,7 @@
 {
   "name": "viewer",
   "license": "AGPL-3.0-or-later",
-  "version": "0.1.0",
+  "version": "0.1.7",
   "scripts": {
     "dev": "cross-env ENVSH_ENV=.env.local bash ../../scripts/inject-runtime-env.sh next dev -p 3001",
     "build": "cross-env ENVSH_ENV=.env.local bash ../../scripts/inject-runtime-env.sh next build",
