@@ -67,6 +67,8 @@ export const getServerSideProps: GetServerSideProps = async (
     const publishedTypebot = isMatchingViewerUrl
       ? await getTypebotFromPublicId(context.query.publicId?.toString())
       : await getTypebotFromCustomDomain(customDomain)
+
+    log(`'TypeBot publicado?' ${publishedTypebot}`)
     const headCode = publishedTypebot?.settings.metadata.customHeadCode
     return {
       props: {
@@ -78,7 +80,7 @@ export const getServerSideProps: GetServerSideProps = async (
       },
     }
   } catch (err) {
-    console.error(err)
+    console.error('DEI UM ERROOO =====', err)
   }
   return {
     props: {
@@ -128,7 +130,24 @@ const getTypebotFromCustomDomain = async (
       },
     },
   })
-  if (isNotDefined(publishedTypebot)) return null
+
+  console.log('PROCESS', process.env)
+  console.log('RETURN FUNCAO', publishedTypebot)
+  const url = `${process.env.DATABASE_URL_ENV}`
+  const regex = /:(\d+)\/[^/]+$/
+  const match = url.match(regex)
+
+  if (match) {
+    const porta = match[1]
+    console.log('Porta TESTANDO:', porta)
+  } else {
+    console.log('Porta não encontrada no URL.')
+  }
+
+  if (isNotDefined(publishedTypebot)) {
+    console.log('NAO FOI DEFINIDO')
+    return null
+  }
   return omit(
     publishedTypebot,
     'createdAt',
@@ -148,6 +167,8 @@ const App = ({
   incompatibleBrowser,
   ...props
 }: TypebotPageProps & { incompatibleBrowser: string | null }) => {
+  console.log(publishedTypebot)
+
   if (incompatibleBrowser)
     return (
       <ErrorPage
@@ -158,7 +179,10 @@ const App = ({
         }
       />
     )
-  if (!publishedTypebot || publishedTypebot.typebot.isArchived) return <NotFoundPage />
+  if (!publishedTypebot || publishedTypebot.typebot.isArchived) {
+    console.log('PUBLISHED?', Boolean(publishedTypebot))
+    return <NotFoundPage />
+  }
   if (publishedTypebot.typebot.isClosed)
     return <ErrorPage error={new Error('This bot is now closed')} />
   return publishedTypebot.version === '3' ? (
