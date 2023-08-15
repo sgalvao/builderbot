@@ -69,8 +69,6 @@ export const Bot = (props: BotProps & { class?: string }) => {
       }
       if (['BAD_REQUEST', 'FORBIDDEN'].includes(error.code))
         return setError(new Error('This bot is now closed.'))
-      if (error.code === 'NOT_FOUND')
-        return setError(new Error("The bot you're looking for doesn't exist."))
     }
 
     if (!data) return setError(new Error("Error! Couldn't initiate the chat."))
