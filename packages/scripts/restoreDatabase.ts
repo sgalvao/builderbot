@@ -5,7 +5,7 @@ const restoreDatabase = async () => {
   await promptAndSetEnvironment()
 
   exec(
-    `pg_restore -d ${process.env.DATABASE_URL} -c dump.tar`,
+    `pg_restore -d ${process.env.DATABASE_URL_ENV} -c dump.tar`,
     (error, stdout, stderr) => {
       if (error) {
         console.log(`error: ${error.message}`)
