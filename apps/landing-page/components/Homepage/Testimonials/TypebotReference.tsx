@@ -1,7 +1,7 @@
 import { Avatar, Flex, HStack, Stack, Text } from '@chakra-ui/react'
 import * as React from 'react'
 import Image from 'next/image'
-import { TestimonialData } from './Testimonials'
+import { TestimonialData } from './TypebotSection'
 import {
   CapterraIcon,
   EmailIcon,
