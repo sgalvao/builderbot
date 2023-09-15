@@ -17,7 +17,7 @@ type Options = {
 
 export const executePrismaCommand = (command: string, options?: Options) => {
   const databaseUrl =
-    process.env.DATABASE_URL_ENV ??
+    process.env.DATABASE_URL ??
     (options?.force ? 'postgresql://' : undefined)
 
   if (!databaseUrl) {
