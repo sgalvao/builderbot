@@ -24,8 +24,7 @@ const parseWhereFilter = (
     {
       id: typeof typebotIds === 'string' ? typebotIds : { in: typebotIds },
       workspace:
-        (type === 'read' && user.email === env.ADMIN_EMAIL) ||
-        env.NEXT_PUBLIC_E2E_TEST
+        type === 'read' || env.NEXT_PUBLIC_E2E_TEST
           ? undefined
           : {
               members: {

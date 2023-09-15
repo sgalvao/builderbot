@@ -27,12 +27,7 @@ export const processTelemetryEvent = authenticatedProcedure
       message: z.literal('Events injected'),
     })
   )
-  .mutation(async ({ input: { events }, ctx: { user } }) => {
-    if (user.email !== env.ADMIN_EMAIL)
-      throw new TRPCError({
-        code: 'BAD_REQUEST',
-        message: 'Only app admin can process telemetry events',
-      })
+  .mutation(async ({ input: { events }}) => {
     if (!env.NEXT_PUBLIC_POSTHOG_KEY)
       throw new TRPCError({
         code: 'BAD_REQUEST',

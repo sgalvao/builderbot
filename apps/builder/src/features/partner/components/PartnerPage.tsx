@@ -9,7 +9,6 @@ import {
   IconProps,
   Icon,
 } from '@chakra-ui/react'
-import { useUser } from '@/features/account/hooks/useUser'
 
 import { ConnectStripe } from './ConnectStripe'
 
@@ -36,7 +35,6 @@ const Blur = (props: IconProps) => {
 }
 
 export default function PartnerPage() {
-  const { user } = useUser()
 
   return (
     <Box position={'relative'}>

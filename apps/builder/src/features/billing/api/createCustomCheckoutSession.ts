@@ -71,7 +71,7 @@ export const createCustomCheckoutSession = authenticatedProcedure
         include: { partner: true },
       })
       const partner = userData?.partner
-      let partnerData: any
+      let partnerData
       if (partner) {
         partnerData = {
           subscription_data: {

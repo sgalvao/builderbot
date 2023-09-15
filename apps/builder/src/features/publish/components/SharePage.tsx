@@ -2,7 +2,6 @@ import { CloseIcon } from '@/components/icons'
 import { Seo } from '@/components/Seo'
 import { useWorkspace } from '@/features/workspace/WorkspaceProvider'
 import { useToast } from '@/hooks/useToast'
-import { isCloudProdInstance } from '@/helpers/isCloudProdInstance'
 import {
   Flex,
   Heading,
@@ -15,7 +14,7 @@ import {
   CardBody,
 } from '@chakra-ui/react'
 import { Plan } from '@typebot.io/prisma'
-import { getViewerUrl, isDefined, isNotDefined } from '@typebot.io/lib'
+import { getViewerUrl, isNotDefined } from '@typebot.io/lib'
 import { isPublicDomainAvailableQuery } from '../queries/isPublicDomainAvailableQuery'
 import { EditableUrl } from './EditableUrl'
 import { useTypebot } from '@/features/editor/providers/TypebotProvider'
@@ -31,7 +30,7 @@ import { env } from '@typebot.io/env'
 export const SharePage = () => {
   const t = useI18n()
   const { workspace } = useWorkspace()
-  const { typebot, updateTypebot, publishedTypebot } = useTypebot()
+  const { typebot, updateTypebot } = useTypebot()
   const { showToast } = useToast()
 
   const handlePublicIdChange = async (publicId: string) => {
@@ -41,7 +40,6 @@ export const SharePage = () => {
   const publicId = typebot
     ? typebot?.publicId ?? parseDefaultPublicId(typebot.name, typebot.id)
     : ''
-  const isPublished = isDefined(publishedTypebot)
 
   const handlePathnameChange = (pathname: string) => {
     if (!typebot?.customDomain) return

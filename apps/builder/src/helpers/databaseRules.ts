@@ -39,14 +39,13 @@ export const canReadTypebots = (
   user: Pick<User, 'email' | 'id'>
 ) => ({
   id: typeof typebotIds === 'string' ? typebotIds : { in: typebotIds },
-  workspace:
-    user.email === env.ADMIN_EMAIL || env.NEXT_PUBLIC_E2E_TEST
-      ? undefined
-      : {
-          members: {
-            some: { userId: user.id },
-          },
+  workspace: env.NEXT_PUBLIC_E2E_TEST
+    ? undefined
+    : {
+        members: {
+          some: { userId: user.id },
         },
+      },
 })
 
 export const canEditGuests = (user: User, typebotId: string) => ({

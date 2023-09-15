@@ -30,7 +30,6 @@ export type GroupsActions = {
 
 const groupsActions = (
   setTypebot: SetTypebot,
-  groupCopyLabel: string
 ): GroupsActions => ({
   createGroup: ({
     id,

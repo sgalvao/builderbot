@@ -47,7 +47,7 @@ export const getServerSideProps: GetServerSideProps = async (
     const isMatchingViewerUrl = env.NEXT_PUBLIC_E2E_TEST
       ? true
       : viewerUrls.some(
-          (url:any) =>
+          (url) =>
             host.split(':')[0].includes(url.split('//')[1].split(':')[0]) ||
             (forwardedHost &&
               forwardedHost

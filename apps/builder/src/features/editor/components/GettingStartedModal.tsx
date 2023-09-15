@@ -21,10 +21,8 @@ import {
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-import { useScopedI18n } from '@/locales'
 
 export const GettingStartedModal = () => {
-  const scopedT = useScopedI18n('editor.gettingStartedModal')
   const { query } = useRouter()
   const { isOpen, onOpen, onClose } = useDisclosure()
 

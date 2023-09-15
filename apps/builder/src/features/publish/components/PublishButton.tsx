@@ -73,7 +73,7 @@ export const PublishButton = ({
           typebotId: typebot?.id as string,
         })
         if (!publishedTypebot && !pathname.endsWith('share'))
-          push(`/typebots/${query.typebotId}/share`)
+          push(`/hackleads/${query.typebotId}/share`)
       },
     })
 
@@ -96,8 +96,6 @@ export const PublishButton = ({
   const handlePublishClick = async () => {
     if (!typebot?.id) return
     if (isFreePlan(workspace) && hasInputFile) return onOpen()
-    publishTypebot()
-    if (!publishedTypebot) push(`/hackleads/${query.typebotId}/share`)
     if (!typebot.publicId) {
       await updateTypebot({
         updates: {

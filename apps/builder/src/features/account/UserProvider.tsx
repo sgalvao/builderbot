@@ -47,23 +47,23 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     setColorMode(user.preferredAppAppearance)
   }, [setColorMode, user?.preferredAppAppearance])
 
-  const handlePartner = async (userParams: User, partnerCode: string) => {
-    try {
-      await updateUserQuery(userParams.id, { ...userParams, partnerCode })
-    } catch (e) {
-      showToast({
-        title: 'Parceiro não encontrado',
-        description: 'O parceiro indicado não foi encontrado',
-      })
-    }
-  }
+  // const handlePartner = async (userParams: User, partnerCode: string) => {
+  //   try {
+  //     await updateUserQuery(userParams.id, { ...userParams, partnerCode })
+  //   } catch (e) {
+  //     showToast({
+  //       title: 'Parceiro não encontrado',
+  //       description: 'O parceiro indicado não foi encontrado',
+  //     })
+  //   }
+  // }
 
   useEffect(() => {
     if (isDefined(user) || isNotDefined(session)) return
     setCurrentWorkspaceId(
       localStorage.getItem('currentWorkspaceId') ?? undefined
     )
-    const ref = router.query.referralCode
+    // const ref = router.query.referralCode
 
     const parsedUser = session.user as User
     setUser(parsedUser)

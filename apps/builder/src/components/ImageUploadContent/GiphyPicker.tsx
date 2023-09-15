@@ -1,4 +1,4 @@
-import { Flex, Stack, Text } from '@chakra-ui/react'
+import { Flex, Stack } from '@chakra-ui/react'
 import { GiphyFetch } from '@giphy/js-fetch-api'
 import { Grid } from '@giphy/react-components'
 import { GiphyLogo } from '../logos/GiphyLogo'

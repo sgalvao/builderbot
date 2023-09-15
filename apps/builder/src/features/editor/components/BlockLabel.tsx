@@ -16,21 +16,12 @@ export const BlockLabel = ({ type }: Props): JSX.Element => {
 
   switch (type) {
     case 'start':
-<<<<<<< HEAD
       return <Text fontSize="sm">Inicio</Text>
     case BubbleBlockType.TEXT:
     case InputBlockType.TEXT:
       return <Text fontSize="sm">Texto</Text>
     case BubbleBlockType.IMAGE:
       return <Text fontSize="sm">Imagem</Text>
-=======
-      return <Text fontSize="sm">{scopedT('start.label')}</Text>
-    case BubbleBlockType.TEXT:
-    case InputBlockType.TEXT:
-      return <Text fontSize="sm">{scopedT('text.label')}</Text>
-    case BubbleBlockType.IMAGE:
-      return <Text fontSize="sm">{scopedT('image.label')}</Text>
->>>>>>> 0ccc2efa454e3a0f2c9b7a633b241175d4ee8dac
     case BubbleBlockType.VIDEO:
       return <Text fontSize="sm">{scopedT('video.label')}</Text>
     case BubbleBlockType.EMBED:
@@ -38,11 +29,7 @@ export const BlockLabel = ({ type }: Props): JSX.Element => {
     case BubbleBlockType.AUDIO:
       return <Text fontSize="sm">{scopedT('audio.label')}</Text>
     case InputBlockType.NUMBER:
-<<<<<<< HEAD
       return <Text fontSize="sm">Número</Text>
-=======
-      return <Text fontSize="sm">{scopedT('number.label')}</Text>
->>>>>>> 0ccc2efa454e3a0f2c9b7a633b241175d4ee8dac
     case InputBlockType.EMAIL:
       return <Text fontSize="sm">{scopedT('email.label')}</Text>
     case InputBlockType.URL:

@@ -18,7 +18,6 @@ const baseEnv = {
     ENCRYPTION_SECRET: z.string().length(32),
     NEXTAUTH_URL: z.string().url(),
     DISABLE_SIGNUP: boolean.optional().default('false'),
-    ADMIN_EMAIL: z.string().email().optional(),
     DEFAULT_WORKSPACE_PLAN: z
       .enum(['FREE', 'STARTER', 'PRO', 'LIFETIME', 'UNLIMITED'])
       .refine((str) =>

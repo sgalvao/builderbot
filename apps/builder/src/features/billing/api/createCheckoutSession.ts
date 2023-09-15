@@ -1,7 +1,7 @@
 import prisma from '@/lib/prisma'
 import { authenticatedProcedure } from '@/helpers/server/trpc'
 import { TRPCError } from '@trpc/server'
-import { Plan } from '@typebot.io/prisma'
+import { Partner, Plan } from '@typebot.io/prisma'
 import Stripe from 'stripe'
 import { z } from 'zod'
 import { parseSubscriptionItems } from '../helpers/parseSubscriptionItems'
@@ -45,7 +45,6 @@ export const createCheckoutSession = authenticatedProcedure
   .mutation(
     async ({
       input: {
-        vat,
         email,
         company,
         workspaceId,
@@ -162,7 +161,7 @@ export const createCheckoutSessionUrl =
     isYearly,
     partner,
   }: Props) => {
-    let partnerData: any
+    let partnerData
     if (partner) {
       const promotionCode = await stripe.promotionCodes.list({
         code: partner.partnerCode,

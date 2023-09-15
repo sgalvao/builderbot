@@ -14,7 +14,7 @@ export const sendEmail = async (
   })
 
   const sended = await transporter.sendMail({
-    from: process.env.NEXT_PUBLIC_SMTP_FROM ?? env('SMTP_FROM'),
+    from: process.env.NEXT_PUBLIC_SMTP_FROM,
     ...props,
   })
 

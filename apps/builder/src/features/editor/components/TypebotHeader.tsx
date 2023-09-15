@@ -30,10 +30,8 @@ import { RightPanel, useEditor } from '../providers/EditorProvider'
 import { useTypebot } from '../providers/TypebotProvider'
 import { SupportBubble } from '@/components/SupportBubble'
 import { isCloudProdInstance } from '@/helpers/isCloudProdInstance'
-import { useScopedI18n } from '@/locales'
 
 export const TypebotHeader = () => {
-  const scopedT = useScopedI18n('editor.headers')
   const router = useRouter()
   const {
     typebot,

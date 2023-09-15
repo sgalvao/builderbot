@@ -1,4 +1,3 @@
-import { env } from '@typebot.io/env'
 import { MemberInWorkspace, User } from '@typebot.io/prisma'
 
 export const isReadWorkspaceFobidden = (
@@ -7,10 +6,7 @@ export const isReadWorkspaceFobidden = (
   },
   user: Pick<User, 'email' | 'id'>
 ) => {
-  if (
-    env.ADMIN_EMAIL === user.email ||
-    workspace.members.find((member) => member.userId === user.id)
-  )
+  if (workspace.members.find((member) => member.userId === user.id))
     return false
   return true
 }
