@@ -40,7 +40,7 @@ export const createWorkspace = authenticatedProcedure
         message: 'Workspace with same name already exists',
       })
 
-    const plan = parseWorkspaceDefaultPlan(user.email ?? '')
+    const plan = parseWorkspaceDefaultPlan()
 
     const newWorkspace = (await prisma.workspace.create({
       data: {

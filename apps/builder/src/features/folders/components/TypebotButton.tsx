@@ -57,7 +57,7 @@ export const TypebotButton = ({
       showToast({ description: error.message })
     },
     onSuccess: ({ typebot }) => {
-      router.push(`/typebots/${typebot.id}/edit`)
+      router.push(`/hackleads/${typebot.id}/edit`)
     },
   })
 
@@ -102,7 +102,6 @@ export const TypebotButton = ({
       await trpcVanilla.typebot.getTypebot.query({
         typebotId: typebot.id,
       })
-    if (createdTypebot) router.push(`/hackleads/${createdTypebot?.id}/edit`)
     if (!typebotToDuplicate) return
     createTypebot({
       workspaceId: typebotToDuplicate.workspaceId,
