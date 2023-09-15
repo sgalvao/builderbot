@@ -1,7 +1,11 @@
 import { Box, Text, Image } from '@chakra-ui/react'
 import { ImageBubbleBlock } from '@typebot.io/schemas'
 
-export const ImageBubbleContent = ({ block }: { block: ImageBubbleBlock }) => {
+type Props = {
+  block: ImageBubbleBlock
+}
+
+export const ImageBubbleContent = ({ block }: Props) => {
   const containsVariables =
     block.content?.url?.includes('{{') && block.content.url.includes('}}')
   return !block.content?.url ? (

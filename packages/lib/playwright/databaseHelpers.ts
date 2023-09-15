@@ -21,7 +21,7 @@ export const parseTestTypebot = (
   folderId: null,
   name: 'My typebot',
   theme: defaultTheme,
-  settings: defaultSettings,
+  settings: defaultSettings({ isBrandingEnabled: true }),
   publicId: null,
   updatedAt: new Date(),
   createdAt: new Date(),
@@ -31,6 +31,7 @@ export const parseTestTypebot = (
   isArchived: false,
   isClosed: false,
   resultsTablePreferences: null,
+  whatsAppPhoneNumberId: null,
   variables: [{ id: 'var1', name: 'var1' }],
   ...partialTypebot,
   edges: [

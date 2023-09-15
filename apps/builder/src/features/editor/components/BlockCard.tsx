@@ -14,6 +14,7 @@ import { Plan } from '@typebot.io/prisma'
 import { useWorkspace } from '@/features/workspace/WorkspaceProvider'
 import { BlockLabel } from './BlockLabel'
 import { LockTag } from '@/features/billing/components/LockTag'
+import { useScopedI18n } from '@/locales'
 
 type Props = {
   type: DraggableBlockType
@@ -26,6 +27,7 @@ type Props = {
 export const BlockCard = (
   props: Pick<Props, 'type' | 'onMouseDown'>
 ): JSX.Element => {
+  const scopedT = useScopedI18n('editor.blockCard')
   const { workspace } = useWorkspace()
 
   switch (props.type) {
@@ -75,14 +77,20 @@ export const BlockCard = (
       )
     case IntegrationBlockType.GOOGLE_SHEETS:
       return (
-        <BlockCardLayout {...props} tooltip="Google Sheets">
+        <BlockCardLayout
+          {...props}
+          tooltip={scopedT('integrationBlock.tooltip.googleSheets.label')}
+        >
           <BlockIcon type={props.type} />
           <BlockLabel type={props.type} />
         </BlockCardLayout>
       )
     case IntegrationBlockType.GOOGLE_ANALYTICS:
       return (
-        <BlockCardLayout {...props} tooltip="Google Analytics">
+        <BlockCardLayout
+          {...props}
+          tooltip={scopedT('integrationBlock.tooltip.googleAnalytics.label')}
+        >
           <BlockIcon type={props.type} />
           <BlockLabel type={props.type} />
         </BlockCardLayout>

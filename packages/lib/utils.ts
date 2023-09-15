@@ -126,16 +126,6 @@ export const blockTypeHasOption = (
     .concat(Object.values(IntegrationBlockType))
     .includes(type)
 
-export const blockTypeHasWebhook = (
-  type: BlockType
-): type is IntegrationBlockType.WEBHOOK =>
-  Object.values([
-    IntegrationBlockType.WEBHOOK,
-    IntegrationBlockType.ZAPIER,
-    IntegrationBlockType.MAKE_COM,
-    IntegrationBlockType.PABBLY_CONNECT,
-  ] as string[]).includes(type)
-
 export const blockTypeHasItems = (
   type: BlockType
 ): type is
@@ -280,6 +270,7 @@ export const hasValue = (
   value !== 'undefined' &&
   value !== 'null'
 
+<<<<<<< HEAD
 export const getViewerUrl = (props?: {
   returnAll?: boolean
 }): string | undefined =>
@@ -287,6 +278,8 @@ export const getViewerUrl = (props?: {
     ? 'https://chat.hackleads.com.br'
     : env('VIEWER_URL')?.split(',')[0]
 
+=======
+>>>>>>> 0ccc2efa454e3a0f2c9b7a633b241175d4ee8dac
 export const parseNumberWithCommas = (num: number) =>
   num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 

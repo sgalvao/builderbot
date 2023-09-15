@@ -4,14 +4,14 @@ import type { ScriptToExecute } from '@typebot.io/schemas'
 const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor
 
 export const executeScript = async ({ content, args }: ScriptToExecute) => {
-  const func = AsyncFunction(
-    ...args.map((arg) => arg.id),
-    parseContent(content)
-  )
   try {
+    const func = AsyncFunction(
+      ...args.map((arg) => arg.id),
+      parseContent(content)
+    )
     await func(...args.map((arg) => arg.value))
   } catch (err) {
-    console.error(err)
+    console.warn('Script threw an error:', err)
   }
 }
 

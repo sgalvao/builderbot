@@ -7,10 +7,10 @@ import {
   InputBlockType,
   RuntimeOptions,
   SessionState,
+  Variable,
 } from '@typebot.io/schemas'
 import {
   isBubbleBlock,
-  isDefined,
   isInputBlock,
   isIntegrationBlock,
   isLogicBlock,
@@ -23,6 +23,8 @@ import { injectVariableValuesInButtonsInputBlock } from '@/features/blocks/input
 import { deepParseVariables } from '@/features/variables/deepParseVariable'
 import { computePaymentInputRuntimeOptions } from '@/features/blocks/inputs/payment/computePaymentInputRuntimeOptions'
 import { injectVariableValuesInPictureChoiceBlock } from '@/features/blocks/inputs/pictureChoice/injectVariableValuesInPictureChoiceBlock'
+import { parseDateInput } from '@/features/blocks/inputs/date/parseDateInput'
+import { getPrefilledInputValue } from './getPrefilledValue'
 
 export const executeGroup =
   (
@@ -47,7 +49,9 @@ export const executeGroup =
 
       if (isBubbleBlock(block)) {
         messages.push(
-          parseBubbleBlock(newSessionState.typebot.variables)(block)
+          parseBubbleBlock(newSessionState.typebotsQueue[0].typebot.variables)(
+            block
+          )
         )
         lastBubbleBlockId = block.id
         continue
@@ -91,10 +95,7 @@ export const executeGroup =
         ]
         if (
           executionResponse.clientSideActions?.find(
-            (action) =>
-              'setVariable' in action ||
-              'streamOpenAiChatCompletion' in action ||
-              'webhookToExecute' in action
+            (action) => action.expectsDedicatedReply
           )
         ) {
           return {
@@ -118,14 +119,16 @@ export const executeGroup =
       }
     }
 
-    if (!nextEdgeId)
+    if (!nextEdgeId && state.typebotsQueue.length === 1)
       return { messages, newSessionState, clientSideActions, logs }
 
-    const nextGroup = getNextGroup(newSessionState)(nextEdgeId)
+    const nextGroup = await getNextGroup(newSessionState)(
+      nextEdgeId ?? undefined
+    )
 
-    if (nextGroup?.updatedContext) newSessionState = nextGroup.updatedContext
+    newSessionState = nextGroup.newSessionState
 
-    if (!nextGroup) {
+    if (!nextGroup.group) {
       return { messages, newSessionState, clientSideActions, logs }
     }
 
@@ -141,7 +144,7 @@ export const executeGroup =
   }
 
 const computeRuntimeOptions =
-  (state: Pick<SessionState, 'result' | 'typebot'>) =>
+  (state: SessionState) =>
   (block: InputBlock): Promise<RuntimeOptions> | undefined => {
     switch (block.type) {
       case InputBlockType.PAYMENT: {
@@ -150,18 +153,8 @@ const computeRuntimeOptions =
     }
   }
 
-const getPrefilledInputValue =
-  (variables: SessionState['typebot']['variables']) => (block: InputBlock) => {
-    const variableValue = variables.find(
-      (variable) =>
-        variable.id === block.options.variableId && isDefined(variable.value)
-    )?.value
-    if (!variableValue || Array.isArray(variableValue)) return
-    return variableValue
-  }
-
 const parseBubbleBlock =
-  (variables: SessionState['typebot']['variables']) =>
+  (variables: Variable[]) =>
   (block: BubbleBlock): ChatReply['messages'][0] => {
     switch (block.type) {
       case BubbleBlockType.TEXT:
@@ -188,7 +181,7 @@ const parseBubbleBlock =
     }
   }
 
-const parseInput =
+export const parseInput =
   (state: SessionState) =>
   async (block: InputBlock): Promise<ChatReply['input']> => {
     switch (block.type) {
@@ -197,15 +190,17 @@ const parseInput =
       }
       case InputBlockType.PICTURE_CHOICE: {
         return injectVariableValuesInPictureChoiceBlock(
-          state.typebot.variables
+          state.typebotsQueue[0].typebot.variables
         )(block)
       }
       case InputBlockType.NUMBER: {
-        const parsedBlock = deepParseVariables(state.typebot.variables)({
+        const parsedBlock = deepParseVariables(
+          state.typebotsQueue[0].typebot.variables
+        )({
           ...block,
-          prefilledValue: getPrefilledInputValue(state.typebot.variables)(
-            block
-          ),
+          prefilledValue: getPrefilledInputValue(
+            state.typebotsQueue[0].typebot.variables
+          )(block),
         })
         return {
           ...parsedBlock,
@@ -223,13 +218,16 @@ const parseInput =
           },
         }
       }
+      case InputBlockType.DATE: {
+        return parseDateInput(state)(block)
+      }
       default: {
-        return deepParseVariables(state.typebot.variables)({
+        return deepParseVariables(state.typebotsQueue[0].typebot.variables)({
           ...block,
           runtimeOptions: await computeRuntimeOptions(state)(block),
-          prefilledValue: getPrefilledInputValue(state.typebot.variables)(
-            block
-          ),
+          prefilledValue: getPrefilledInputValue(
+            state.typebotsQueue[0].typebot.variables
+          )(block),
         })
       }
     }

@@ -12,15 +12,16 @@ import { filterChoiceItems } from './filterChoiceItems'
 
 export const injectVariableValuesInButtonsInputBlock =
   (state: SessionState) =>
-  async (block: ChoiceInputBlock): Promise<ChoiceInputBlock> => {
+  (block: ChoiceInputBlock): ChoiceInputBlock => {
+    const { variables } = state.typebotsQueue[0].typebot
     if (block.options.dynamicVariableId) {
-      const variable = state.typebot.variables.find(
+      const variable = variables.find(
         (variable) =>
           variable.id === block.options.dynamicVariableId &&
           isDefined(variable.value)
       ) as VariableWithValue | undefined
       if (!variable) return block
-      const value = await getVariableValue(state)(variable)
+      const value = getVariableValue(state)(variable)
       return {
         ...block,
         items: value.filter(isDefined).map((item, idx) => ({
@@ -31,19 +32,18 @@ export const injectVariableValuesInButtonsInputBlock =
         })),
       }
     }
-    return deepParseVariables(state.typebot.variables)(
-      filterChoiceItems(state.typebot.variables)(block)
-    )
+    return deepParseVariables(variables)(filterChoiceItems(variables)(block))
   }
 
 const getVariableValue =
   (state: SessionState) =>
-  async (variable: VariableWithValue): Promise<(string | null)[]> => {
+  (variable: VariableWithValue): (string | null)[] => {
     if (!Array.isArray(variable.value)) {
-      const [transformedVariable] = transformStringVariablesToList(
-        state.typebot.variables
-      )([variable.id])
-      await updateVariables(state)([transformedVariable])
+      const { variables } = state.typebotsQueue[0].typebot
+      const [transformedVariable] = transformStringVariablesToList(variables)([
+        variable.id,
+      ])
+      updateVariables(state)([transformedVariable])
       return transformedVariable.value as string[]
     }
     return variable.value

@@ -19,7 +19,7 @@ import React, {
   useState,
 } from 'react'
 import { useDebouncedCallback } from 'use-debounce'
-import { env } from '@typebot.io/lib'
+import { env } from '@typebot.io/env'
 import { MoreInfoTooltip } from '../MoreInfoTooltip'
 
 export type TextInputProps = {
@@ -35,7 +35,13 @@ export type TextInputProps = {
   isDisabled?: boolean
 } & Pick<
   InputProps,
-  'autoComplete' | 'onFocus' | 'onKeyUp' | 'type' | 'autoFocus' | 'size'
+  | 'autoComplete'
+  | 'onFocus'
+  | 'onKeyUp'
+  | 'type'
+  | 'autoFocus'
+  | 'size'
+  | 'maxWidth'
 >
 
 export const TextInput = forwardRef(function TextInput(
@@ -56,6 +62,7 @@ export const TextInput = forwardRef(function TextInput(
     onFocus,
     onKeyUp,
     size,
+    maxWidth,
   }: TextInputProps,
   ref
 ) {
@@ -69,7 +76,7 @@ export const TextInput = forwardRef(function TextInput(
   const onChange = useDebouncedCallback(
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     _onChange ?? (() => {}),
-    env('E2E_TEST') === 'true' ? 0 : debounceTimeout
+    env.NEXT_PUBLIC_E2E_TEST ? 0 : debounceTimeout
   )
 
   useEffect(() => {
@@ -122,6 +129,7 @@ export const TextInput = forwardRef(function TextInput(
       onBlur={updateCarretPosition}
       onChange={(e) => changeValue(e.target.value)}
       size={size}
+      maxWidth={maxWidth}
     />
   )
 

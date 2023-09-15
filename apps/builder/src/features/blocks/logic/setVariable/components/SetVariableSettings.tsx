@@ -1,15 +1,23 @@
 import { Alert, AlertIcon, FormLabel, Stack, Tag, Text } from '@chakra-ui/react'
 import { CodeEditor } from '@/components/inputs/CodeEditor'
-import { SetVariableOptions, Variable, valueTypes } from '@typebot.io/schemas'
+import {
+  SetVariableOptions,
+  Variable,
+  hiddenTypes,
+  valueTypes,
+} from '@typebot.io/schemas'
 import React from 'react'
 import { VariableSearchInput } from '@/components/inputs/VariableSearchInput'
 import { SwitchWithLabel } from '@/components/inputs/SwitchWithLabel'
 import { Select } from '@/components/inputs/Select'
+import { WhatsAppLogo } from '@/components/logos/WhatsAppLogo'
 
 type Props = {
   options: SetVariableOptions
   onOptionsChange: (options: SetVariableOptions) => void
 }
+
+const setVarTypes = valueTypes.filter((type) => !hiddenTypes.includes(type))
 
 export const SetVariableSettings = ({ options, onOptionsChange }: Props) => {
   const updateVariableId = (variable?: Variable) =>
@@ -40,7 +48,14 @@ export const SetVariableSettings = ({ options, onOptionsChange }: Props) => {
         </Text>
         <Select
           selectedItem={options.type ?? 'Custom'}
-          items={valueTypes}
+          items={setVarTypes.map((type) => ({
+            label: type,
+            value: type,
+            icon:
+              type === 'Contact name' || type === 'Phone number' ? (
+                <WhatsAppLogo />
+              ) : undefined,
+          }))}
           onSelect={updateValueType}
         />
         <SetVariableValue options={options} onOptionsChange={onOptionsChange} />
@@ -143,7 +158,10 @@ const SetVariableValue = ({
         </Alert>
       )
     }
+    case 'Contact name':
+    case 'Phone number':
     case 'Random ID':
+    case 'Now':
     case 'Today':
     case 'Tomorrow':
     case 'User ID':

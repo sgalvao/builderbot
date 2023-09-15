@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { whatsAppSettingsSchema } from '../whatsapp'
 
 export const rememberUserStorages = ['session', 'local'] as const
 
@@ -35,11 +36,16 @@ export const settingsSchema = z.object({
   general: generalSettings,
   typingEmulation: typingEmulation,
   metadata: metadataSchema,
+  whatsApp: whatsAppSettingsSchema.optional(),
 })
 
-export const defaultSettings: Settings = {
+export const defaultSettings = ({
+  isBrandingEnabled,
+}: {
+  isBrandingEnabled: boolean
+}): Settings => ({
   general: {
-    isBrandingEnabled: true,
+    isBrandingEnabled,
     rememberUser: {
       isEnabled: false,
     },
@@ -51,7 +57,7 @@ export const defaultSettings: Settings = {
     description:
       'Build beautiful conversational forms and embed them directly in your applications without a line of code. Triple your response rate and collect answers that has more value compared to a traditional form.',
   },
-}
+})
 
 export type Settings = z.infer<typeof settingsSchema>
 export type GeneralSettings = z.infer<typeof generalSettings>

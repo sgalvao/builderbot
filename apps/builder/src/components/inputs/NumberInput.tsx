@@ -14,7 +14,7 @@ import {
 import { Variable, VariableString } from '@typebot.io/schemas'
 import { useEffect, useState } from 'react'
 import { useDebouncedCallback } from 'use-debounce'
-import { env } from '@typebot.io/lib'
+import { env } from '@typebot.io/env'
 import { MoreInfoTooltip } from '../MoreInfoTooltip'
 
 type Value<HasVariable> = HasVariable extends true | undefined
@@ -47,7 +47,7 @@ export const NumberInput = <HasVariable extends boolean>({
 
   const onValueChangeDebounced = useDebouncedCallback(
     onValueChange,
-    env('E2E_TEST') === 'true' ? 0 : debounceTimeout
+    env.NEXT_PUBLIC_E2E_TEST ? 0 : debounceTimeout
   )
 
   useEffect(
@@ -99,9 +99,10 @@ export const NumberInput = <HasVariable extends boolean>({
       isRequired={isRequired}
       justifyContent="space-between"
       width={label ? 'full' : 'auto'}
+      spacing={0}
     >
       {label && (
-        <FormLabel mb="0" flexShrink={0}>
+        <FormLabel mb="2" flexShrink={0}>
           {label}{' '}
           {moreInfoTooltip && (
             <MoreInfoTooltip>{moreInfoTooltip}</MoreInfoTooltip>

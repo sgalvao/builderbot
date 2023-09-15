@@ -47,6 +47,7 @@ export const Bot = (props: BotProps & { class?: string }) => {
     const typebotIdFromProps =
       typeof props.typebot === 'string' ? props.typebot : undefined
     const { data, error } = await getInitialChatReplyQuery({
+      stripeRedirectStatus: urlParams.get('redirect_status') ?? undefined,
       typebot: props.typebot,
       apiHost: props.apiHost,
       isPreview: props.isPreview ?? false,
@@ -71,7 +72,10 @@ export const Bot = (props: BotProps & { class?: string }) => {
         return setError(new Error('This bot is now closed.'))
     }
 
-    if (!data) return setError(new Error("Error! Couldn't initiate the chat."))
+    if (!data) {
+      if (error) console.error(error)
+      return setError(new Error("Error! Couldn't initiate the chat."))
+    }
 
     if (data.resultId && typebotIdFromProps)
       setResultInStorage(data.typebot.settings.general.rememberUser?.storage)(
@@ -95,7 +99,7 @@ export const Bot = (props: BotProps & { class?: string }) => {
   })
 
   createEffect(() => {
-    if (typeof props.typebot === 'string') return
+    if (isNotDefined(props.typebot) || typeof props.typebot === 'string') return
     setCustomCss(props.typebot.theme.customCss ?? '')
   })
 
@@ -132,8 +136,9 @@ export const Bot = (props: BotProps & { class?: string }) => {
               apiHost: props.apiHost,
               isPreview:
                 typeof props.typebot !== 'string' || (props.isPreview ?? false),
-              typebotId: initialChatReply.typebot.id,
               resultId: initialChatReply.resultId,
+              sessionId: initialChatReply.sessionId,
+              typebot: initialChatReply.typebot,
             }}
             onNewInputBlock={props.onNewInputBlock}
             onNewLogs={props.onNewLogs}
@@ -174,7 +179,7 @@ const BotContent = (props: BotContentProps) => {
     )
       return
     const font = document.createElement('link')
-    font.href = `https://fonts.googleapis.com/css2?family=${
+    font.href = `https://fonts.bunny.net/css2?family=${
       props.initialChatReply.typebot?.theme?.general?.font ?? 'Open Sans'
     }:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap');')`
     font.rel = 'stylesheet'

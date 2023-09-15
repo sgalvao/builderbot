@@ -23,13 +23,15 @@ export const ThemeSideMenu = () => {
   const { typebot, updateTypebot } = useTypebot()
 
   const updateChatTheme = (chat: ChatTheme) =>
-    typebot && updateTypebot({ theme: { ...typebot.theme, chat } })
+    typebot && updateTypebot({ updates: { theme: { ...typebot.theme, chat } } })
 
   const updateGeneralTheme = (general: GeneralTheme) =>
-    typebot && updateTypebot({ theme: { ...typebot.theme, general } })
+    typebot &&
+    updateTypebot({ updates: { theme: { ...typebot.theme, general } } })
 
   const updateCustomCss = (customCss: string) =>
-    typebot && updateTypebot({ theme: { ...typebot.theme, customCss } })
+    typebot &&
+    updateTypebot({ updates: { theme: { ...typebot.theme, customCss } } })
 
   const selectedTemplate = (
     selectedTemplate: Partial<Pick<ThemeTemplate, 'id' | 'theme' | 'settings'>>
@@ -37,11 +39,20 @@ export const ThemeSideMenu = () => {
     if (!typebot) return
     const { theme, settings, id } = selectedTemplate
     updateTypebot({
-      selectedThemeTemplateId: id,
-      settings: settings ? { ...settings } : typebot.settings,
-      theme: theme ? { ...theme } : typebot.theme,
+      updates: {
+        selectedThemeTemplateId: id,
+        theme: theme ? { ...theme } : typebot.theme,
+      },
     })
   }
+
+  const updateBranding = (isBrandingEnabled: boolean) =>
+    typebot &&
+    updateTypebot({
+      updates: {
+        settings: { ...typebot.settings, general: { isBrandingEnabled } },
+      },
+    })
 
   return (
     <Stack
@@ -95,8 +106,10 @@ export const ThemeSideMenu = () => {
           <AccordionPanel pb={4}>
             {typebot && (
               <GeneralSettings
+                isBrandingEnabled={typebot.settings.general.isBrandingEnabled}
                 generalTheme={typebot.theme.general}
                 onGeneralThemeChange={updateGeneralTheme}
+                onBrandingChange={updateBranding}
               />
             )}
           </AccordionPanel>
@@ -112,6 +125,7 @@ export const ThemeSideMenu = () => {
           <AccordionPanel pb={4}>
             {typebot && (
               <ChatThemeSettings
+                workspaceId={typebot.workspaceId}
                 typebotId={typebot.id}
                 chatTheme={typebot.theme.chat}
                 onChatThemeChange={updateChatTheme}

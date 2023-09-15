@@ -12,6 +12,7 @@ import {
   deleteWorkspaces,
   injectFakeResults,
 } from '@typebot.io/lib/playwright/databaseActions'
+import { env } from '@typebot.io/env'
 
 const usageWorkspaceId = createId()
 const usageTypebotId = createId()
@@ -147,7 +148,7 @@ test('plan changes should work', async ({ page }) => {
     planChangeWorkspaceId,
     [
       {
-        price: process.env.STRIPE_STARTER_MONTHLY_PRICE_ID,
+        price: env.STRIPE_STARTER_MONTHLY_PRICE_ID,
         quantity: 1,
       },
     ],
@@ -197,7 +198,9 @@ test('plan changes should work', async ({ page }) => {
     page.waitForNavigation(),
     page.click('text="Billing portal"'),
   ])
-  await expect(page.getByText('$247.00 per month')).toBeVisible()
+  await expect(page.getByText('$247.00 per month')).toBeVisible({
+    timeout: 10000,
+  })
   await expect(page.getByText('(×25000)')).toBeVisible()
   await expect(page.getByText('(×15)')).toBeVisible()
   await expect(page.locator('text="Add payment method"')).toBeVisible()

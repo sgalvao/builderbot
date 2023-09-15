@@ -1,7 +1,8 @@
-import { BotProps } from '@typebot.io/js'
+import { BotProps } from '@typebot.io/nextjs'
 import parserBabel from 'prettier/parser-babel'
 import prettier from 'prettier/standalone'
-import { env, getViewerUrl, isDefined } from '@typebot.io/lib'
+import { isDefined } from '@typebot.io/lib'
+import { getViewerUrl } from '@typebot.io/lib/getViewerUrl'
 import { Typebot } from '@typebot.io/schemas'
 import { isCloudProdInstance } from '@/helpers/isCloudProdInstance'
 import packageJson from '../../../../../../../../packages/embeds/js/package.json'
@@ -41,8 +42,8 @@ export const parseReactBotProps = ({ typebot, apiHost }: BotProps) => {
   return `${typebotLine} ${apiHostLine}`
 }
 
-export const typebotImportCode = isCloudProdInstance
-  ? `import Typebot from 'https://cdn.jsdelivr.net/npm/@typebot.io/js@0.0/dist/web.js'`
+export const typebotImportCode = isCloudProdInstance()
+  ? `import Typebot from 'https://cdn.jsdelivr.net/npm/@typebot.io/js@0.1/dist/web.js'`
   : `import Typebot from 'https://cdn.jsdelivr.net/npm/@typebot.io/js@${packageJson.version}/dist/web.js'`
 
 export const parseInlineScript = (script: string) =>
@@ -58,12 +59,12 @@ export const parseApiHost = (
   customDomain: Typebot['customDomain'] | undefined
 ) => {
   if (customDomain) return new URL(`https://${customDomain}`).origin
-  return env('VIEWER_INTERNAL_URL') ?? getViewerUrl()
+  return getViewerUrl()
 }
 
 export const parseApiHostValue = (
   customDomain: Typebot['customDomain'] | undefined
 ) => {
-  if (isCloudProdInstance) return
+  if (isCloudProdInstance()) return
   return parseApiHost(customDomain)
 }

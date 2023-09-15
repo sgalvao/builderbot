@@ -3,12 +3,18 @@ import { deepParseVariables } from '@/features/variables/deepParseVariable'
 import { PixelBlock, SessionState } from '@typebot.io/schemas'
 
 export const executePixelBlock = (
-  { typebot: { variables }, result }: SessionState,
+  state: SessionState,
   block: PixelBlock
 ): ExecuteIntegrationResponse => {
-  if (!result || !block.options.pixelId || !block.options.eventType)
+  const { typebot, resultId } = state.typebotsQueue[0]
+  if (
+    !resultId ||
+    !block.options.pixelId ||
+    !block.options.eventType ||
+    state.whatsApp
+  )
     return { outgoingEdgeId: block.outgoingEdgeId }
-  const pixel = deepParseVariables(variables, {
+  const pixel = deepParseVariables(typebot.variables, {
     guessCorrectTypes: true,
     removeEmptyStrings: true,
   })(block.options)

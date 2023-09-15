@@ -5,10 +5,12 @@ import { parseVariables } from '@/features/variables/parseVariables'
 import { ScriptBlock, SessionState, Variable } from '@typebot.io/schemas'
 
 export const executeScript = (
-  { typebot: { variables } }: SessionState,
+  state: SessionState,
   block: ScriptBlock
 ): ExecuteLogicResponse => {
-  if (!block.options.content) return { outgoingEdgeId: block.outgoingEdgeId }
+  const { variables } = state.typebotsQueue[0].typebot
+  if (!block.options.content || state.whatsApp)
+    return { outgoingEdgeId: block.outgoingEdgeId }
 
   const scriptToExecute = parseScriptToExecuteClientSideAction(
     variables,

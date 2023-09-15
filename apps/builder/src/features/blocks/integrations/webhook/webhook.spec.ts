@@ -3,10 +3,11 @@ import {
   createWebhook,
   importTypebotInDatabase,
 } from '@typebot.io/lib/playwright/databaseActions'
-import { HttpMethod } from '@typebot.io/schemas'
+import { HttpMethod } from '@typebot.io/schemas/features/blocks/integrations/webhook/enums'
 import { createId } from '@paralleldrive/cuid2'
 import { getTestAsset } from '@/test/utils/playwright'
 import { apiToken } from '@typebot.io/lib/playwright/databaseSetup'
+import { env } from '@typebot.io/env'
 
 test.describe('Builder', () => {
   test('easy configuration should work', async ({ page }) => {
@@ -22,11 +23,12 @@ test.describe('Builder', () => {
     await page.click('text=Configure...')
     await page.fill(
       'input[placeholder="Paste webhook URL..."]',
-      `${process.env.NEXTAUTH_URL}/api/mock/webhook-easy-config`
+      `${env.NEXTAUTH_URL}/api/mock/webhook-easy-config`
     )
     await page.click('text=Test the request')
     await expect(page.locator('div[role="textbox"] >> nth=-1')).toContainText(
-      `"Group #1": "answer value", "Group #2": "20", "Group #2 (1)": "Yes"`
+      `"Group #1": "answer value", "Group #2": "20", "Group #2 (1)": "Yes"`,
+      { timeout: 10000 }
     )
   })
 
@@ -44,7 +46,7 @@ test.describe('Builder', () => {
     await page.click('text=Configure...')
     await page.fill(
       'input[placeholder="Paste webhook URL..."]',
-      `${process.env.NEXTAUTH_URL}/api/mock/webhook`
+      `${env.NEXTAUTH_URL}/api/mock/webhook`
     )
     await page.click('text=Advanced configuration')
     await page.getByRole('button', { name: 'GET' }).click()
@@ -126,6 +128,7 @@ test.describe('API', () => {
     expect(webhookBlocks[0]).toEqual({
       id: 'webhookBlock',
       label: 'Webhook > webhookBlock',
+      type: 'Webhook',
     })
   })
 
@@ -172,7 +175,7 @@ test.describe('API', () => {
     expect(data.resultExample).toMatchObject({
       message: 'This is a sample result, it has been generated ⬇️',
       Welcome: 'Hi!',
-      Email: 'test@email.com',
+      Email: 'user@email.com',
       Name: 'answer value',
       Services: 'Website dev, Content Marketing, Social Media, UI / UX Design',
       'Additional information': 'answer value',

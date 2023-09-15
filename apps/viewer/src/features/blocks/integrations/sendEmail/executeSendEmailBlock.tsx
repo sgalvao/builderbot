@@ -3,32 +3,33 @@ import prisma from '@/lib/prisma'
 import { render } from '@faire/mjml-react/utils/render'
 import { DefaultBotNotificationEmail } from '@typebot.io/emails'
 import {
-  PublicTypebot,
-  ResultInSession,
+  AnswerInSessionState,
+  ReplyLog,
   SendEmailBlock,
   SendEmailOptions,
   SessionState,
   SmtpCredentials,
+  TypebotInSession,
   Variable,
 } from '@typebot.io/schemas'
 import { createTransport } from 'nodemailer'
 import Mail from 'nodemailer/lib/mailer'
 import { byId, isDefined, isEmpty, isNotDefined, omit } from '@typebot.io/lib'
-import { parseAnswers } from '@typebot.io/lib/results'
+import { getDefinedVariables, parseAnswers } from '@typebot.io/lib/results'
 import { decrypt } from '@typebot.io/lib/api'
 import { defaultFrom, defaultTransportOptions } from './constants'
 import { ExecuteIntegrationResponse } from '@/features/chat/types'
-import { saveErrorLog } from '@/features/logs/saveErrorLog'
-import { saveSuccessLog } from '@/features/logs/saveSuccessLog'
 import { findUniqueVariableValue } from '../../../variables/findUniqueVariableValue'
+import { env } from '@typebot.io/env'
 
 export const executeSendEmailBlock = async (
-  { result, typebot }: SessionState,
+  state: SessionState,
   block: SendEmailBlock
 ): Promise<ExecuteIntegrationResponse> => {
+  const logs: ReplyLog[] = []
   const { options } = block
-  const { variables } = typebot
-  const isPreview = !result.id
+  const { typebot, resultId, answers } = state.typebotsQueue[0]
+  const isPreview = !resultId
   if (isPreview)
     return {
       outgoingEdgeId: block.outgoingEdgeId,
@@ -40,43 +41,47 @@ export const executeSendEmailBlock = async (
       ],
     }
 
-  const body =
-    findUniqueVariableValue(variables)(options.body)?.toString() ??
-    parseVariables(variables, { escapeHtml: true })(options.body ?? '')
+  const bodyUniqueVariable = findUniqueVariableValue(typebot.variables)(
+    options.body
+  )
+  const body = bodyUniqueVariable
+    ? stringifyUniqueVariableValueAsHtml(bodyUniqueVariable)
+    : parseVariables(typebot.variables, { isInsideHtml: true })(
+        options.body ?? ''
+      )
 
   try {
-    await sendEmail({
-      typebotId: typebot.id,
-      result,
+    const sendEmailLogs = await sendEmail({
+      typebot,
+      answers,
       credentialsId: options.credentialsId,
-      recipients: options.recipients.map(parseVariables(variables)),
-      subject: parseVariables(variables)(options.subject ?? ''),
+      recipients: options.recipients.map(parseVariables(typebot.variables)),
+      subject: parseVariables(typebot.variables)(options.subject ?? ''),
       body,
-      cc: (options.cc ?? []).map(parseVariables(variables)),
-      bcc: (options.bcc ?? []).map(parseVariables(variables)),
+      cc: (options.cc ?? []).map(parseVariables(typebot.variables)),
+      bcc: (options.bcc ?? []).map(parseVariables(typebot.variables)),
       replyTo: options.replyTo
-        ? parseVariables(variables)(options.replyTo)
+        ? parseVariables(typebot.variables)(options.replyTo)
         : undefined,
-      fileUrls: getFileUrls(variables)(options.attachmentsVariableId),
+      fileUrls: getFileUrls(typebot.variables)(options.attachmentsVariableId),
       isCustomBody: options.isCustomBody,
       isBodyCode: options.isBodyCode,
     })
+    if (sendEmailLogs) logs.push(...sendEmailLogs)
   } catch (err) {
-    await saveErrorLog({
-      resultId: result.id,
-      message: 'Email not sent',
-      details: {
-        error: err,
-      },
+    logs.push({
+      status: 'error',
+      details: err,
+      description: `Email not sent`,
     })
   }
 
-  return { outgoingEdgeId: block.outgoingEdgeId }
+  return { outgoingEdgeId: block.outgoingEdgeId, logs }
 }
 
 const sendEmail = async ({
-  typebotId,
-  result,
+  typebot,
+  answers,
   credentialsId,
   recipients,
   body,
@@ -88,10 +93,11 @@ const sendEmail = async ({
   isCustomBody,
   fileUrls,
 }: SendEmailOptions & {
-  typebotId: string
-  result: ResultInSession
+  typebot: TypebotInSession
+  answers: AnswerInSessionState[]
   fileUrls?: string | string[]
-}) => {
+}): Promise<ReplyLog[] | undefined> => {
+  const logs: ReplyLog[] = []
   const { name: replyToName } = parseEmailRecipient(replyTo)
 
   const { host, port, isTlsEnabled, username, password, from } =
@@ -112,14 +118,14 @@ const sendEmail = async ({
     body,
     isCustomBody,
     isBodyCode,
-    typebotId,
-    result,
+    typebot,
+    answersInSession: answers,
   })
 
   if (!emailBody) {
-    await saveErrorLog({
-      resultId: result.id,
-      message: 'Email not sent',
+    logs.push({
+      status: 'error',
+      description: 'Email not sent',
       details: {
         error: 'No email body found',
         transportConfig,
@@ -131,6 +137,7 @@ const sendEmail = async ({
         emailBody,
       },
     })
+    return logs
   }
   const transporter = createTransport(transportConfig)
   const fromName = isEmpty(replyToName) ? from.name : replyToName
@@ -150,9 +157,9 @@ const sendEmail = async ({
   }
   try {
     await transporter.sendMail(email)
-    await saveSuccessLog({
-      resultId: result.id,
-      message: 'Email successfully sent',
+    logs.push({
+      status: 'success',
+      description: 'Email successfully sent',
       details: {
         transportConfig: {
           ...transportConfig,
@@ -162,11 +169,11 @@ const sendEmail = async ({
       },
     })
   } catch (err) {
-    await saveErrorLog({
-      resultId: result.id,
-      message: 'Email not sent',
+    logs.push({
+      status: 'error',
+      description: 'Email not sent',
       details: {
-        error: err,
+        error: err instanceof Error ? err.toString() : err,
         transportConfig: {
           ...transportConfig,
           auth: { user: transportConfig.auth.user, pass: '******' },
@@ -175,6 +182,8 @@ const sendEmail = async ({
       },
     })
   }
+
+  return logs
 }
 
 const getEmailInfo = async (
@@ -203,11 +212,11 @@ const getEmailBody = async ({
   body,
   isCustomBody,
   isBodyCode,
-  typebotId,
-  result,
+  typebot,
+  answersInSession,
 }: {
-  typebotId: string
-  result: ResultInSession
+  typebot: TypebotInSession
+  answersInSession: AnswerInSessionState[]
 } & Pick<SendEmailOptions, 'isCustomBody' | 'isBodyCode' | 'body'>): Promise<
   { html?: string; text?: string } | undefined
 > => {
@@ -216,15 +225,14 @@ const getEmailBody = async ({
       html: isBodyCode ? body : undefined,
       text: !isBodyCode ? body : undefined,
     }
-  const typebot = (await prisma.publicTypebot.findUnique({
-    where: { typebotId },
-  })) as unknown as PublicTypebot
-  if (!typebot) return
-  const answers = parseAnswers(typebot, [])(result)
+  const answers = parseAnswers({
+    variables: getDefinedVariables(typebot.variables),
+    answers: answersInSession,
+  })
   return {
     html: render(
       <DefaultBotNotificationEmail
-        resultsUrl={`${process.env.NEXTAUTH_URL}/typebots/${typebot.id}/results`}
+        resultsUrl={`${env.NEXTAUTH_URL}/typebots/${typebot.id}/results`}
         answers={omit(answers, 'submittedAt')}
       />
     ).html,
@@ -255,3 +263,11 @@ const getFileUrls =
     if (typeof fileUrls === 'string') return fileUrls
     return fileUrls.filter(isDefined)
   }
+
+const stringifyUniqueVariableValueAsHtml = (
+  value: Variable['value']
+): string => {
+  if (!value) return ''
+  if (typeof value === 'string') return value.replace(/\n/g, '<br />')
+  return value.map(stringifyUniqueVariableValueAsHtml).join('<br />')
+}

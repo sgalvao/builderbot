@@ -18,18 +18,14 @@ import { ConfirmModal } from '@/components/ConfirmModal'
 import { GripIcon } from '@/components/icons'
 import { useTypebotDnd } from '../TypebotDndProvider'
 import { useDebounce } from 'use-debounce'
-import { Plan } from '@typebot.io/prisma'
-import { useWorkspace } from '@/features/workspace/WorkspaceProvider'
 import { useToast } from '@/hooks/useToast'
 import { MoreButton } from './MoreButton'
 import { EmojiOrImageIcon } from '@/components/EmojiOrImageIcon'
-import { deletePublishedTypebotQuery } from '@/features/publish/queries/deletePublishedTypebotQuery'
 import { useScopedI18n } from '@/locales'
-import { deleteTypebotQuery } from '@/features/dashboard/queries/deleteTypebotQuery'
-import { getTypebotQuery } from '@/features/dashboard/queries/getTypebotQuery'
-import { importTypebotQuery } from '@/features/dashboard/queries/importTypebotQuery'
 import { TypebotInDashboard } from '@/features/dashboard/types'
 import { isMobile } from '@/helpers/isMobile'
+import { trpc, trpcVanilla } from '@/lib/trpc'
+import { duplicateName } from '@/features/typebot/helpers/duplicateName'
 
 type Props = {
   typebot: TypebotInDashboard
@@ -46,7 +42,6 @@ export const TypebotButton = ({
 }: Props) => {
   const scopedT = useScopedI18n('folders.typebotButton')
   const router = useRouter()
-  const { workspace } = useWorkspace()
   const { draggedTypebot } = useTypebotDnd()
   const [draggedTypebotDebounced] = useDebounce(draggedTypebot, 200)
   const {
@@ -56,6 +51,34 @@ export const TypebotButton = ({
   } = useDisclosure()
 
   const { showToast } = useToast()
+
+  const { mutate: createTypebot } = trpc.typebot.createTypebot.useMutation({
+    onError: (error) => {
+      showToast({ description: error.message })
+    },
+    onSuccess: ({ typebot }) => {
+      router.push(`/typebots/${typebot.id}/edit`)
+    },
+  })
+
+  const { mutate: deleteTypebot } = trpc.typebot.deleteTypebot.useMutation({
+    onError: (error) => {
+      showToast({ description: error.message })
+    },
+    onSuccess: () => {
+      onTypebotUpdated()
+    },
+  })
+
+  const { mutate: unpublishTypebot } =
+    trpc.typebot.unpublishTypebot.useMutation({
+      onError: (error) => {
+        showToast({ description: error.message })
+      },
+      onSuccess: () => {
+        onTypebotUpdated()
+      },
+    })
 
   const handleTypebotClick = () => {
     if (draggedTypebotDebounced) return
@@ -68,28 +91,28 @@ export const TypebotButton = ({
 
   const handleDeleteTypebotClick = async () => {
     if (isReadOnly) return
-    const { error } = await deleteTypebotQuery(typebot.id)
-    if (error)
-      return showToast({
-        description: error.message,
-      })
-    onTypebotUpdated()
+    deleteTypebot({
+      typebotId: typebot.id,
+    })
   }
 
   const handleDuplicateClick = async (e: React.MouseEvent) => {
     e.stopPropagation()
-    const { data } = await getTypebotQuery(typebot.id)
-    const typebotToDuplicate = data?.typebot
-    if (!typebotToDuplicate) return
-    const { data: createdTypebot, error } = await importTypebotQuery(
-      data.typebot,
-      workspace?.plan ?? Plan.FREE
-    )
-    if (error)
-      return showToast({
-        description: error.message,
+    const { typebot: typebotToDuplicate } =
+      await trpcVanilla.typebot.getTypebot.query({
+        typebotId: typebot.id,
       })
     if (createdTypebot) router.push(`/hackleads/${createdTypebot?.id}/edit`)
+    if (!typebotToDuplicate) return
+    createTypebot({
+      workspaceId: typebotToDuplicate.workspaceId,
+      typebot: {
+        ...typebotToDuplicate,
+        customDomain: undefined,
+        publicId: undefined,
+        name: duplicateName(typebotToDuplicate.name),
+      },
+    })
   }
 
   const handleDeleteClick = (e: React.MouseEvent) => {
@@ -100,12 +123,7 @@ export const TypebotButton = ({
   const handleUnpublishClick = async (e: React.MouseEvent) => {
     e.stopPropagation()
     if (!typebot.publishedTypebotId) return
-    const { error } = await deletePublishedTypebotQuery({
-      publishedTypebotId: typebot.publishedTypebotId,
-      typebotId: typebot.id,
-    })
-    if (error) showToast({ description: error.message })
-    else onTypebotUpdated()
+    unpublishTypebot({ typebotId: typebot.id })
   }
 
   return (
@@ -117,8 +135,6 @@ export const TypebotButton = ({
       variant="outline"
       w="225px"
       h="270px"
-      mr={{ sm: 6 }}
-      mb={6}
       rounded="lg"
       whiteSpace="normal"
       opacity={draggedTypebot?.id === typebot.id ? 0.2 : 1}
@@ -134,7 +150,7 @@ export const TypebotButton = ({
           top="27px"
           size="sm"
         >
-          Live
+          {scopedT('live')}
         </Tag>
       )}
       {!isReadOnly && (

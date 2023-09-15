@@ -2,16 +2,11 @@ import { IncomingMessage } from 'http'
 import { ErrorPage } from '@/components/ErrorPage'
 import { NotFoundPage } from '@/components/NotFoundPage'
 import { GetServerSideProps, GetServerSidePropsContext } from 'next'
-import {
-  env,
-  getViewerUrl,
-  isDefined,
-  isNotDefined,
-  omit,
-} from '@typebot.io/lib'
+import { isNotDefined } from '@typebot.io/lib'
 import prisma from '../lib/prisma'
 import { TypebotPageProps, TypebotPageV2 } from '@/components/TypebotPageV2'
-import { TypebotPageV3 } from '@/components/TypebotPageV3'
+import { TypebotPageV3, TypebotV3PageProps } from '@/components/TypebotPageV3'
+import { env } from '@typebot.io/env'
 
 // Browsers that doesn't support ES modules and/or web components
 const incompatibleBrowsers = [
@@ -30,7 +25,7 @@ const incompatibleBrowsers = [
 ]
 
 const log = (message: string) => {
-  if (process.env.DEBUG !== 'true') return
+  if (!env.DEBUG) return
   console.log(`[DEBUG] ${message}`)
 }
 
@@ -47,19 +42,18 @@ export const getServerSideProps: GetServerSideProps = async (
   log(`forwardedHost: ${forwardedHost}`)
   try {
     if (!host) return { props: {} }
-    const viewerUrls = (getViewerUrl({ returnAll: true }) ?? '').split(',')
+    const viewerUrls = env.NEXT_PUBLIC_VIEWER_URL
     log(`viewerUrls: ${viewerUrls}`)
-    const isMatchingViewerUrl =
-      env('E2E_TEST') === 'true'
-        ? true
-        : viewerUrls.some(
-            (url) =>
-              host.split(':')[0].includes(url.split('//')[1].split(':')[0]) ||
-              (forwardedHost &&
-                forwardedHost
-                  .split(':')[0]
-                  .includes(url.split('//')[1].split(':')[0]))
-          )
+    const isMatchingViewerUrl = env.NEXT_PUBLIC_E2E_TEST
+      ? true
+      : viewerUrls.some(
+          (url:any) =>
+            host.split(':')[0].includes(url.split('//')[1].split(':')[0]) ||
+            (forwardedHost &&
+              forwardedHost
+                .split(':')[0]
+                .includes(url.split('//')[1].split(':')[0]))
+        )
     log(`isMatchingViewerUrl: ${isMatchingViewerUrl}`)
     const customDomain = `${forwardedHost ?? host}${
       pathname === '/' ? '' : pathname
@@ -69,14 +63,11 @@ export const getServerSideProps: GetServerSideProps = async (
       : await getTypebotFromCustomDomain(customDomain)
 
     log(`'TypeBot publicado?' ${publishedTypebot}`)
-    const headCode = publishedTypebot?.settings.metadata.customHeadCode
     return {
       props: {
         publishedTypebot,
         incompatibleBrowser,
         url: `https://${forwardedHost ?? host}${pathname}`,
-        customHeadCode:
-          isDefined(headCode) && headCode !== '' ? headCode : null,
       },
     }
   } catch (err) {
@@ -90,12 +81,18 @@ export const getServerSideProps: GetServerSideProps = async (
   }
 }
 
-const getTypebotFromPublicId = async (
-  publicId?: string
-): Promise<TypebotPageProps['publishedTypebot'] | null> => {
-  const publishedTypebot = await prisma.publicTypebot.findFirst({
+const getTypebotFromPublicId = async (publicId?: string) => {
+  const publishedTypebot = (await prisma.publicTypebot.findFirst({
     where: { typebot: { publicId: publicId ?? '' } },
-    include: {
+    select: {
+      variables: true,
+      settings: true,
+      theme: true,
+      version: true,
+      groups: true,
+      edges: true,
+      typebotId: true,
+      id: true,
       typebot: {
         select: {
           name: true,
@@ -105,21 +102,39 @@ const getTypebotFromPublicId = async (
         },
       },
     },
-  })
-  if (!publishedTypebot) return null
-  return omit(
-    publishedTypebot,
-    'createdAt',
-    'updatedAt'
-  ) as TypebotPageProps['publishedTypebot']
+  })) as TypebotPageProps['publishedTypebot'] | null
+  if (isNotDefined(publishedTypebot)) return null
+  return publishedTypebot.version
+    ? ({
+        name: publishedTypebot.typebot.name,
+        publicId: publishedTypebot.typebot.publicId ?? null,
+        background: publishedTypebot.theme.general.background,
+        isHideQueryParamsEnabled:
+          publishedTypebot.settings.general.isHideQueryParamsEnabled ?? null,
+        metadata: publishedTypebot.settings.metadata,
+      } as Pick<
+        TypebotV3PageProps,
+        | 'name'
+        | 'publicId'
+        | 'background'
+        | 'isHideQueryParamsEnabled'
+        | 'metadata'
+      >)
+    : publishedTypebot
 }
 
-const getTypebotFromCustomDomain = async (
-  customDomain: string
-): Promise<TypebotPageProps['publishedTypebot'] | null> => {
-  const publishedTypebot = await prisma.publicTypebot.findFirst({
+const getTypebotFromCustomDomain = async (customDomain: string) => {
+  const publishedTypebot = (await prisma.publicTypebot.findFirst({
     where: { typebot: { customDomain } },
-    include: {
+    select: {
+      variables: true,
+      settings: true,
+      theme: true,
+      version: true,
+      groups: true,
+      edges: true,
+      typebotId: true,
+      id: true,
       typebot: {
         select: {
           name: true,
@@ -129,30 +144,25 @@ const getTypebotFromCustomDomain = async (
         },
       },
     },
-  })
-
-  console.log('PROCESS', process.env)
-  console.log('RETURN FUNCAO', publishedTypebot)
-  const url = `${process.env.DATABASE_URL_ENV}`
-  const regex = /:(\d+)\/[^/]+$/
-  const match = url.match(regex)
-
-  if (match) {
-    const porta = match[1]
-    console.log('Porta TESTANDO:', porta)
-  } else {
-    console.log('Porta não encontrada no URL.')
-  }
-
-  if (isNotDefined(publishedTypebot)) {
-    console.log('NAO FOI DEFINIDO')
-    return null
-  }
-  return omit(
-    publishedTypebot,
-    'createdAt',
-    'updatedAt'
-  ) as TypebotPageProps['publishedTypebot']
+  })) as TypebotPageProps['publishedTypebot'] | null
+  if (isNotDefined(publishedTypebot)) return null
+  return publishedTypebot.version
+    ? ({
+        name: publishedTypebot.typebot.name,
+        publicId: publishedTypebot.typebot.publicId ?? null,
+        background: publishedTypebot.theme.general.background,
+        isHideQueryParamsEnabled:
+          publishedTypebot.settings.general.isHideQueryParamsEnabled ?? null,
+        metadata: publishedTypebot.settings.metadata,
+      } as Pick<
+        TypebotV3PageProps,
+        | 'name'
+        | 'publicId'
+        | 'background'
+        | 'isHideQueryParamsEnabled'
+        | 'metadata'
+      >)
+    : publishedTypebot
 }
 
 const getHost = (
@@ -166,9 +176,22 @@ const App = ({
   publishedTypebot,
   incompatibleBrowser,
   ...props
-}: TypebotPageProps & { incompatibleBrowser: string | null }) => {
-  console.log(publishedTypebot)
-
+}: {
+  isIE: boolean
+  customHeadCode: string | null
+  url: string
+  publishedTypebot:
+    | TypebotPageProps['publishedTypebot']
+    | Pick<
+        TypebotV3PageProps,
+        | 'name'
+        | 'publicId'
+        | 'background'
+        | 'isHideQueryParamsEnabled'
+        | 'metadata'
+      >
+  incompatibleBrowser: string | null
+}) => {
   if (incompatibleBrowser)
     return (
       <ErrorPage
@@ -179,24 +202,24 @@ const App = ({
         }
       />
     )
-  if (!publishedTypebot.typebot || publishedTypebot.typebot.isArchived) {
-    console.log('PUBLISHED?', publishedTypebot)
+  if (
+    !publishedTypebot ||
+    ('typebot' in publishedTypebot && publishedTypebot.typebot.isArchived)
+  )
     return <NotFoundPage />
-  }
-  if (publishedTypebot.typebot.isClosed)
+  if ('typebot' in publishedTypebot && publishedTypebot.typebot.isClosed)
     return <ErrorPage error={new Error('This bot is now closed')} />
-  return publishedTypebot.version === '3' ? (
+  return 'typebot' in publishedTypebot ? (
+    <TypebotPageV2 publishedTypebot={publishedTypebot} {...props} />
+  ) : (
     <TypebotPageV3
       url={props.url}
-      typebot={{
-        name: publishedTypebot.typebot.name,
-        publicId: publishedTypebot.typebot.publicId,
-        settings: publishedTypebot.settings,
-        theme: publishedTypebot.theme,
-      }}
+      name={publishedTypebot.name}
+      publicId={publishedTypebot.publicId}
+      isHideQueryParamsEnabled={publishedTypebot.isHideQueryParamsEnabled}
+      background={publishedTypebot.background}
+      metadata={publishedTypebot.metadata}
     />
-  ) : (
-    <TypebotPageV2 publishedTypebot={publishedTypebot} {...props} />
   )
 }
 

@@ -37,6 +37,12 @@ import { ApiModal } from './modals/ApiModal'
 import { ScriptIcon } from '@/features/blocks/logic/script/components/ScriptIcon'
 import { FlutterFlowLogo } from './logos/FlutterFlowLogo'
 import { FlutterFlowModal } from './modals/FlutterFlowModal'
+import { NextjsLogo } from './logos/NextjsLogo'
+import { NextjsModal } from './modals/Nextjs/NextjsModal'
+import { WhatsAppLogo } from '@/components/logos/WhatsAppLogo'
+import { WhatsAppModal } from './modals/WhatsAppModal/WhatsAppModal'
+import { ParentModalProvider } from '@/features/graph/providers/ParentModalProvider'
+import { isWhatsAppAvailable } from '@/features/telemetry/posthog'
 
 export type ModalProps = {
   publicId: string
@@ -77,6 +83,19 @@ export const EmbedButton = ({
 }
 
 export const integrationsList = [
+  (props: Pick<ModalProps, 'publicId' | 'isPublished'>) => {
+    if (isWhatsAppAvailable())
+      return (
+        <ParentModalProvider>
+          <EmbedButton
+            logo={<WhatsAppLogo height={100} width="70px" />}
+            label="WhatsApp"
+            Modal={WhatsAppModal}
+            {...props}
+          />
+        </ParentModalProvider>
+      )
+  },
   (props: Pick<ModalProps, 'publicId' | 'isPublished'>) => (
     <EmbedButton
       logo={<WordpressLogo height={100} width="70px" />}
@@ -122,6 +141,14 @@ export const integrationsList = [
       logo={<ReactLogo height={100} width="70px" />}
       label="React"
       Modal={ReactModal}
+      {...props}
+    />
+  ),
+  (props: Pick<ModalProps, 'publicId' | 'isPublished'>) => (
+    <EmbedButton
+      logo={<NextjsLogo height={100} width="70px" />}
+      label="Nextjs"
+      Modal={NextjsModal}
       {...props}
     />
   ),

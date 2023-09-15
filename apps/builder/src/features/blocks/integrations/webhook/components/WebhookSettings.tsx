@@ -1,8 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Spinner, Stack } from '@chakra-ui/react'
-import { useTypebot } from '@/features/editor/providers/TypebotProvider'
 import { WebhookOptions, Webhook, WebhookBlock } from '@typebot.io/schemas'
-import { byId } from '@typebot.io/lib'
 import { TextInput } from '@/components/inputs'
 import { WebhookAdvancedConfigForm } from './WebhookAdvancedConfigForm'
 
@@ -12,34 +10,32 @@ type Props = {
 }
 
 export const WebhookSettings = ({
-  block: { webhookId, id: blockId, options },
+  block: { id: blockId, options },
   onOptionsChange,
 }: Props) => {
-  const { webhooks, updateWebhook } = useTypebot()
-  const [localWebhook, _setLocalWebhook] = useState(
-    webhooks.find(byId(webhookId))
-  )
-
   const setLocalWebhook = async (newLocalWebhook: Webhook) => {
-    _setLocalWebhook(newLocalWebhook)
-    await updateWebhook(newLocalWebhook.id, newLocalWebhook)
+    if (!options.webhook) return
+    onOptionsChange({ ...options, webhook: newLocalWebhook })
+    return
   }
 
-  const updateUrl = (url?: string) =>
-    localWebhook && setLocalWebhook({ ...localWebhook, url: url ?? null })
+  const updateUrl = (url: string) => {
+    if (!options.webhook) return
+    onOptionsChange({ ...options, webhook: { ...options.webhook, url } })
+  }
 
-  if (!localWebhook) return <Spinner />
+  if (!options.webhook) return <Spinner />
 
   return (
     <Stack spacing={4}>
       <TextInput
         placeholder="Paste webhook URL..."
-        defaultValue={localWebhook.url ?? ''}
+        defaultValue={options.webhook?.url ?? ''}
         onChange={updateUrl}
       />
       <WebhookAdvancedConfigForm
         blockId={blockId}
-        webhook={localWebhook}
+        webhook={options.webhook as Webhook}
         options={options}
         onWebhookChange={setLocalWebhook}
         onOptionsChange={onOptionsChange}

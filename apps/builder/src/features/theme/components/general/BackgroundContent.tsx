@@ -42,6 +42,7 @@ export const BackgroundContent = ({
         </Flex>
       )
     case BackgroundType.IMAGE:
+      if (!typebot) return null
       return (
         <Popover isLazy placement="top">
           <PopoverTrigger>
@@ -53,6 +54,8 @@ export const BackgroundContent = ({
                 _hover={{ filter: 'brightness(.9)' }}
                 transition="filter 200ms"
                 rounded="md"
+                maxH="200px"
+                objectFit="cover"
               />
             ) : (
               <Button>Select an image</Button>
@@ -61,7 +64,11 @@ export const BackgroundContent = ({
           <Portal>
             <PopoverContent p="4" w="500px">
               <ImageUploadContent
-                filePath={`typebots/${typebot?.id}/background`}
+                uploadFileProps={{
+                  workspaceId: typebot.workspaceId,
+                  typebotId: typebot.id,
+                  fileName: 'background',
+                }}
                 defaultUrl={background.content}
                 onSubmit={handleContentChange}
                 excludedTabs={['giphy', 'icon']}
@@ -70,7 +77,5 @@ export const BackgroundContent = ({
           </Portal>
         </Popover>
       )
-    default:
-      return <></>
   }
 }

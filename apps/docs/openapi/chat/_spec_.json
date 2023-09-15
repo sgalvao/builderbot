@@ -15,11 +15,6 @@
         "operationId": "sendMessage",
         "summary": "Send a message",
         "description": "To initiate a chat, do not provide a `sessionId` nor a `message`.\n\nContinue the conversation by providing the `sessionId` and the `message` that should answer the previous question.\n\nSet the `isPreview` option to `true` to chat with the non-published version of the typebot.",
-        "security": [
-          {
-            "Authorization": []
-          }
-        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -35,27 +30,6 @@
                     "type": "string",
                     "description": "Session ID that you get from the initial chat request to a bot. If not provided, it will create a new session."
                   },
-                  "clientLogs": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "status": {
-                          "type": "string"
-                        },
-                        "description": {
-                          "type": "string"
-                        },
-                        "details": {}
-                      },
-                      "required": [
-                        "status",
-                        "description"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "description": "Logs while executing client side actions"
-                  },
                   "startParams": {
                     "type": "object",
                     "properties": {
@@ -64,6 +38,15 @@
                           {
                             "type": "object",
                             "properties": {
+                              "version": {
+                                "type": "string",
+                                "enum": [
+                                  "3",
+                                  "4",
+                                  "5"
+                                ],
+                                "nullable": true
+                              },
                               "id": {
                                 "type": "string"
                               },
@@ -338,6 +321,9 @@
                                                 "properties": {
                                                   "url": {
                                                     "type": "string"
+                                                  },
+                                                  "isAutoplayEnabled": {
+                                                    "type": "boolean"
                                                   }
                                                 },
                                                 "additionalProperties": false
@@ -437,7 +423,8 @@
                                                       "type": "string"
                                                     },
                                                     "blockId": {
-                                                      "type": "string"
+                                                      "type": "string",
+                                                      "description": "Deprecated"
                                                     },
                                                     "outgoingEdgeId": {
                                                       "type": "string"
@@ -490,7 +477,9 @@
                                                                       "Is set",
                                                                       "Is empty",
                                                                       "Starts with",
-                                                                      "Ends with"
+                                                                      "Ends with",
+                                                                      "Matches regex",
+                                                                      "Does not match regex"
                                                                     ]
                                                                   },
                                                                   "value": {
@@ -516,7 +505,6 @@
                                                   },
                                                   "required": [
                                                     "id",
-                                                    "blockId",
                                                     "type"
                                                   ],
                                                   "additionalProperties": false
@@ -605,8 +593,7 @@
                                                   }
                                                 },
                                                 "required": [
-                                                  "labels",
-                                                  "retryMessageContent"
+                                                  "labels"
                                                 ],
                                                 "additionalProperties": false
                                               }
@@ -868,6 +855,15 @@
                                                   },
                                                   "isRange": {
                                                     "type": "boolean"
+                                                  },
+                                                  "format": {
+                                                    "type": "string"
+                                                  },
+                                                  "min": {
+                                                    "type": "string"
+                                                  },
+                                                  "max": {
+                                                    "type": "string"
                                                   }
                                                 },
                                                 "required": [
@@ -980,6 +976,9 @@
                                                     "type": "string"
                                                   },
                                                   "amount": {
+                                                    "type": "string"
+                                                  },
+                                                  "retryMessageContent": {
                                                     "type": "string"
                                                   }
                                                 },
@@ -1194,7 +1193,8 @@
                                                       "type": "string"
                                                     },
                                                     "blockId": {
-                                                      "type": "string"
+                                                      "type": "string",
+                                                      "description": "Deprecated"
                                                     },
                                                     "outgoingEdgeId": {
                                                       "type": "string"
@@ -1253,7 +1253,9 @@
                                                                       "Is set",
                                                                       "Is empty",
                                                                       "Starts with",
-                                                                      "Ends with"
+                                                                      "Ends with",
+                                                                      "Matches regex",
+                                                                      "Does not match regex"
                                                                     ]
                                                                   },
                                                                   "value": {
@@ -1279,7 +1281,6 @@
                                                   },
                                                   "required": [
                                                     "id",
-                                                    "blockId",
                                                     "type"
                                                   ],
                                                   "additionalProperties": false
@@ -1410,7 +1411,8 @@
                                                       "type": "string"
                                                     },
                                                     "blockId": {
-                                                      "type": "string"
+                                                      "type": "string",
+                                                      "description": "Deprecated"
                                                     },
                                                     "outgoingEdgeId": {
                                                       "type": "string"
@@ -1454,7 +1456,9 @@
                                                                   "Is set",
                                                                   "Is empty",
                                                                   "Starts with",
-                                                                  "Ends with"
+                                                                  "Ends with",
+                                                                  "Matches regex",
+                                                                  "Does not match regex"
                                                                 ]
                                                               },
                                                               "value": {
@@ -1477,7 +1481,6 @@
                                                   },
                                                   "required": [
                                                     "id",
-                                                    "blockId",
                                                     "type",
                                                     "content"
                                                   ],
@@ -1571,12 +1574,15 @@
                                                       "Custom",
                                                       "Empty",
                                                       "User ID",
+                                                      "Now",
                                                       "Today",
                                                       "Yesterday",
                                                       "Tomorrow",
                                                       "Random ID",
                                                       "Moment of the day",
-                                                      "Map item with same index"
+                                                      "Map item with same index",
+                                                      "Phone number",
+                                                      "Contact name"
                                                     ]
                                                   },
                                                   "mapListItemParams": {
@@ -1635,6 +1641,9 @@
                                                   },
                                                   "groupId": {
                                                     "type": "string"
+                                                  },
+                                                  "mergeResults": {
+                                                    "type": "boolean"
                                                   }
                                                 },
                                                 "additionalProperties": false
@@ -1671,6 +1680,9 @@
                                                 "properties": {
                                                   "secondsToWaitFor": {
                                                     "type": "string"
+                                                  },
+                                                  "shouldPause": {
+                                                    "type": "boolean"
                                                   }
                                                 },
                                                 "additionalProperties": false
@@ -1753,7 +1765,8 @@
                                                         "type": "string"
                                                       },
                                                       "blockId": {
-                                                        "type": "string"
+                                                        "type": "string",
+                                                        "description": "Deprecated"
                                                       },
                                                       "outgoingEdgeId": {
                                                         "type": "string"
@@ -1773,7 +1786,6 @@
                                                     },
                                                     "required": [
                                                       "id",
-                                                      "blockId",
                                                       "type",
                                                       "path"
                                                     ],
@@ -1786,7 +1798,8 @@
                                                         "type": "string"
                                                       },
                                                       "blockId": {
-                                                        "type": "string"
+                                                        "type": "string",
+                                                        "description": "Deprecated"
                                                       },
                                                       "outgoingEdgeId": {
                                                         "type": "string"
@@ -1806,7 +1819,6 @@
                                                     },
                                                     "required": [
                                                       "id",
-                                                      "blockId",
                                                       "type",
                                                       "path"
                                                     ],
@@ -2048,7 +2060,9 @@
                                                                     "Is set",
                                                                     "Is empty",
                                                                     "Starts with",
-                                                                    "Ends with"
+                                                                    "Ends with",
+                                                                    "Matches regex",
+                                                                    "Does not match regex"
                                                                   ]
                                                                 },
                                                                 "value": {
@@ -2148,8 +2162,7 @@
                                                           "required": [
                                                             "id"
                                                           ],
-                                                          "additionalProperties": false,
-                                                          "description": "Deprecated. Use `filter` instead."
+                                                          "additionalProperties": false
                                                         }
                                                       }
                                                     },
@@ -2195,8 +2208,7 @@
                                                           "required": [
                                                             "id"
                                                           ],
-                                                          "additionalProperties": false,
-                                                          "description": "Deprecated. Use `filter` instead."
+                                                          "additionalProperties": false
                                                         }
                                                       },
                                                       "referenceCell": {
@@ -2244,7 +2256,9 @@
                                                                     "Is set",
                                                                     "Is empty",
                                                                     "Starts with",
-                                                                    "Ends with"
+                                                                    "Ends with",
+                                                                    "Matches regex",
+                                                                    "Does not match regex"
                                                                   ]
                                                                 },
                                                                 "value": {
@@ -2378,6 +2392,83 @@
                                                   },
                                                   "isExecutedOnClient": {
                                                     "type": "boolean"
+                                                  },
+                                                  "webhook": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                      "id": {
+                                                        "type": "string"
+                                                      },
+                                                      "queryParams": {
+                                                        "type": "array",
+                                                        "items": {
+                                                          "type": "object",
+                                                          "properties": {
+                                                            "id": {
+                                                              "type": "string"
+                                                            },
+                                                            "key": {
+                                                              "type": "string"
+                                                            },
+                                                            "value": {
+                                                              "type": "string"
+                                                            }
+                                                          },
+                                                          "required": [
+                                                            "id"
+                                                          ],
+                                                          "additionalProperties": false
+                                                        }
+                                                      },
+                                                      "headers": {
+                                                        "type": "array",
+                                                        "items": {
+                                                          "type": "object",
+                                                          "properties": {
+                                                            "id": {
+                                                              "type": "string"
+                                                            },
+                                                            "key": {
+                                                              "type": "string"
+                                                            },
+                                                            "value": {
+                                                              "type": "string"
+                                                            }
+                                                          },
+                                                          "required": [
+                                                            "id"
+                                                          ],
+                                                          "additionalProperties": false
+                                                        }
+                                                      },
+                                                      "method": {
+                                                        "type": "string",
+                                                        "enum": [
+                                                          "POST",
+                                                          "GET",
+                                                          "PUT",
+                                                          "DELETE",
+                                                          "PATCH",
+                                                          "HEAD",
+                                                          "CONNECT",
+                                                          "OPTIONS",
+                                                          "TRACE"
+                                                        ]
+                                                      },
+                                                      "url": {
+                                                        "type": "string"
+                                                      },
+                                                      "body": {
+                                                        "type": "string"
+                                                      }
+                                                    },
+                                                    "required": [
+                                                      "id",
+                                                      "queryParams",
+                                                      "headers",
+                                                      "method"
+                                                    ],
+                                                    "additionalProperties": false
                                                   }
                                                 },
                                                 "required": [
@@ -2387,15 +2478,15 @@
                                                 "additionalProperties": false
                                               },
                                               "webhookId": {
-                                                "type": "string"
+                                                "type": "string",
+                                                "description": "Deprecated, use webhook.id instead"
                                               }
                                             },
                                             "required": [
                                               "id",
                                               "groupId",
                                               "type",
-                                              "options",
-                                              "webhookId"
+                                              "options"
                                             ],
                                             "additionalProperties": false
                                           },
@@ -2427,6 +2518,13 @@
                                                       },
                                                       "credentialsId": {
                                                         "type": "string"
+                                                      },
+                                                      "baseUrl": {
+                                                        "type": "string",
+                                                        "default": "https://api.openai.com/v1"
+                                                      },
+                                                      "apiVersion": {
+                                                        "type": "string"
                                                       }
                                                     },
                                                     "additionalProperties": false
@@ -2441,20 +2539,7 @@
                                                         ]
                                                       },
                                                       "model": {
-                                                        "type": "string",
-                                                        "enum": [
-                                                          "gpt-3.5-turbo",
-                                                          "gpt-3.5-turbo-0613",
-                                                          "gpt-3.5-turbo-16k",
-                                                          "gpt-3.5-turbo-16k-0613",
-                                                          "gpt-3.5-turbo-0301",
-                                                          "gpt-4",
-                                                          "gpt-4-0613",
-                                                          "gpt-4-32k",
-                                                          "gpt-4-32k-0613",
-                                                          "gpt-4-32k-0314",
-                                                          "gpt-4-0314"
-                                                        ]
+                                                        "type": "string"
                                                       },
                                                       "messages": {
                                                         "type": "array",
@@ -2554,13 +2639,19 @@
                                                             }
                                                           },
                                                           "required": [
-                                                            "id",
-                                                            "valueToExtract"
+                                                            "id"
                                                           ],
                                                           "additionalProperties": false
                                                         }
                                                       },
                                                       "credentialsId": {
+                                                        "type": "string"
+                                                      },
+                                                      "baseUrl": {
+                                                        "type": "string",
+                                                        "default": "https://api.openai.com/v1"
+                                                      },
+                                                      "apiVersion": {
                                                         "type": "string"
                                                       }
                                                     },
@@ -2624,6 +2715,13 @@
                                                         }
                                                       },
                                                       "credentialsId": {
+                                                        "type": "string"
+                                                      },
+                                                      "baseUrl": {
+                                                        "type": "string",
+                                                        "default": "https://api.openai.com/v1"
+                                                      },
+                                                      "apiVersion": {
                                                         "type": "string"
                                                       }
                                                     },
@@ -2716,6 +2814,83 @@
                                                   },
                                                   "isExecutedOnClient": {
                                                     "type": "boolean"
+                                                  },
+                                                  "webhook": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                      "id": {
+                                                        "type": "string"
+                                                      },
+                                                      "queryParams": {
+                                                        "type": "array",
+                                                        "items": {
+                                                          "type": "object",
+                                                          "properties": {
+                                                            "id": {
+                                                              "type": "string"
+                                                            },
+                                                            "key": {
+                                                              "type": "string"
+                                                            },
+                                                            "value": {
+                                                              "type": "string"
+                                                            }
+                                                          },
+                                                          "required": [
+                                                            "id"
+                                                          ],
+                                                          "additionalProperties": false
+                                                        }
+                                                      },
+                                                      "headers": {
+                                                        "type": "array",
+                                                        "items": {
+                                                          "type": "object",
+                                                          "properties": {
+                                                            "id": {
+                                                              "type": "string"
+                                                            },
+                                                            "key": {
+                                                              "type": "string"
+                                                            },
+                                                            "value": {
+                                                              "type": "string"
+                                                            }
+                                                          },
+                                                          "required": [
+                                                            "id"
+                                                          ],
+                                                          "additionalProperties": false
+                                                        }
+                                                      },
+                                                      "method": {
+                                                        "type": "string",
+                                                        "enum": [
+                                                          "POST",
+                                                          "GET",
+                                                          "PUT",
+                                                          "DELETE",
+                                                          "PATCH",
+                                                          "HEAD",
+                                                          "CONNECT",
+                                                          "OPTIONS",
+                                                          "TRACE"
+                                                        ]
+                                                      },
+                                                      "url": {
+                                                        "type": "string"
+                                                      },
+                                                      "body": {
+                                                        "type": "string"
+                                                      }
+                                                    },
+                                                    "required": [
+                                                      "id",
+                                                      "queryParams",
+                                                      "headers",
+                                                      "method"
+                                                    ],
+                                                    "additionalProperties": false
                                                   }
                                                 },
                                                 "required": [
@@ -2725,15 +2900,15 @@
                                                 "additionalProperties": false
                                               },
                                               "webhookId": {
-                                                "type": "string"
+                                                "type": "string",
+                                                "description": "Deprecated, use webhook.id instead"
                                               }
                                             },
                                             "required": [
                                               "id",
                                               "groupId",
                                               "type",
-                                              "options",
-                                              "webhookId"
+                                              "options"
                                             ],
                                             "additionalProperties": false
                                           },
@@ -2884,6 +3059,83 @@
                                                   },
                                                   "isExecutedOnClient": {
                                                     "type": "boolean"
+                                                  },
+                                                  "webhook": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                      "id": {
+                                                        "type": "string"
+                                                      },
+                                                      "queryParams": {
+                                                        "type": "array",
+                                                        "items": {
+                                                          "type": "object",
+                                                          "properties": {
+                                                            "id": {
+                                                              "type": "string"
+                                                            },
+                                                            "key": {
+                                                              "type": "string"
+                                                            },
+                                                            "value": {
+                                                              "type": "string"
+                                                            }
+                                                          },
+                                                          "required": [
+                                                            "id"
+                                                          ],
+                                                          "additionalProperties": false
+                                                        }
+                                                      },
+                                                      "headers": {
+                                                        "type": "array",
+                                                        "items": {
+                                                          "type": "object",
+                                                          "properties": {
+                                                            "id": {
+                                                              "type": "string"
+                                                            },
+                                                            "key": {
+                                                              "type": "string"
+                                                            },
+                                                            "value": {
+                                                              "type": "string"
+                                                            }
+                                                          },
+                                                          "required": [
+                                                            "id"
+                                                          ],
+                                                          "additionalProperties": false
+                                                        }
+                                                      },
+                                                      "method": {
+                                                        "type": "string",
+                                                        "enum": [
+                                                          "POST",
+                                                          "GET",
+                                                          "PUT",
+                                                          "DELETE",
+                                                          "PATCH",
+                                                          "HEAD",
+                                                          "CONNECT",
+                                                          "OPTIONS",
+                                                          "TRACE"
+                                                        ]
+                                                      },
+                                                      "url": {
+                                                        "type": "string"
+                                                      },
+                                                      "body": {
+                                                        "type": "string"
+                                                      }
+                                                    },
+                                                    "required": [
+                                                      "id",
+                                                      "queryParams",
+                                                      "headers",
+                                                      "method"
+                                                    ],
+                                                    "additionalProperties": false
                                                   }
                                                 },
                                                 "required": [
@@ -2893,15 +3145,15 @@
                                                 "additionalProperties": false
                                               },
                                               "webhookId": {
-                                                "type": "string"
+                                                "type": "string",
+                                                "description": "Deprecated, now integrated in webhook block options"
                                               }
                                             },
                                             "required": [
                                               "id",
                                               "groupId",
                                               "type",
-                                              "options",
-                                              "webhookId"
+                                              "options"
                                             ],
                                             "additionalProperties": false
                                           },
@@ -2976,6 +3228,83 @@
                                                   },
                                                   "isExecutedOnClient": {
                                                     "type": "boolean"
+                                                  },
+                                                  "webhook": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                      "id": {
+                                                        "type": "string"
+                                                      },
+                                                      "queryParams": {
+                                                        "type": "array",
+                                                        "items": {
+                                                          "type": "object",
+                                                          "properties": {
+                                                            "id": {
+                                                              "type": "string"
+                                                            },
+                                                            "key": {
+                                                              "type": "string"
+                                                            },
+                                                            "value": {
+                                                              "type": "string"
+                                                            }
+                                                          },
+                                                          "required": [
+                                                            "id"
+                                                          ],
+                                                          "additionalProperties": false
+                                                        }
+                                                      },
+                                                      "headers": {
+                                                        "type": "array",
+                                                        "items": {
+                                                          "type": "object",
+                                                          "properties": {
+                                                            "id": {
+                                                              "type": "string"
+                                                            },
+                                                            "key": {
+                                                              "type": "string"
+                                                            },
+                                                            "value": {
+                                                              "type": "string"
+                                                            }
+                                                          },
+                                                          "required": [
+                                                            "id"
+                                                          ],
+                                                          "additionalProperties": false
+                                                        }
+                                                      },
+                                                      "method": {
+                                                        "type": "string",
+                                                        "enum": [
+                                                          "POST",
+                                                          "GET",
+                                                          "PUT",
+                                                          "DELETE",
+                                                          "PATCH",
+                                                          "HEAD",
+                                                          "CONNECT",
+                                                          "OPTIONS",
+                                                          "TRACE"
+                                                        ]
+                                                      },
+                                                      "url": {
+                                                        "type": "string"
+                                                      },
+                                                      "body": {
+                                                        "type": "string"
+                                                      }
+                                                    },
+                                                    "required": [
+                                                      "id",
+                                                      "queryParams",
+                                                      "headers",
+                                                      "method"
+                                                    ],
+                                                    "additionalProperties": false
                                                   }
                                                 },
                                                 "required": [
@@ -2985,15 +3314,15 @@
                                                 "additionalProperties": false
                                               },
                                               "webhookId": {
-                                                "type": "string"
+                                                "type": "string",
+                                                "description": "Deprecated, use webhook.id instead"
                                               }
                                             },
                                             "required": [
                                               "id",
                                               "groupId",
                                               "type",
-                                              "options",
-                                              "webhookId"
+                                              "options"
                                             ],
                                             "additionalProperties": false
                                           },
@@ -3151,6 +3480,88 @@
                                                     "additionalProperties": false
                                                   }
                                                 ]
+                                              }
+                                            },
+                                            "required": [
+                                              "id",
+                                              "groupId",
+                                              "type",
+                                              "options"
+                                            ],
+                                            "additionalProperties": false
+                                          },
+                                          {
+                                            "type": "object",
+                                            "properties": {
+                                              "id": {
+                                                "type": "string"
+                                              },
+                                              "groupId": {
+                                                "type": "string"
+                                              },
+                                              "outgoingEdgeId": {
+                                                "type": "string"
+                                              },
+                                              "type": {
+                                                "type": "string",
+                                                "enum": [
+                                                  "Zemantic AI"
+                                                ]
+                                              },
+                                              "blockId": {
+                                                "type": "string"
+                                              },
+                                              "options": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "credentialsId": {
+                                                    "type": "string"
+                                                  },
+                                                  "projectId": {
+                                                    "type": "string"
+                                                  },
+                                                  "systemPrompt": {
+                                                    "type": "string"
+                                                  },
+                                                  "prompt": {
+                                                    "type": "string"
+                                                  },
+                                                  "query": {
+                                                    "type": "string"
+                                                  },
+                                                  "maxResults": {
+                                                    "type": "integer"
+                                                  },
+                                                  "responseMapping": {
+                                                    "type": "array",
+                                                    "items": {
+                                                      "type": "object",
+                                                      "properties": {
+                                                        "id": {
+                                                          "type": "string"
+                                                        },
+                                                        "valueToExtract": {
+                                                          "type": "string",
+                                                          "enum": [
+                                                            "Summary",
+                                                            "Results"
+                                                          ]
+                                                        },
+                                                        "variableId": {
+                                                          "type": "string"
+                                                        }
+                                                      },
+                                                      "required": [
+                                                        "id"
+                                                      ],
+                                                      "additionalProperties": false
+                                                    }
+                                                  }
+                                                },
+                                                "required": [
+                                                  "responseMapping"
+                                                ],
+                                                "additionalProperties": false
                                               }
                                             },
                                             "required": [
@@ -3345,6 +3756,67 @@
                                       }
                                     },
                                     "additionalProperties": false
+                                  },
+                                  "whatsApp": {
+                                    "type": "object",
+                                    "properties": {
+                                      "credentialsId": {
+                                        "type": "string"
+                                      },
+                                      "startCondition": {
+                                        "type": "object",
+                                        "properties": {
+                                          "logicalOperator": {
+                                            "type": "string",
+                                            "enum": [
+                                              "OR",
+                                              "AND"
+                                            ]
+                                          },
+                                          "comparisons": {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "object",
+                                              "properties": {
+                                                "id": {
+                                                  "type": "string"
+                                                },
+                                                "comparisonOperator": {
+                                                  "type": "string",
+                                                  "enum": [
+                                                    "Equal to",
+                                                    "Not equal",
+                                                    "Contains",
+                                                    "Does not contain",
+                                                    "Greater than",
+                                                    "Less than",
+                                                    "Is set",
+                                                    "Is empty",
+                                                    "Starts with",
+                                                    "Ends with",
+                                                    "Matches regex",
+                                                    "Does not match regex"
+                                                  ]
+                                                },
+                                                "value": {
+                                                  "type": "string"
+                                                }
+                                              },
+                                              "required": [
+                                                "id"
+                                              ],
+                                              "additionalProperties": false
+                                            }
+                                          }
+                                        },
+                                        "required": [
+                                          "logicalOperator",
+                                          "comparisons"
+                                        ],
+                                        "additionalProperties": false
+                                      }
+                                    },
+                                    "additionalProperties": false
                                   }
                                 },
                                 "required": [
@@ -3520,6 +3992,7 @@
                               }
                             },
                             "required": [
+                              "version",
                               "id",
                               "groups",
                               "edges",
@@ -3537,7 +4010,7 @@
                       },
                       "isPreview": {
                         "type": "boolean",
-                        "description": "If set to `true`, it will start a Preview session with the unpublished bot and it won't be saved in the Results tab. You need to be authenticated for this to work."
+                        "description": "If set to `true`, it will start a Preview session with the unpublished bot and it won't be saved in the Results tab. You need to be authenticated with a bearer token for this to work."
                       },
                       "resultId": {
                         "type": "string",
@@ -3553,13 +4026,39 @@
                         "description": "[More info about prefilled variables.](https://docs.typebot.io/editor/variables#prefilled-variables)"
                       },
                       "isStreamEnabled": {
-                        "type": "boolean"
+                        "type": "boolean",
+                        "description": "Set this to `true` if you intend to stream OpenAI completions on a client."
+                      },
+                      "isOnlyRegistering": {
+                        "type": "boolean",
+                        "description": "If set to `true`, it will only register the session and not start the chat. This is used for other chat platform integration as it can require a session to be registered before sending the first message."
                       }
                     },
                     "required": [
                       "typebot"
                     ],
                     "additionalProperties": false
+                  },
+                  "clientLogs": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "details": {}
+                      },
+                      "required": [
+                        "status",
+                        "description"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "description": "Logs while executing client side actions"
                   }
                 },
                 "additionalProperties": false
@@ -3714,6 +4213,9 @@
                                     "properties": {
                                       "url": {
                                         "type": "string"
+                                      },
+                                      "isAutoplayEnabled": {
+                                        "type": "boolean"
                                       }
                                     },
                                     "additionalProperties": false
@@ -3848,7 +4350,8 @@
                                         "type": "string"
                                       },
                                       "blockId": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "description": "Deprecated"
                                       },
                                       "outgoingEdgeId": {
                                         "type": "string"
@@ -3901,7 +4404,9 @@
                                                         "Is set",
                                                         "Is empty",
                                                         "Starts with",
-                                                        "Ends with"
+                                                        "Ends with",
+                                                        "Matches regex",
+                                                        "Does not match regex"
                                                       ]
                                                     },
                                                     "value": {
@@ -3927,7 +4432,6 @@
                                     },
                                     "required": [
                                       "id",
-                                      "blockId",
                                       "type"
                                     ],
                                     "additionalProperties": false
@@ -4016,8 +4520,7 @@
                                     }
                                   },
                                   "required": [
-                                    "labels",
-                                    "retryMessageContent"
+                                    "labels"
                                   ],
                                   "additionalProperties": false
                                 }
@@ -4279,6 +4782,15 @@
                                     },
                                     "isRange": {
                                       "type": "boolean"
+                                    },
+                                    "format": {
+                                      "type": "string"
+                                    },
+                                    "min": {
+                                      "type": "string"
+                                    },
+                                    "max": {
+                                      "type": "string"
                                     }
                                   },
                                   "required": [
@@ -4391,6 +4903,9 @@
                                       "type": "string"
                                     },
                                     "amount": {
+                                      "type": "string"
+                                    },
+                                    "retryMessageContent": {
                                       "type": "string"
                                     }
                                   },
@@ -4605,7 +5120,8 @@
                                         "type": "string"
                                       },
                                       "blockId": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "description": "Deprecated"
                                       },
                                       "outgoingEdgeId": {
                                         "type": "string"
@@ -4664,7 +5180,9 @@
                                                         "Is set",
                                                         "Is empty",
                                                         "Starts with",
-                                                        "Ends with"
+                                                        "Ends with",
+                                                        "Matches regex",
+                                                        "Does not match regex"
                                                       ]
                                                     },
                                                     "value": {
@@ -4690,7 +5208,6 @@
                                     },
                                     "required": [
                                       "id",
-                                      "blockId",
                                       "type"
                                     ],
                                     "additionalProperties": false
@@ -4790,6 +5307,9 @@
                             "properties": {
                               "lastBubbleBlockId": {
                                 "type": "string"
+                              },
+                              "expectsDedicatedReply": {
+                                "type": "boolean"
                               }
                             }
                           },
@@ -5145,6 +5665,9 @@
                                                       },
                                                       "additionalProperties": false
                                                     }
+                                                  },
+                                                  "displayStream": {
+                                                    "type": "boolean"
                                                   }
                                                 },
                                                 "required": [
@@ -5643,6 +6166,67 @@
                                 }
                               },
                               "additionalProperties": false
+                            },
+                            "whatsApp": {
+                              "type": "object",
+                              "properties": {
+                                "credentialsId": {
+                                  "type": "string"
+                                },
+                                "startCondition": {
+                                  "type": "object",
+                                  "properties": {
+                                    "logicalOperator": {
+                                      "type": "string",
+                                      "enum": [
+                                        "OR",
+                                        "AND"
+                                      ]
+                                    },
+                                    "comparisons": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "properties": {
+                                          "id": {
+                                            "type": "string"
+                                          },
+                                          "comparisonOperator": {
+                                            "type": "string",
+                                            "enum": [
+                                              "Equal to",
+                                              "Not equal",
+                                              "Contains",
+                                              "Does not contain",
+                                              "Greater than",
+                                              "Less than",
+                                              "Is set",
+                                              "Is empty",
+                                              "Starts with",
+                                              "Ends with",
+                                              "Matches regex",
+                                              "Does not match regex"
+                                            ]
+                                          },
+                                          "value": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "id"
+                                        ],
+                                        "additionalProperties": false
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "logicalOperator",
+                                    "comparisons"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              },
+                              "additionalProperties": false
                             }
                           },
                           "required": [
@@ -5694,6 +6278,10 @@
                         ],
                         "additionalProperties": false
                       }
+                    },
+                    "lastMessageNewFormat": {
+                      "type": "string",
+                      "description": "The sent message is validated and formatted on the backend. This is set only if the message differs from the formatted version."
                     }
                   },
                   "required": [
@@ -5743,7 +6331,7 @@
           {
             "name": "fileType",
             "in": "query",
-            "required": true,
+            "required": false,
             "schema": {
               "type": "string"
             }
@@ -5758,17 +6346,7 @@
                   "type": "object",
                   "properties": {
                     "presignedUrl": {
-                      "type": "object",
-                      "properties": {
-                        "url": {
-                          "type": "string"
-                        },
-                        "fields": {}
-                      },
-                      "required": [
-                        "url"
-                      ],
-                      "additionalProperties": false
+                      "type": "string"
                     },
                     "hasReachedStorageLimit": {
                       "type": "boolean"
@@ -5777,6 +6355,1099 @@
                   "required": [
                     "presignedUrl",
                     "hasReachedStorageLimit"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/error"
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/generate-upload-url": {
+      "post": {
+        "operationId": "generateUploadUrl",
+        "summary": "Generate upload URL",
+        "description": "Used to upload anything from the client to S3 bucket",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "filePathProps": {
+                    "type": "object",
+                    "properties": {
+                      "typebotId": {
+                        "type": "string"
+                      },
+                      "blockId": {
+                        "type": "string"
+                      },
+                      "resultId": {
+                        "type": "string"
+                      },
+                      "fileName": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "typebotId",
+                      "blockId",
+                      "resultId",
+                      "fileName"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "fileType": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "filePathProps"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "presignedUrl": {
+                      "type": "string"
+                    },
+                    "fileUrl": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "presignedUrl",
+                    "fileUrl"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/sessions/{sessionId}/updateTypebot": {
+      "post": {
+        "operationId": "updateTypebotInSession",
+        "summary": "Update typebot in session",
+        "description": "Update chat session with latest typebot modifications. This is useful when you want to update the typebot in an ongoing session after making changes to it.",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "sessionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "success"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/whatsapp/preview/webhook": {
+      "get": {
+        "operationId": "whatsAppRouter-subscribePreviewWebhook",
+        "summary": "WhatsApp",
+        "parameters": [
+          {
+            "name": "hub.challenge",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "hub.verify_token",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      },
+      "post": {
+        "operationId": "whatsAppRouter-receiveMessagePreview",
+        "summary": "WhatsApp",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "entry": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "changes": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "type": "object",
+                                "properties": {
+                                  "contacts": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "profile": {
+                                          "type": "object",
+                                          "properties": {
+                                            "name": {
+                                              "type": "string"
+                                            }
+                                          },
+                                          "required": [
+                                            "name"
+                                          ],
+                                          "additionalProperties": false
+                                        }
+                                      },
+                                      "required": [
+                                        "profile"
+                                      ],
+                                      "additionalProperties": false
+                                    }
+                                  },
+                                  "metadata": {
+                                    "type": "object",
+                                    "properties": {
+                                      "display_phone_number": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "display_phone_number"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  "messages": {
+                                    "type": "array",
+                                    "items": {
+                                      "anyOf": [
+                                        {
+                                          "type": "object",
+                                          "properties": {
+                                            "from": {
+                                              "type": "string"
+                                            },
+                                            "type": {
+                                              "type": "string",
+                                              "enum": [
+                                                "text"
+                                              ]
+                                            },
+                                            "text": {
+                                              "type": "object",
+                                              "properties": {
+                                                "body": {
+                                                  "type": "string"
+                                                }
+                                              },
+                                              "required": [
+                                                "body"
+                                              ],
+                                              "additionalProperties": false
+                                            },
+                                            "timestamp": {
+                                              "type": "string"
+                                            }
+                                          },
+                                          "required": [
+                                            "from",
+                                            "type",
+                                            "text",
+                                            "timestamp"
+                                          ],
+                                          "additionalProperties": false
+                                        },
+                                        {
+                                          "type": "object",
+                                          "properties": {
+                                            "from": {
+                                              "type": "string"
+                                            },
+                                            "type": {
+                                              "type": "string",
+                                              "enum": [
+                                                "button"
+                                              ]
+                                            },
+                                            "button": {
+                                              "type": "object",
+                                              "properties": {
+                                                "text": {
+                                                  "type": "string"
+                                                },
+                                                "payload": {
+                                                  "type": "string"
+                                                }
+                                              },
+                                              "required": [
+                                                "text",
+                                                "payload"
+                                              ],
+                                              "additionalProperties": false
+                                            },
+                                            "timestamp": {
+                                              "type": "string"
+                                            }
+                                          },
+                                          "required": [
+                                            "from",
+                                            "type",
+                                            "button",
+                                            "timestamp"
+                                          ],
+                                          "additionalProperties": false
+                                        },
+                                        {
+                                          "type": "object",
+                                          "properties": {
+                                            "from": {
+                                              "type": "string"
+                                            },
+                                            "type": {
+                                              "type": "string",
+                                              "enum": [
+                                                "interactive"
+                                              ]
+                                            },
+                                            "interactive": {
+                                              "type": "object",
+                                              "properties": {
+                                                "button_reply": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "id": {
+                                                      "type": "string"
+                                                    },
+                                                    "title": {
+                                                      "type": "string"
+                                                    }
+                                                  },
+                                                  "required": [
+                                                    "id",
+                                                    "title"
+                                                  ],
+                                                  "additionalProperties": false
+                                                }
+                                              },
+                                              "required": [
+                                                "button_reply"
+                                              ],
+                                              "additionalProperties": false
+                                            },
+                                            "timestamp": {
+                                              "type": "string"
+                                            }
+                                          },
+                                          "required": [
+                                            "from",
+                                            "type",
+                                            "interactive",
+                                            "timestamp"
+                                          ],
+                                          "additionalProperties": false
+                                        },
+                                        {
+                                          "type": "object",
+                                          "properties": {
+                                            "from": {
+                                              "type": "string"
+                                            },
+                                            "type": {
+                                              "type": "string",
+                                              "enum": [
+                                                "image"
+                                              ]
+                                            },
+                                            "image": {
+                                              "type": "object",
+                                              "properties": {
+                                                "id": {
+                                                  "type": "string"
+                                                }
+                                              },
+                                              "required": [
+                                                "id"
+                                              ],
+                                              "additionalProperties": false
+                                            },
+                                            "timestamp": {
+                                              "type": "string"
+                                            }
+                                          },
+                                          "required": [
+                                            "from",
+                                            "type",
+                                            "image",
+                                            "timestamp"
+                                          ],
+                                          "additionalProperties": false
+                                        },
+                                        {
+                                          "type": "object",
+                                          "properties": {
+                                            "from": {
+                                              "type": "string"
+                                            },
+                                            "type": {
+                                              "type": "string",
+                                              "enum": [
+                                                "video"
+                                              ]
+                                            },
+                                            "video": {
+                                              "type": "object",
+                                              "properties": {
+                                                "id": {
+                                                  "type": "string"
+                                                }
+                                              },
+                                              "required": [
+                                                "id"
+                                              ],
+                                              "additionalProperties": false
+                                            },
+                                            "timestamp": {
+                                              "type": "string"
+                                            }
+                                          },
+                                          "required": [
+                                            "from",
+                                            "type",
+                                            "video",
+                                            "timestamp"
+                                          ],
+                                          "additionalProperties": false
+                                        },
+                                        {
+                                          "type": "object",
+                                          "properties": {
+                                            "from": {
+                                              "type": "string"
+                                            },
+                                            "type": {
+                                              "type": "string",
+                                              "enum": [
+                                                "audio"
+                                              ]
+                                            },
+                                            "audio": {
+                                              "type": "object",
+                                              "properties": {
+                                                "id": {
+                                                  "type": "string"
+                                                }
+                                              },
+                                              "required": [
+                                                "id"
+                                              ],
+                                              "additionalProperties": false
+                                            },
+                                            "timestamp": {
+                                              "type": "string"
+                                            }
+                                          },
+                                          "required": [
+                                            "from",
+                                            "type",
+                                            "audio",
+                                            "timestamp"
+                                          ],
+                                          "additionalProperties": false
+                                        },
+                                        {
+                                          "type": "object",
+                                          "properties": {
+                                            "from": {
+                                              "type": "string"
+                                            },
+                                            "type": {
+                                              "type": "string",
+                                              "enum": [
+                                                "document"
+                                              ]
+                                            },
+                                            "document": {
+                                              "type": "object",
+                                              "properties": {
+                                                "id": {
+                                                  "type": "string"
+                                                }
+                                              },
+                                              "required": [
+                                                "id"
+                                              ],
+                                              "additionalProperties": false
+                                            },
+                                            "timestamp": {
+                                              "type": "string"
+                                            }
+                                          },
+                                          "required": [
+                                            "from",
+                                            "type",
+                                            "document",
+                                            "timestamp"
+                                          ],
+                                          "additionalProperties": false
+                                        }
+                                      ]
+                                    }
+                                  }
+                                },
+                                "required": [
+                                  "metadata"
+                                ],
+                                "additionalProperties": false
+                              }
+                            },
+                            "required": [
+                              "value"
+                            ],
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "changes"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "entry"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/workspaces/{workspaceId}/whatsapp/phoneNumbers/{phoneNumberId}/webhook": {
+      "get": {
+        "operationId": "whatsAppRouter-subscribeWebhook",
+        "summary": "Subscribe WhatsApp webhook",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "phoneNumberId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "hub.challenge",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "hub.verify_token",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      },
+      "post": {
+        "operationId": "whatsAppRouter-receiveMessage",
+        "summary": "Receive WhatsApp Message",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "entry": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "changes": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "type": "object",
+                                "properties": {
+                                  "contacts": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "profile": {
+                                          "type": "object",
+                                          "properties": {
+                                            "name": {
+                                              "type": "string"
+                                            }
+                                          },
+                                          "required": [
+                                            "name"
+                                          ],
+                                          "additionalProperties": false
+                                        }
+                                      },
+                                      "required": [
+                                        "profile"
+                                      ],
+                                      "additionalProperties": false
+                                    }
+                                  },
+                                  "metadata": {
+                                    "type": "object",
+                                    "properties": {
+                                      "display_phone_number": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "display_phone_number"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  "messages": {
+                                    "type": "array",
+                                    "items": {
+                                      "anyOf": [
+                                        {
+                                          "type": "object",
+                                          "properties": {
+                                            "from": {
+                                              "type": "string"
+                                            },
+                                            "type": {
+                                              "type": "string",
+                                              "enum": [
+                                                "text"
+                                              ]
+                                            },
+                                            "text": {
+                                              "type": "object",
+                                              "properties": {
+                                                "body": {
+                                                  "type": "string"
+                                                }
+                                              },
+                                              "required": [
+                                                "body"
+                                              ],
+                                              "additionalProperties": false
+                                            },
+                                            "timestamp": {
+                                              "type": "string"
+                                            }
+                                          },
+                                          "required": [
+                                            "from",
+                                            "type",
+                                            "text",
+                                            "timestamp"
+                                          ],
+                                          "additionalProperties": false
+                                        },
+                                        {
+                                          "type": "object",
+                                          "properties": {
+                                            "from": {
+                                              "type": "string"
+                                            },
+                                            "type": {
+                                              "type": "string",
+                                              "enum": [
+                                                "button"
+                                              ]
+                                            },
+                                            "button": {
+                                              "type": "object",
+                                              "properties": {
+                                                "text": {
+                                                  "type": "string"
+                                                },
+                                                "payload": {
+                                                  "type": "string"
+                                                }
+                                              },
+                                              "required": [
+                                                "text",
+                                                "payload"
+                                              ],
+                                              "additionalProperties": false
+                                            },
+                                            "timestamp": {
+                                              "type": "string"
+                                            }
+                                          },
+                                          "required": [
+                                            "from",
+                                            "type",
+                                            "button",
+                                            "timestamp"
+                                          ],
+                                          "additionalProperties": false
+                                        },
+                                        {
+                                          "type": "object",
+                                          "properties": {
+                                            "from": {
+                                              "type": "string"
+                                            },
+                                            "type": {
+                                              "type": "string",
+                                              "enum": [
+                                                "interactive"
+                                              ]
+                                            },
+                                            "interactive": {
+                                              "type": "object",
+                                              "properties": {
+                                                "button_reply": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "id": {
+                                                      "type": "string"
+                                                    },
+                                                    "title": {
+                                                      "type": "string"
+                                                    }
+                                                  },
+                                                  "required": [
+                                                    "id",
+                                                    "title"
+                                                  ],
+                                                  "additionalProperties": false
+                                                }
+                                              },
+                                              "required": [
+                                                "button_reply"
+                                              ],
+                                              "additionalProperties": false
+                                            },
+                                            "timestamp": {
+                                              "type": "string"
+                                            }
+                                          },
+                                          "required": [
+                                            "from",
+                                            "type",
+                                            "interactive",
+                                            "timestamp"
+                                          ],
+                                          "additionalProperties": false
+                                        },
+                                        {
+                                          "type": "object",
+                                          "properties": {
+                                            "from": {
+                                              "type": "string"
+                                            },
+                                            "type": {
+                                              "type": "string",
+                                              "enum": [
+                                                "image"
+                                              ]
+                                            },
+                                            "image": {
+                                              "type": "object",
+                                              "properties": {
+                                                "id": {
+                                                  "type": "string"
+                                                }
+                                              },
+                                              "required": [
+                                                "id"
+                                              ],
+                                              "additionalProperties": false
+                                            },
+                                            "timestamp": {
+                                              "type": "string"
+                                            }
+                                          },
+                                          "required": [
+                                            "from",
+                                            "type",
+                                            "image",
+                                            "timestamp"
+                                          ],
+                                          "additionalProperties": false
+                                        },
+                                        {
+                                          "type": "object",
+                                          "properties": {
+                                            "from": {
+                                              "type": "string"
+                                            },
+                                            "type": {
+                                              "type": "string",
+                                              "enum": [
+                                                "video"
+                                              ]
+                                            },
+                                            "video": {
+                                              "type": "object",
+                                              "properties": {
+                                                "id": {
+                                                  "type": "string"
+                                                }
+                                              },
+                                              "required": [
+                                                "id"
+                                              ],
+                                              "additionalProperties": false
+                                            },
+                                            "timestamp": {
+                                              "type": "string"
+                                            }
+                                          },
+                                          "required": [
+                                            "from",
+                                            "type",
+                                            "video",
+                                            "timestamp"
+                                          ],
+                                          "additionalProperties": false
+                                        },
+                                        {
+                                          "type": "object",
+                                          "properties": {
+                                            "from": {
+                                              "type": "string"
+                                            },
+                                            "type": {
+                                              "type": "string",
+                                              "enum": [
+                                                "audio"
+                                              ]
+                                            },
+                                            "audio": {
+                                              "type": "object",
+                                              "properties": {
+                                                "id": {
+                                                  "type": "string"
+                                                }
+                                              },
+                                              "required": [
+                                                "id"
+                                              ],
+                                              "additionalProperties": false
+                                            },
+                                            "timestamp": {
+                                              "type": "string"
+                                            }
+                                          },
+                                          "required": [
+                                            "from",
+                                            "type",
+                                            "audio",
+                                            "timestamp"
+                                          ],
+                                          "additionalProperties": false
+                                        },
+                                        {
+                                          "type": "object",
+                                          "properties": {
+                                            "from": {
+                                              "type": "string"
+                                            },
+                                            "type": {
+                                              "type": "string",
+                                              "enum": [
+                                                "document"
+                                              ]
+                                            },
+                                            "document": {
+                                              "type": "object",
+                                              "properties": {
+                                                "id": {
+                                                  "type": "string"
+                                                }
+                                              },
+                                              "required": [
+                                                "id"
+                                              ],
+                                              "additionalProperties": false
+                                            },
+                                            "timestamp": {
+                                              "type": "string"
+                                            }
+                                          },
+                                          "required": [
+                                            "from",
+                                            "type",
+                                            "document",
+                                            "timestamp"
+                                          ],
+                                          "additionalProperties": false
+                                        }
+                                      ]
+                                    }
+                                  }
+                                },
+                                "required": [
+                                  "metadata"
+                                ],
+                                "additionalProperties": false
+                              }
+                            },
+                            "required": [
+                              "value"
+                            ],
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "changes"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "entry"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "phoneNumberId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/typebots/{typebotId}/whatsapp/start-preview": {
+      "post": {
+        "operationId": "whatsAppRouter-startWhatsAppPreview",
+        "summary": "Start WhatsApp Preview",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "to": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "startGroupId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "to"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "typebotId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
                   ],
                   "additionalProperties": false
                 }

@@ -2,18 +2,19 @@ import { sendTelemetryEvents } from '@typebot.io/lib/telemetry/sendTelemetryEven
 import prisma from '@/lib/prisma'
 import { authenticatedProcedure } from '@/helpers/server/trpc'
 import { TRPCError } from '@trpc/server'
-import { Plan, WorkspaceRole } from '@typebot.io/prisma'
+import { Plan } from '@typebot.io/prisma'
 import { workspaceSchema } from '@typebot.io/schemas'
 import Stripe from 'stripe'
 import { isDefined } from '@typebot.io/lib'
 import { z } from 'zod'
-import {
-  getChatsLimit,
-  getStorageLimit,
-  priceIds,
-} from '@typebot.io/lib/pricing'
+import { getChatsLimit, getStorageLimit } from '@typebot.io/lib/pricing'
 import { chatPriceIds, storagePriceIds } from './getSubscription'
 import { createCheckoutSessionUrl } from './createCheckoutSession'
+import { isAdminWriteWorkspaceForbidden } from '@/features/workspace/helpers/isAdminWriteWorkspaceForbidden'
+import { getUsage } from '@typebot.io/lib/api/getUsage'
+import { env } from '@typebot.io/env'
+import { priceIds } from '@typebot.io/lib/api/pricing'
+
 export const updateSubscription = authenticatedProcedure
   .meta({
     openapi: {
@@ -54,7 +55,7 @@ export const updateSubscription = authenticatedProcedure
       },
       ctx: { user },
     }) => {
-      if (!process.env.STRIPE_SECRET_KEY)
+      if (!env.STRIPE_SECRET_KEY)
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: 'Stripe environment variables are missing',
@@ -63,7 +64,16 @@ export const updateSubscription = authenticatedProcedure
       const workspace = await prisma.workspace.findFirst({
         where: {
           id: workspaceId,
-          members: { some: { userId: user.id, role: WorkspaceRole.ADMIN } },
+        },
+        select: {
+          isQuarantined: true,
+          stripeId: true,
+          members: {
+            select: {
+              userId: true,
+              role: true,
+            },
+          },
         },
       })
 
@@ -72,7 +82,7 @@ export const updateSubscription = authenticatedProcedure
           code: 'NOT_FOUND',
           message: 'Workspace not found',
         })
-      const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+      const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
         apiVersion: '2022-11-15',
       })
       const { data } = await stripe.subscriptions.list({
@@ -82,10 +92,9 @@ export const updateSubscription = authenticatedProcedure
       })
       const subscription = data[0] as Stripe.Subscription | undefined
       const currentPlanItemId = subscription?.items.data.find((item) =>
-        [
-          process.env.STRIPE_STARTER_PRODUCT_ID,
-          process.env.STRIPE_PRO_PRODUCT_ID,
-        ].includes(item.price.product.toString())
+        [env.STRIPE_STARTER_PRODUCT_ID, env.STRIPE_PRO_PRODUCT_ID].includes(
+          item.price.product.toString()
+        )
       )?.id
       const currentAdditionalChatsItemId = subscription?.items.data.find(
         (item) => chatPriceIds.includes(item.price.id)
@@ -148,13 +157,25 @@ export const updateSubscription = authenticatedProcedure
         return { checkoutUrl }
       }
 
+      let isQuarantined = workspace.isQuarantined
+
+      if (isQuarantined) {
+        const newChatsLimit = getChatsLimit({
+          plan,
+          additionalChatsIndex: additionalChats,
+          customChatsLimit: null,
+        })
+        const { totalChatsUsed } = await getUsage(prisma)(workspaceId)
+        if (totalChatsUsed < newChatsLimit) isQuarantined = false
+      }
+
       const updatedWorkspace = await prisma.workspace.update({
         where: { id: workspaceId },
         data: {
           plan,
           additionalChatsIndex: additionalChats,
           additionalStorageIndex: additionalStorage,
-          isQuarantined: false,
+          isQuarantined,
         },
       })
 

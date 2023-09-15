@@ -9,7 +9,6 @@ import {
   WebhookOptions,
   WebhookResponse,
   WebhookBlock,
-  HttpMethod,
 } from '@typebot.io/schemas'
 import { NextApiRequest, NextApiResponse } from 'next'
 import got, { Method, Headers, HTTPError } from 'got'
@@ -25,6 +24,7 @@ import { fetchLinkedTypebots } from '@/features/blocks/logic/typebotLink/fetchLi
 import { getPreviouslyLinkedTypebots } from '@/features/blocks/logic/typebotLink/getPreviouslyLinkedTypebots'
 import { saveErrorLog } from '@/features/logs/saveErrorLog'
 import { saveSuccessLog } from '@/features/logs/saveSuccessLog'
+import { HttpMethod } from '@typebot.io/schemas/features/blocks/integrations/webhook/enums'
 
 const cors = initMiddleware(Cors())
 
@@ -49,7 +49,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const block = typebot.groups
       .flatMap((g) => g.blocks)
       .find(byId(blockId)) as WebhookBlock
-    const webhook = typebot.webhooks.find(byId(block.webhookId))
+    const webhook =
+      block.options.webhook ?? typebot.webhooks.find(byId(block.webhookId))
     if (!webhook)
       return res
         .status(404)
@@ -148,7 +149,7 @@ export const executeWebhook =
       bodyContent && webhook.method !== HttpMethod.GET
         ? safeJsonParse(
             parseVariables(variables, {
-              escapeForJson: !checkIfBodyIsAVariable(bodyContent),
+              isInsideJson: !checkIfBodyIsAVariable(bodyContent),
             })(bodyContent)
           )
         : { data: undefined, isJson: false }
@@ -238,7 +239,22 @@ const getBodyContent =
     return body === '{{state}}'
       ? JSON.stringify(
           resultValues
-            ? parseAnswers(typebot, linkedTypebots)(resultValues)
+            ? parseAnswers({
+                answers: resultValues.answers.map((answer) => ({
+                  key:
+                    (answer.variableId
+                      ? typebot.variables.find(
+                          (variable) => variable.id === answer.variableId
+                        )?.name
+                      : typebot.groups.find((group) =>
+                          group.blocks.find(
+                            (block) => block.id === answer.blockId
+                          )
+                        )?.title) ?? '',
+                  value: answer.content,
+                })),
+                variables: resultValues.variables,
+              })
             : await parseSampleResult(typebot, linkedTypebots)(
                 groupId,
                 variables

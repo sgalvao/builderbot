@@ -6,50 +6,67 @@ import prisma from '@/lib/prisma'
 import {
   TypebotLinkBlock,
   SessionState,
-  TypebotInSession,
   Variable,
+  ReplyLog,
+  Edge,
+  typebotInSessionStateSchema,
+  TypebotInSession,
 } from '@typebot.io/schemas'
-import { byId } from '@typebot.io/lib'
 import { ExecuteLogicResponse } from '@/features/chat/types'
-import { saveErrorLog } from '@/features/logs/saveErrorLog'
+import { createId } from '@paralleldrive/cuid2'
+import { isNotDefined } from '@typebot.io/lib/utils'
+import { createResultIfNotExist } from '@/features/chat/queries/createResultIfNotExist'
+import { executeJumpBlock } from '../jump/executeJumpBlock'
 
 export const executeTypebotLink = async (
   state: SessionState,
   block: TypebotLinkBlock
 ): Promise<ExecuteLogicResponse> => {
-  if (!block.options.typebotId) {
-    state.result &&
-      saveErrorLog({
-        resultId: state.result.id,
-        message: 'Failed to link typebot',
-        details: 'Typebot ID is not specified',
-      })
-    return { outgoingEdgeId: block.outgoingEdgeId }
+  const logs: ReplyLog[] = []
+  const typebotId = block.options.typebotId
+  if (
+    typebotId === 'current' ||
+    typebotId === state.typebotsQueue[0].typebot.id
+  ) {
+    return executeJumpBlock(state, {
+      groupId: block.options.groupId,
+    })
   }
-  const linkedTypebot = await getLinkedTypebot(state, block.options.typebotId)
+  if (!typebotId) {
+    logs.push({
+      status: 'error',
+      description: `Failed to link typebot`,
+      details: `Typebot ID is not specified`,
+    })
+    return { outgoingEdgeId: block.outgoingEdgeId, logs }
+  }
+  const linkedTypebot = await fetchTypebot(state, typebotId)
   if (!linkedTypebot) {
-    state.result &&
-      saveErrorLog({
-        resultId: state.result.id,
-        message: 'Failed to link typebot',
-        details: `Typebot with ID ${block.options.typebotId} not found`,
-      })
-    return { outgoingEdgeId: block.outgoingEdgeId }
+    logs.push({
+      status: 'error',
+      description: `Failed to link typebot`,
+      details: `Typebot with ID ${block.options.typebotId} not found`,
+    })
+    return { outgoingEdgeId: block.outgoingEdgeId, logs }
   }
-  let newSessionState = addLinkedTypebotToState(state, block, linkedTypebot)
+  let newSessionState = await addLinkedTypebotToState(
+    state,
+    block,
+    linkedTypebot
+  )
 
   const nextGroupId =
     block.options.groupId ??
-    linkedTypebot.groups.find((b) => b.blocks.some((s) => s.type === 'start'))
-      ?.id
+    linkedTypebot.groups.find((group) =>
+      group.blocks.some((block) => block.type === 'start')
+    )?.id
   if (!nextGroupId) {
-    state.result &&
-      saveErrorLog({
-        resultId: state.result.id,
-        message: 'Failed to link typebot',
-        details: `Group with ID "${block.options.groupId}" not found`,
-      })
-    return { outgoingEdgeId: block.outgoingEdgeId }
+    logs.push({
+      status: 'error',
+      description: `Failed to link typebot`,
+      details: `Group with ID "${block.options.groupId}" not found`,
+    })
+    return { outgoingEdgeId: block.outgoingEdgeId, logs }
   }
 
   const portalEdge = createPortalEdge({ to: { groupId: nextGroupId } })
@@ -62,91 +79,134 @@ export const executeTypebotLink = async (
   }
 }
 
-const addLinkedTypebotToState = (
+const addLinkedTypebotToState = async (
   state: SessionState,
   block: TypebotLinkBlock,
   linkedTypebot: TypebotInSession
-): SessionState => {
-  const incomingVariables = fillVariablesWithExistingValues(
-    linkedTypebot.variables,
-    state.typebot.variables
-  )
+): Promise<SessionState> => {
+  const currentTypebotInQueue = state.typebotsQueue[0]
+  const isPreview = isNotDefined(currentTypebotInQueue.resultId)
+
+  const resumeEdge = createResumeEdgeIfNecessary(state, block)
+
+  const currentTypebotWithResumeEdge = resumeEdge
+    ? {
+        ...currentTypebotInQueue,
+        typebot: {
+          ...currentTypebotInQueue.typebot,
+          edges: [...currentTypebotInQueue.typebot.edges, resumeEdge],
+        },
+      }
+    : currentTypebotInQueue
+
+  const shouldMergeResults = block.options.mergeResults !== false
+
+  if (
+    currentTypebotInQueue.resultId &&
+    currentTypebotInQueue.answers.length === 0 &&
+    shouldMergeResults
+  ) {
+    await createResultIfNotExist({
+      resultId: currentTypebotInQueue.resultId,
+      typebot: currentTypebotInQueue.typebot,
+      hasStarted: false,
+      isCompleted: false,
+    })
+  }
+
   return {
     ...state,
-    typebot: {
-      ...state.typebot,
-      groups: [...state.typebot.groups, ...linkedTypebot.groups],
-      variables: [...state.typebot.variables, ...incomingVariables],
-      edges: [...state.typebot.edges, ...linkedTypebot.edges],
+    typebotsQueue: [
+      {
+        typebot: {
+          ...linkedTypebot,
+          variables: fillVariablesWithExistingValues(
+            linkedTypebot.variables,
+            currentTypebotInQueue.typebot.variables
+          ),
+        },
+        resultId: isPreview
+          ? undefined
+          : shouldMergeResults
+          ? currentTypebotInQueue.resultId
+          : createId(),
+        edgeIdToTriggerWhenDone: block.outgoingEdgeId ?? resumeEdge?.id,
+        answers: shouldMergeResults ? currentTypebotInQueue.answers : [],
+        isMergingWithParent: shouldMergeResults,
+      },
+      currentTypebotWithResumeEdge,
+      ...state.typebotsQueue.slice(1),
+    ],
+  }
+}
+
+const createResumeEdgeIfNecessary = (
+  state: SessionState,
+  block: TypebotLinkBlock
+): Edge | undefined => {
+  const currentTypebotInQueue = state.typebotsQueue[0]
+  const blockId = block.id
+  if (block.outgoingEdgeId) return
+  const currentGroup = currentTypebotInQueue.typebot.groups.find((group) =>
+    group.blocks.some((block) => block.id === blockId)
+  )
+  if (!currentGroup) return
+  const currentBlockIndex = currentGroup.blocks.findIndex(
+    (block) => block.id === blockId
+  )
+  const nextBlockInGroup =
+    currentBlockIndex === -1
+      ? undefined
+      : currentGroup.blocks[currentBlockIndex + 1]
+  if (!nextBlockInGroup) return
+  return {
+    id: createId(),
+    from: {
+      groupId: '',
+      blockId: '',
     },
-    linkedTypebots: {
-      typebots: [
-        ...state.linkedTypebots.typebots.filter(
-          (existingTypebots) => existingTypebots.id !== linkedTypebot.id
-        ),
-      ],
-      queue: block.outgoingEdgeId
-        ? [
-            ...state.linkedTypebots.queue,
-            { edgeId: block.outgoingEdgeId, typebotId: state.currentTypebotId },
-          ]
-        : state.linkedTypebots.queue,
+    to: {
+      groupId: nextBlockInGroup.groupId,
+      blockId: nextBlockInGroup.id,
     },
-    currentTypebotId: linkedTypebot.id,
   }
 }
 
 const fillVariablesWithExistingValues = (
-  variables: Variable[],
-  variablesWithValues: Variable[]
+  emptyVariables: Variable[],
+  existingVariables: Variable[]
 ): Variable[] =>
-  variables.map((variable) => {
-    const matchedVariable = variablesWithValues.find(
-      (variableWithValue) => variableWithValue.name === variable.name
+  emptyVariables.map((emptyVariable) => {
+    const matchedVariable = existingVariables.find(
+      (existingVariable) => existingVariable.name === emptyVariable.name
     )
 
     return {
-      ...variable,
-      value: matchedVariable?.value ?? variable.value,
+      ...emptyVariable,
+      value: matchedVariable?.value,
     }
   })
 
-const getLinkedTypebot = async (
-  state: SessionState,
-  typebotId: string
-): Promise<TypebotInSession | null> => {
-  const { typebot, result } = state
-  const isPreview = !result.id
-  if (typebotId === 'current') return typebot
-  const availableTypebots =
-    'linkedTypebots' in state
-      ? [typebot, ...state.linkedTypebots.typebots]
-      : [typebot]
-  const linkedTypebot =
-    availableTypebots.find(byId(typebotId)) ??
-    (await fetchTypebot(isPreview, typebotId))
-  return linkedTypebot
-}
-
-const fetchTypebot = async (
-  isPreview: boolean,
-  typebotId: string
-): Promise<TypebotInSession | null> => {
+const fetchTypebot = async (state: SessionState, typebotId: string) => {
+  const { resultId } = state.typebotsQueue[0]
+  const isPreview = !resultId
   if (isPreview) {
     const typebot = await prisma.typebot.findUnique({
       where: { id: typebotId },
       select: {
+        version: true,
         id: true,
         edges: true,
         groups: true,
         variables: true,
       },
     })
-    return typebot as TypebotInSession
+    return typebotInSessionStateSchema.parse(typebot)
   }
   const typebot = await prisma.publicTypebot.findUnique({
     where: { typebotId },
     select: {
+      version: true,
       id: true,
       edges: true,
       groups: true,
@@ -154,8 +214,8 @@ const fetchTypebot = async (
     },
   })
   if (!typebot) return null
-  return {
+  return typebotInSessionStateSchema.parse({
     ...typebot,
     id: typebotId,
-  } as TypebotInSession
+  })
 }

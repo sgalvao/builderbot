@@ -6,9 +6,10 @@ type Props = {
   url: AudioBubbleContent['url']
 }
 
-export const AudioBubbleNode = ({ url }: Props) =>
-  isDefined(url) ? (
+export const AudioBubbleNode = ({ url }: Props) => {
+  return isDefined(url) ? (
     <audio src={url} controls />
   ) : (
     <Text color={'gray.500'}>Clique para editar...</Text>
   )
+}

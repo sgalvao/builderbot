@@ -23,8 +23,10 @@ import { BlockCard } from './BlockCard'
 import { LockedIcon, UnlockedIcon } from '@/components/icons'
 import { BlockCardOverlay } from './BlockCardOverlay'
 import { headerHeight } from '../constants'
+import { useScopedI18n } from '@/locales'
 
 export const BlocksSideBar = () => {
+  const scopedT = useScopedI18n('editor.sidebarBlocks')
   const { setDraggedBlockType, draggedBlockType } = useBlockDnd()
   const [position, setPosition] = useState({
     x: 0,
@@ -111,7 +113,11 @@ export const BlocksSideBar = () => {
           >
             <IconButton
               icon={isLocked ? <LockedIcon /> : <UnlockedIcon />}
-              aria-label={isLocked ? 'Unlock' : 'Lock'}
+              aria-label={
+                isLocked
+                  ? scopedT('sidebar.icon.unlock.label')
+                  : scopedT('sidebar.icon.lock.label')
+              }
               size="sm"
               onClick={handleLockClick}
             />
@@ -120,7 +126,7 @@ export const BlocksSideBar = () => {
 
         <Stack>
           <Text fontSize="sm" fontWeight="semibold">
-            Bubbles
+            {scopedT('blockType.bubbles.heading')}
           </Text>
           <SimpleGrid columns={2} spacing="3">
             {Object.values(BubbleBlockType).map((type) => (

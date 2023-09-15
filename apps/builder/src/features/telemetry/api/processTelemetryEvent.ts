@@ -4,6 +4,7 @@ import { PostHog } from 'posthog-node'
 import { TRPCError } from '@trpc/server'
 import got from 'got'
 import { authenticatedProcedure } from '@/helpers/server/trpc'
+import { env } from '@typebot.io/env'
 
 // Only used for the cloud version of Typebot. It's the way it processes telemetry events and inject it to thrid-party services.
 export const processTelemetryEvent = authenticatedProcedure
@@ -13,6 +14,7 @@ export const processTelemetryEvent = authenticatedProcedure
       path: '/t/process',
       description:
         "Only used for the cloud version of Typebot. It's the way it processes telemetry events and inject it to thrid-party services.",
+      tags: ['Telemetry'],
     },
   })
   .input(
@@ -25,19 +27,19 @@ export const processTelemetryEvent = authenticatedProcedure
       message: z.literal('Events injected'),
     })
   )
-  .query(async ({ input: { events }, ctx: { user } }) => {
-    if (user.email !== process.env.ADMIN_EMAIL)
+  .mutation(async ({ input: { events }, ctx: { user } }) => {
+    if (user.email !== env.ADMIN_EMAIL)
       throw new TRPCError({
         code: 'BAD_REQUEST',
         message: 'Only app admin can process telemetry events',
       })
-    if (!process.env.POSTHOG_API_KEY)
+    if (!env.NEXT_PUBLIC_POSTHOG_KEY)
       throw new TRPCError({
         code: 'BAD_REQUEST',
         message: 'Server does not have POSTHOG_API_KEY configured',
       })
-    const client = new PostHog(process.env.POSTHOG_API_KEY, {
-      host: 'https://eu.posthog.com',
+    const client = new PostHog(env.NEXT_PUBLIC_POSTHOG_KEY, {
+      host: env.NEXT_PUBLIC_POSTHOG_HOST,
     })
 
     events.forEach(async (event) => {
@@ -65,11 +67,8 @@ export const processTelemetryEvent = authenticatedProcedure
           groupKey: event.typebotId,
           properties: { name: event.data.name },
         })
-      if (
-        event.name === 'User created' &&
-        process.env.USER_CREATED_WEBHOOK_URL
-      ) {
-        await got.post(process.env.USER_CREATED_WEBHOOK_URL, {
+      if (event.name === 'User created' && env.USER_CREATED_WEBHOOK_URL) {
+        await got.post(env.USER_CREATED_WEBHOOK_URL, {
           json: {
             email: event.data.email,
             name: event.data.name ? event.data.name.split(' ')[0] : undefined,

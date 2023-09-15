@@ -3,11 +3,13 @@ import { deepParseVariables } from '@/features/variables/deepParseVariable'
 import { GoogleAnalyticsBlock, SessionState } from '@typebot.io/schemas'
 
 export const executeGoogleAnalyticsBlock = (
-  { typebot: { variables }, result }: SessionState,
+  state: SessionState,
   block: GoogleAnalyticsBlock
 ): ExecuteIntegrationResponse => {
-  if (!result) return { outgoingEdgeId: block.outgoingEdgeId }
-  const googleAnalytics = deepParseVariables(variables, {
+  const { typebot, resultId } = state.typebotsQueue[0]
+  if (!resultId || state.whatsApp)
+    return { outgoingEdgeId: block.outgoingEdgeId }
+  const googleAnalytics = deepParseVariables(typebot.variables, {
     guessCorrectTypes: true,
     removeEmptyStrings: true,
   })(block.options)
