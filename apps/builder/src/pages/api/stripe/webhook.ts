@@ -7,12 +7,13 @@ import prisma from '@/lib/prisma'
 import { Plan, WorkspaceRole } from '@typebot.io/prisma'
 import { RequestHandler } from 'next/dist/server/next'
 import { sendTelemetryEvents } from '@typebot.io/lib/telemetry/sendTelemetryEvent'
-import { PublicTypebot, Typebot } from '@typebot.io/schemas'
 import { TRPCError } from '@trpc/server'
+import { Settings } from '@typebot.io/schemas'
+import { env } from '@typebot.io/env'
 
-if (!process.env.STRIPE_SECRET_KEY || !process.env.STRIPE_WEBHOOK_SECRET)
+if (!env.STRIPE_SECRET_KEY || !env.STRIPE_WEBHOOK_SECRET)
   throw new Error('STRIPE_SECRET_KEY or STRIPE_WEBHOOK_SECRET missing')
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
   apiVersion: '2022-11-15',
 })
 
@@ -20,7 +21,7 @@ const cors = Cors({
   allowMethods: ['POST', 'HEAD'],
 })
 
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET as string
+const webhookSecret = env.STRIPE_WEBHOOK_SECRET as string
 
 export const config = {
   api: {
@@ -131,7 +132,7 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
                 data: { claimedAt: new Date() },
               })
 
-            await prisma.workspace.update({
+            await prisma.workspace.updateMany({
               where: { id: workspaceId },
               data: {
                 plan: Plan.CUSTOM,
@@ -160,6 +161,19 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         }
         case 'customer.subscription.deleted': {
           const subscription = event.data.object as Stripe.Subscription
+          const { data } = await stripe.subscriptions.list({
+            customer: subscription.customer as string,
+            limit: 1,
+            status: 'active',
+          })
+          const existingSubscription = data[0] as
+            | Stripe.Subscription
+            | undefined
+          if (existingSubscription)
+            return res.send({
+              message:
+                'An active subscription still exists. Skipping downgrade.',
+            })
           const workspace = await prisma.workspace.update({
             where: {
               stripeId: subscription.customer as string,
@@ -198,36 +212,42 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
             ])
           }
 
-          const typebots = (await prisma.typebot.findMany({
+          const typebots = await prisma.typebot.findMany({
             where: {
               workspaceId: workspace.id,
               isArchived: { not: true },
             },
             include: { publishedTypebot: true },
-          })) as (Typebot & { publishedTypebot: PublicTypebot })[]
+          })
           for (const typebot of typebots) {
-            if (typebot.settings.general.isBrandingEnabled) continue
+            const settings = typebot.settings as Settings
+            if (settings.general.isBrandingEnabled) continue
             await prisma.typebot.updateMany({
               where: { id: typebot.id },
               data: {
                 settings: {
-                  ...typebot.settings,
+                  ...settings,
                   general: {
-                    ...typebot.settings.general,
+                    ...settings.general,
                     isBrandingEnabled: true,
                   },
                 },
               },
             })
-            if (typebot.publishedTypebot.settings.general.isBrandingEnabled)
+            const publishedTypebotSettings = typebot.publishedTypebot
+              ?.settings as Settings | null
+            if (
+              !publishedTypebotSettings ||
+              publishedTypebotSettings?.general.isBrandingEnabled
+            )
               continue
             await prisma.publicTypebot.updateMany({
               where: { id: typebot.id },
               data: {
                 settings: {
-                  ...typebot.publishedTypebot.settings,
+                  ...publishedTypebotSettings,
                   general: {
-                    ...typebot.publishedTypebot.settings.general,
+                    ...publishedTypebotSettings.general,
                     isBrandingEnabled: true,
                   },
                 },

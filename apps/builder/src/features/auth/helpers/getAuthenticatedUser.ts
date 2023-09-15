@@ -5,7 +5,7 @@ import { User } from '@typebot.io/prisma'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getServerSession } from 'next-auth'
 import { mockedUser } from '../mockedUser'
-import { env } from '@typebot.io/lib'
+import { env } from '@typebot.io/env'
 
 export const getAuthenticatedUser = async (
   req: NextApiRequest,
@@ -13,14 +13,13 @@ export const getAuthenticatedUser = async (
 ): Promise<User | undefined> => {
   const bearerToken = extractBearerToken(req)
   if (bearerToken) return authenticateByToken(bearerToken)
-  const user =
-    env('E2E_TEST') === 'true'
-      ? mockedUser
-      : ((await getServerSession(req, res, authOptions))?.user as
-          | User
-          | undefined)
+  const user = env.NEXT_PUBLIC_E2E_TEST
+    ? mockedUser
+    : ((await getServerSession(req, res, authOptions))?.user as
+        | User
+        | undefined)
   if (!user || !('id' in user)) return
-  setUser({ id: user.id, email: user.email ?? undefined })
+  setUser({ id: user.id })
   return user
 }
 
@@ -31,7 +30,7 @@ const authenticateByToken = async (
   const user = (await prisma.user.findFirst({
     where: { apiTokens: { some: { token: apiToken } } },
   })) as User
-  setUser({ id: user.id, email: user.email ?? undefined })
+  setUser({ id: user.id })
   return user
 }
 

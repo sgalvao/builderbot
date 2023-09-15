@@ -1,8 +1,7 @@
-import { TrashIcon } from '@/components/icons'
+import { CloseIcon } from '@/components/icons'
 import { Seo } from '@/components/Seo'
 import { useWorkspace } from '@/features/workspace/WorkspaceProvider'
 import { useToast } from '@/hooks/useToast'
-import { isCloudProdInstance } from '@/helpers/isCloudProdInstance'
 import {
   Flex,
   Heading,
@@ -15,10 +14,9 @@ import {
   CardBody,
 } from '@chakra-ui/react'
 import { Plan } from '@typebot.io/prisma'
-import { isDefined, getViewerUrl, isNotDefined, env } from '@typebot.io/lib'
+import { getViewerUrl, isNotDefined } from '@typebot.io/lib'
 import { isPublicDomainAvailableQuery } from '../queries/isPublicDomainAvailableQuery'
 import { EditableUrl } from './EditableUrl'
-import { integrationsList } from './embeds/EmbedButton'
 import { useTypebot } from '@/features/editor/providers/TypebotProvider'
 import { LockTag } from '@/features/billing/components/LockTag'
 import { UpgradeButton } from '@/features/billing/components/UpgradeButton'
@@ -27,21 +25,21 @@ import { CustomDomainsDropdown } from '@/features/customDomains/components/Custo
 import { TypebotHeader } from '@/features/editor/components/TypebotHeader'
 import { parseDefaultPublicId } from '../helpers/parseDefaultPublicId'
 import { useI18n } from '@/locales'
+import { env } from '@typebot.io/env'
 
 export const SharePage = () => {
   const t = useI18n()
   const { workspace } = useWorkspace()
-  const { typebot, updateTypebot, publishedTypebot } = useTypebot()
+  const { typebot, updateTypebot } = useTypebot()
   const { showToast } = useToast()
 
   const handlePublicIdChange = async (publicId: string) => {
-    updateTypebot({ publicId })
+    updateTypebot({ updates: { publicId }, save: true })
   }
 
   const publicId = typebot
     ? typebot?.publicId ?? parseDefaultPublicId(typebot.name, typebot.id)
     : ''
-  const isPublished = isDefined(publishedTypebot)
 
   const handlePathnameChange = (pathname: string) => {
     if (!typebot?.customDomain) return
@@ -52,7 +50,7 @@ export const SharePage = () => {
   }
 
   const handleCustomDomainChange = (customDomain: string | null) =>
-    updateTypebot({ customDomain })
+    updateTypebot({ updates: { customDomain }, save: true })
 
   const checkIfPathnameIsValid = (pathname: string) => {
     const isCorrectlyFormatted =
@@ -115,14 +113,15 @@ export const SharePage = () => {
                   onPathnameChange={handlePathnameChange}
                 />
                 <IconButton
-                  icon={<TrashIcon />}
-                  aria-label="Remove custom domain"
+                  icon={<CloseIcon />}
+                  aria-label="Remove custom URL"
                   size="xs"
                   onClick={() => handleCustomDomainChange(null)}
                 />
               </HStack>
             )}
-            {isNotDefined(typebot?.customDomain) ? (
+            {isNotDefined(typebot?.customDomain) &&
+            env.NEXT_PUBLIC_VERCEL_VIEWER_PROJECT_NAME ? (
               <>
                 {isProPlan(workspace) ? (
                   <CustomDomainsDropdown

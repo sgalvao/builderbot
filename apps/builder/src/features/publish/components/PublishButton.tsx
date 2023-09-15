@@ -28,44 +28,102 @@ import { ChangePlanModal } from '@/features/billing/components/ChangePlanModal'
 import { isFreePlan } from '@/features/billing/helpers/isFreePlan'
 import { parseTimeSince } from '@/helpers/parseTimeSince'
 import { useI18n } from '@/locales'
+import { trpc } from '@/lib/trpc'
+import { useToast } from '@/hooks/useToast'
+import { parseDefaultPublicId } from '../helpers/parseDefaultPublicId'
 
-export const PublishButton = (props: ButtonProps) => {
+type Props = ButtonProps & {
+  isMoreMenuDisabled?: boolean
+}
+export const PublishButton = ({
+  isMoreMenuDisabled = false,
+  ...props
+}: Props) => {
   const t = useI18n()
   const warningTextColor = useColorModeValue('red.300', 'red.600')
   const { workspace } = useWorkspace()
-  const { push, query } = useRouter()
+  const { push, query, pathname } = useRouter()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const {
-    isPublishing,
     isPublished,
-    publishTypebot,
     publishedTypebot,
     restorePublishedTypebot,
     typebot,
     isSavingLoading,
     updateTypebot,
-    unpublishTypebot,
     save,
   } = useTypebot()
+  const { showToast } = useToast()
+
+  const {
+    typebot: {
+      getPublishedTypebot: { refetch: refetchPublishedTypebot },
+    },
+  } = trpc.useContext()
+
+  const { mutate: publishTypebotMutate, isLoading: isPublishing } =
+    trpc.typebot.publishTypebot.useMutation({
+      onError: (error) =>
+        showToast({
+          title: 'Error while publishing typebot',
+          description: error.message,
+        }),
+      onSuccess: () => {
+        refetchPublishedTypebot({
+          typebotId: typebot?.id as string,
+        })
+        if (!publishedTypebot && !pathname.endsWith('share'))
+          push(`/hackleads/${query.typebotId}/share`)
+      },
+    })
+
+  const { mutate: unpublishTypebotMutate, isLoading: isUnpublishing } =
+    trpc.typebot.unpublishTypebot.useMutation({
+      onError: (error) =>
+        showToast({
+          title: 'Error while unpublishing typebot',
+          description: error.message,
+        }),
+      onSuccess: () => {
+        refetchPublishedTypebot()
+      },
+    })
 
   const hasInputFile = typebot?.groups
     .flatMap((g) => g.blocks)
     .some((b) => b.type === InputBlockType.FILE)
 
-  const handlePublishClick = () => {
+  const handlePublishClick = async () => {
+    if (!typebot?.id) return
     if (isFreePlan(workspace) && hasInputFile) return onOpen()
-    publishTypebot()
-    if (!publishedTypebot) push(`/hackleads/${query.typebotId}/share`)
+    if (!typebot.publicId) {
+      await updateTypebot({
+        updates: {
+          publicId: parseDefaultPublicId(typebot.name, typebot.id),
+        },
+        save: true,
+      })
+    } else await save()
+    publishTypebotMutate({
+      typebotId: typebot.id,
+    })
+  }
+
+  const unpublishTypebot = async () => {
+    if (!typebot?.id) return
+    if (typebot.isClosed)
+      await updateTypebot({ updates: { isClosed: false }, save: true })
+    unpublishTypebotMutate({
+      typebotId: typebot?.id,
+    })
   }
 
   const closeTypebot = async () => {
-    updateTypebot({ isClosed: true })
-    await save()
+    await updateTypebot({ updates: { isClosed: true }, save: true })
   }
 
   const openTypebot = async () => {
-    updateTypebot({ isClosed: false })
-    await save()
+    await updateTypebot({ updates: { isClosed: false }, save: true })
   }
 
   return (
@@ -99,10 +157,12 @@ export const PublishButton = (props: ButtonProps) => {
       >
         <Button
           colorScheme="blue"
-          isLoading={isPublishing || isSavingLoading}
-          isDisabled={isPublished}
+          isLoading={isPublishing || isUnpublishing}
+          isDisabled={isPublished || isSavingLoading}
           onClick={handlePublishClick}
-          borderRightRadius={publishedTypebot ? 0 : undefined}
+          borderRightRadius={
+            publishedTypebot && !isMoreMenuDisabled ? 0 : undefined
+          }
           {...props}
         >
           {isPublished
@@ -113,7 +173,7 @@ export const PublishButton = (props: ButtonProps) => {
         </Button>
       </Tooltip>
 
-      {publishedTypebot && (
+      {!isMoreMenuDisabled && publishedTypebot && (
         <Menu>
           <MenuButton
             as={IconButton}

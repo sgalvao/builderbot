@@ -2,7 +2,6 @@ import { SendButton } from '@/components/SendButton'
 import { InputSubmitContent } from '@/types'
 import type { DateInputOptions } from '@typebot.io/schemas'
 import { createSignal } from 'solid-js'
-import { parseReadableDate } from '../utils/parseReadableDate'
 
 type Props = {
   onSubmit: (inputValue: InputSubmitContent) => void
@@ -24,11 +23,9 @@ export const DateForm = (props: Props) => {
             if (inputValues().from === '' && inputValues().to === '') return
             e.preventDefault()
             props.onSubmit({
-              value: parseReadableDate({
-                ...inputValues(),
-                hasTime: props.options?.hasTime,
-                isRange: props.options?.isRange,
-              }),
+              value: `${inputValues().from}${
+                props.options?.isRange ? ` to ${inputValues().to}` : ''
+              }`,
             })
           }}
         >
@@ -59,6 +56,8 @@ export const DateForm = (props: Props) => {
                     from: e.currentTarget.value,
                   })
                 }
+                min={props.options?.min}
+                max={props.options?.max}
                 data-testid="from-date"
               />
             </div>
@@ -84,6 +83,8 @@ export const DateForm = (props: Props) => {
                       to: e.currentTarget.value,
                     })
                   }
+                  min={props.options?.min}
+                  max={props.options?.max}
                   data-testid="to-date"
                 />
               </div>

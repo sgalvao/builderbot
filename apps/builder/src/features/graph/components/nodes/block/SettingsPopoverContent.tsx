@@ -47,6 +47,7 @@ import { AbTestSettings } from '@/features/blocks/logic/abTest/components/AbTest
 import { PictureChoiceSettings } from '@/features/blocks/inputs/pictureChoice/components/PictureChoiceSettings'
 import { SettingsHoverBar } from './SettingsHoverBar'
 import { PixelSettings } from '@/features/blocks/integrations/pixel/components/PixelSettings'
+import { ZemanticAiSettings } from '@/features/blocks/integrations/zemanticAi/ZemanticAiSettings'
 
 type Props = {
   block: BlockWithOptions
@@ -69,8 +70,7 @@ export const SettingsPopoverContent = ({ onExpandClick, ...props }: Props) => {
       <PopoverContent onMouseDown={handleMouseDown} pos="relative">
         <PopoverArrow bgColor={arrowColor} />
         <PopoverBody
-          pt="3"
-          pb="6"
+          py="3"
           overflowY="scroll"
           maxH="400px"
           ref={ref}
@@ -305,12 +305,7 @@ export const BlockSettings = ({
       )
     }
     case IntegrationBlockType.OPEN_AI: {
-      return (
-        <OpenAISettings
-          options={block.options}
-          onOptionsChange={updateOptions}
-        />
-      )
+      return <OpenAISettings block={block} onOptionsChange={updateOptions} />
     }
     case IntegrationBlockType.PIXEL: {
       return (
@@ -318,6 +313,11 @@ export const BlockSettings = ({
           options={block.options}
           onOptionsChange={updateOptions}
         />
+      )
+    }
+    case IntegrationBlockType.ZEMANTIC_AI: {
+      return (
+        <ZemanticAiSettings block={block} onOptionsChange={updateOptions} />
       )
     }
   }

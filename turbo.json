@@ -1,5 +1,6 @@
 {
   "baseBranch": "origin/main",
+  "globalDotEnv": [".env"],
   "pipeline": {
     "lint": {
       "outputs": []
@@ -14,22 +15,20 @@
     },
     "build": {
       "dependsOn": ["^build", "@typebot.io/prisma#db:generate"],
-      "outputs": [".next/**", "dist/**", "build/**"],
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        "dist/**",
+        "build/**",
+        "public/__ENV.js"
+      ],
       "outputMode": "new-only",
-      "cache": false
-    },
-    "build:docker": {
-      "dependsOn": ["^build", "@typebot.io/prisma#db:generate"],
-      "outputs": [".next/**", "dist/**", "build/**"],
-      "outputMode": "new-only"
+      "dotEnv": [".env"]
     },
     "docs#build": {
       "dependsOn": ["api:generate"],
       "outputs": ["build/**"],
       "outputMode": "new-only"
-    },
-    "build:env": {
-      "cache": false
     },
     "api:generate": {
       "dependsOn": ["bot-engine#build", "@typebot.io/prisma#db:generate"],

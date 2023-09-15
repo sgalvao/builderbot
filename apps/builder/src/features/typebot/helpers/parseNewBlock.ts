@@ -2,7 +2,6 @@ import { createId } from '@paralleldrive/cuid2'
 import {
   isBubbleBlockType,
   blockTypeHasOption,
-  blockTypeHasWebhook,
   blockTypeHasItems,
 } from '@typebot.io/lib'
 import {
@@ -44,6 +43,8 @@ import {
   LogicBlockType,
   defaultAbTestOptions,
   BlockWithItems,
+  defaultTypebotLinkOptions,
+  zemanticAiDefaultOptions,
 } from '@typebot.io/schemas'
 import { defaultPictureChoiceOptions } from '@typebot.io/schemas/features/blocks/inputs/pictureChoice'
 
@@ -123,7 +124,7 @@ const parseDefaultBlockOptions = (type: BlockWithOptionsType): BlockOptions => {
     case LogicBlockType.JUMP:
       return {}
     case LogicBlockType.TYPEBOT_LINK:
-      return {}
+      return defaultTypebotLinkOptions
     case LogicBlockType.AB_TEST:
       return defaultAbTestOptions
     case IntegrationBlockType.GOOGLE_SHEETS:
@@ -134,7 +135,7 @@ const parseDefaultBlockOptions = (type: BlockWithOptionsType): BlockOptions => {
     case IntegrationBlockType.PABBLY_CONNECT:
     case IntegrationBlockType.MAKE_COM:
     case IntegrationBlockType.WEBHOOK:
-      return defaultWebhookOptions
+      return defaultWebhookOptions(createId())
     case IntegrationBlockType.EMAIL:
       return defaultSendEmailOptions
     case IntegrationBlockType.CHATWOOT:
@@ -143,6 +144,8 @@ const parseDefaultBlockOptions = (type: BlockWithOptionsType): BlockOptions => {
       return {}
     case IntegrationBlockType.PIXEL:
       return {}
+    case IntegrationBlockType.ZEMANTIC_AI:
+      return zemanticAiDefaultOptions
   }
 }
 
@@ -159,7 +162,6 @@ export const parseNewBlock = (
     options: blockTypeHasOption(type)
       ? parseDefaultBlockOptions(type)
       : undefined,
-    webhookId: blockTypeHasWebhook(type) ? createId() : undefined,
     items: blockTypeHasItems(type) ? parseDefaultItems(type, id) : undefined,
   } as DraggableBlock
 }

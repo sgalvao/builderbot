@@ -6,13 +6,18 @@ export const valueTypes = [
   'Custom',
   'Empty',
   'User ID',
+  'Now',
   'Today',
   'Yesterday',
   'Tomorrow',
   'Random ID',
   'Moment of the day',
   'Map item with same index',
+  'Phone number',
+  'Contact name',
 ] as const
+
+export const hiddenTypes = ['Today']
 
 export const setVariableOptionsSchema = z.object({
   variableId: z.string().optional(),

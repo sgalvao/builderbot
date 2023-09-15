@@ -3,15 +3,17 @@ import { guessApiHost } from '@/utils/guessApiHost'
 import { isNotEmpty } from '@typebot.io/lib/utils'
 
 let abortController: AbortController | null = null
+const secondsToWaitBeforeRetries = 3
+const maxRetryAttempts = 3
 
 export const streamChat =
-  (context: ClientSideActionContext) =>
+  (context: ClientSideActionContext & { retryAttempt?: number }) =>
   async (
     messages: {
       content?: string | undefined
       role?: 'system' | 'user' | 'assistant' | undefined
     }[],
-    { onStreamedMessage }: { onStreamedMessage?: (message: string) => void }
+    { onMessageStream }: { onMessageStream?: (message: string) => void }
   ): Promise<{ message?: string; error?: object }> => {
     try {
       abortController = new AbortController()
@@ -36,10 +38,20 @@ export const streamChat =
       )
 
       if (!res.ok) {
+        if (
+          (context.retryAttempt ?? 0) < maxRetryAttempts &&
+          (res.status === 403 || res.status === 500 || res.status === 503)
+        ) {
+          await new Promise((resolve) =>
+            setTimeout(resolve, secondsToWaitBeforeRetries * 1000)
+          )
+          return streamChat({
+            ...context,
+            retryAttempt: (context.retryAttempt ?? 0) + 1,
+          })(messages, { onMessageStream })
+        }
         return {
-          error: {
-            message: (await res.text()) || 'Failed to fetch the chat response.',
-          },
+          error: (await res.json()) || 'Failed to fetch the chat response.',
         }
       }
 
@@ -59,8 +71,8 @@ export const streamChat =
           break
         }
         const chunk = decoder.decode(value)
-        if (onStreamedMessage) onStreamedMessage(chunk)
         message += chunk
+        if (onMessageStream) onMessageStream(message)
         if (abortController === null) {
           reader.cancel()
           break

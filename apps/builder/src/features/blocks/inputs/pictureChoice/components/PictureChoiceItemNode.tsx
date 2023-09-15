@@ -40,10 +40,7 @@ export const PictureChoiceItemNode = ({
   const handlePlusClick = (e: React.MouseEvent) => {
     e.stopPropagation()
     const itemIndex = indices.itemIndex + 1
-    createItem(
-      { blockId: item.blockId, type: ItemType.PICTURE_CHOICE },
-      { ...indices, itemIndex }
-    )
+    createItem({ type: ItemType.PICTURE_CHOICE }, { ...indices, itemIndex })
   }
 
   const handleMouseDown = (e: React.MouseEvent) => e.stopPropagation()
@@ -137,8 +134,13 @@ export const PictureChoiceItemNode = ({
           >
             {typebot && (
               <PictureChoiceItemSettings
+                workspaceId={typebot.workspaceId}
                 typebotId={typebot.id}
                 item={item}
+                blockId={
+                  typebot.groups[indices.groupIndex].blocks[indices.blockIndex]
+                    .id
+                }
                 onItemChange={handleItemChange}
               />
             )}

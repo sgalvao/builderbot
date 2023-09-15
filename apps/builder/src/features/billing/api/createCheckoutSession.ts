@@ -1,10 +1,12 @@
 import prisma from '@/lib/prisma'
 import { authenticatedProcedure } from '@/helpers/server/trpc'
 import { TRPCError } from '@trpc/server'
-import { Partner, Plan, WorkspaceRole } from '@typebot.io/prisma'
+import { Partner, Plan } from '@typebot.io/prisma'
 import Stripe from 'stripe'
 import { z } from 'zod'
 import { parseSubscriptionItems } from '../helpers/parseSubscriptionItems'
+import { isAdminWriteWorkspaceForbidden } from '@/features/workspace/helpers/isAdminWriteWorkspaceForbidden'
+import { env } from '@typebot.io/env'
 
 export const createCheckoutSession = authenticatedProcedure
   .meta({
@@ -43,7 +45,6 @@ export const createCheckoutSession = authenticatedProcedure
   .mutation(
     async ({
       input: {
-        vat,
         email,
         company,
         workspaceId,
@@ -56,7 +57,7 @@ export const createCheckoutSession = authenticatedProcedure
       },
       ctx: { user },
     }) => {
-      if (!process.env.STRIPE_SECRET_KEY)
+      if (!env.STRIPE_SECRET_KEY)
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: 'Stripe environment variables are missing',
@@ -64,15 +65,30 @@ export const createCheckoutSession = authenticatedProcedure
       const workspace = await prisma.workspace.findFirst({
         where: {
           id: workspaceId,
-          members: { some: { userId: user.id, role: WorkspaceRole.ADMIN } },
+        },
+        select: {
+          stripeId: true,
+          members: {
+            select: {
+              userId: true,
+              role: true,
+            },
+          },
         },
       })
-      if (!workspace)
+
+      if (!workspace || isAdminWriteWorkspaceForbidden(workspace, user))
         throw new TRPCError({
           code: 'NOT_FOUND',
           message: 'Workspace not found',
         })
-      const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+      if (workspace.stripeId)
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Customer already exists, use updateSubscription endpoint.',
+        })
+
+      const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
         apiVersion: '2022-11-15',
       })
 
@@ -145,7 +161,7 @@ export const createCheckoutSessionUrl =
     isYearly,
     partner,
   }: Props) => {
-    let partnerData: any
+    let partnerData
     if (partner) {
       const promotionCode = await stripe.promotionCodes.list({
         code: partner.partnerCode,

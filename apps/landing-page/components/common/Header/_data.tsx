@@ -1,7 +1,4 @@
-import { GitHubIcon } from 'assets/icons'
-import { DocIcon } from 'assets/icons/DocIcon'
-import { MapIcon } from 'assets/icons/MapIcon'
-import { PeopleCircleIcon } from 'assets/icons/PeopleCircleIcon'
+import { DocIcon } from 'assets/icons'
 import * as React from 'react'
 
 export const links = [

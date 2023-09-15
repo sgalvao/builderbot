@@ -15,7 +15,7 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react'
-import { ButtonTheme } from '@typebot.io/js/dist/features/bubble/types'
+import { ButtonTheme } from '@typebot.io/nextjs'
 import React from 'react'
 
 type Props = {
@@ -81,7 +81,7 @@ export const ButtonThemeSettings = ({ buttonTheme, onChange }: Props) => {
                       updateCustomIconSrc(url)
                       onClose()
                     }}
-                    filePath={undefined}
+                    uploadFileProps={undefined}
                   />
                 </PopoverContent>
               </>

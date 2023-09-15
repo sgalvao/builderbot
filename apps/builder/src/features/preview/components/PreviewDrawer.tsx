@@ -4,7 +4,6 @@ import {
   Fade,
   Flex,
   HStack,
-  useColorMode,
   useColorModeValue,
   VStack,
 } from '@chakra-ui/react'
@@ -19,9 +18,18 @@ import { PreviewDrawerBody } from './PreviewDrawerBody'
 import { useDrag } from '@use-gesture/react'
 import { ResizeHandle } from './ResizeHandle'
 
+const preferredRuntimeKey = 'preferredRuntime'
+
+const getDefaultRuntime = (typebotId?: string) => {
+  if (!typebotId) return runtimes[0]
+  const preferredRuntime = localStorage.getItem(preferredRuntimeKey)
+  return (
+    runtimes.find((runtime) => runtime.name === preferredRuntime) ?? runtimes[0]
+  )
+}
+
 export const PreviewDrawer = () => {
-  const isDark = useColorMode().colorMode === 'dark'
-  const { save, isSavingLoading } = useTypebot()
+  const { typebot, save, isSavingLoading } = useTypebot()
   const { setRightPanel } = useEditor()
   const { setPreviewingBlock } = useGraph()
   const [width, setWidth] = useState(500)
@@ -29,7 +37,7 @@ export const PreviewDrawer = () => {
   const [restartKey, setRestartKey] = useState(0)
   const [selectedRuntime, setSelectedRuntime] = useState<
     (typeof runtimes)[number]
-  >(runtimes[0])
+  >(getDefaultRuntime(typebot?.id))
 
   const handleRestartClick = async () => {
     await save()
@@ -50,6 +58,13 @@ export const PreviewDrawer = () => {
     }
   )
 
+  const setPreviewRuntimeAndSaveIntoLocalStorage = (
+    runtime: (typeof runtimes)[number]
+  ) => {
+    setSelectedRuntime(runtime)
+    localStorage.setItem(preferredRuntimeKey, runtime.name)
+  }
+
   return (
     <Flex
       pos="absolute"
@@ -69,7 +84,6 @@ export const PreviewDrawer = () => {
       <Fade in={isResizeHandleVisible}>
         <ResizeHandle
           {...useResizeHandleDrag()}
-          isDark={isDark}
           pos="absolute"
           left="-7.5px"
           top={`calc(50% - ${headerHeight}px)`}
@@ -81,7 +95,7 @@ export const PreviewDrawer = () => {
           <HStack>
             <RuntimeMenu
               selectedRuntime={selectedRuntime}
-              onSelectRuntime={(runtime) => setSelectedRuntime(runtime)}
+              onSelectRuntime={setPreviewRuntimeAndSaveIntoLocalStorage}
             />
             {selectedRuntime.name === 'Web' ? (
               <Button

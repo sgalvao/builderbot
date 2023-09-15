@@ -1,8 +1,9 @@
 import { getChatCompletionStream } from '@/features/blocks/integrations/openai/getChatCompletionStream'
 import { connect } from '@planetscale/database'
+import { env } from '@typebot.io/env'
 import { IntegrationBlockType, SessionState } from '@typebot.io/schemas'
 import { StreamingTextResponse } from 'ai'
-import { ChatCompletionRequestMessage } from 'openai'
+import { ChatCompletionRequestMessage } from 'openai-edge'
 
 export const config = {
   runtime: 'edge',
@@ -29,7 +30,7 @@ const handler = async (req: Request) => {
 
   if (!messages) return new Response('No messages provided', { status: 400 })
 
-  const conn = connect({ url: process.env.DATABASE_URL })
+  const conn = connect({ url: env.DATABASE_URL })
 
   const chatSession = await conn.execute(
     'select state from ChatSession where id=?',
@@ -41,7 +42,7 @@ const handler = async (req: Request) => {
 
   if (!state) return new Response('No state found', { status: 400 })
 
-  const group = state.typebot.groups.find(
+  const group = state.typebotsQueue[0].typebot.groups.find(
     (group) => group.id === state.currentBlock?.groupId
   )
   const blockIndex =
@@ -60,15 +61,24 @@ const handler = async (req: Request) => {
   )
     return new Response('Current block is not an OpenAI block', { status: 400 })
 
-  const stream = await getChatCompletionStream(conn)(
+  const streamOrResponse = await getChatCompletionStream(conn)(
     state,
     block.options,
     messages
   )
 
-  if (!stream) return new Response('Could not create stream', { status: 400 })
+  if (!streamOrResponse)
+    return new Response('Could not create stream', { status: 400 })
 
-  return new StreamingTextResponse(stream, {
+  if ('ok' in streamOrResponse)
+    return new Response(streamOrResponse.body, {
+      status: streamOrResponse.status,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
+    })
+
+  return new StreamingTextResponse(streamOrResponse, {
     headers: {
       'Access-Control-Allow-Origin': '*',
     },

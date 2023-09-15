@@ -1,18 +1,16 @@
-import { Flex, Stack, Text } from '@chakra-ui/react'
+import { Flex, Stack } from '@chakra-ui/react'
 import { GiphyFetch } from '@giphy/js-fetch-api'
 import { Grid } from '@giphy/react-components'
 import { GiphyLogo } from '../logos/GiphyLogo'
 import React, { useState } from 'react'
-import { env, isEmpty } from '@typebot.io/lib'
 import { TextInput } from '../inputs'
+import { env } from '@typebot.io/env'
 
 type GiphySearchFormProps = {
   onSubmit: (url: string) => void
 }
 
-const giphyFetch = new GiphyFetch(
-  process.env.NEXT_PUBLIC_GIPHY_API_KEY as string
-)
+const giphyFetch = new GiphyFetch(env.NEXT_PUBLIC_GIPHY_API_KEY ?? '')
 
 export const GiphyPicker = ({ onSubmit }: GiphySearchFormProps) => {
   const [inputValue, setInputValue] = useState('')

@@ -1,19 +1,19 @@
 import { isDefined } from '@typebot.io/lib'
 import { Variable, VariableWithValue } from '@typebot.io/schemas'
-import { safeStringify } from './safeStringify'
+import { safeStringify } from '@typebot.io/lib/safeStringify'
 
 export type ParseVariablesOptions = {
   fieldToParse?: 'value' | 'id'
-  escapeForJson?: boolean
+  isInsideJson?: boolean
   takeLatestIfList?: boolean
-  escapeHtml?: boolean
+  isInsideHtml?: boolean
 }
 
 export const defaultParseVariablesOptions: ParseVariablesOptions = {
   fieldToParse: 'value',
-  escapeForJson: false,
+  isInsideJson: false,
   takeLatestIfList: false,
-  escapeHtml: false,
+  isInsideHtml: false,
 }
 
 export const parseVariables =
@@ -39,11 +39,8 @@ export const parseVariables =
         if (!variable) return dollarSign + ''
         if (options.fieldToParse === 'id') return dollarSign + variable.id
         const { value } = variable
-        if (options.escapeForJson)
-          return (
-            dollarSign +
-            jsonParse(typeof value !== 'string' ? JSON.stringify(value) : value)
-          )
+        if (options.isInsideJson)
+          return dollarSign + parseVariableValueInJson(value)
         const parsedValue =
           dollarSign +
           safeStringify(
@@ -52,15 +49,22 @@ export const parseVariables =
               : value
           )
         if (!parsedValue) return dollarSign + ''
-        if (options.escapeHtml)
-          return parsedValue.replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        if (options.isInsideHtml) return parseVariableValueInHtml(parsedValue)
         return parsedValue
       }
     )
   }
 
-const jsonParse = (str: string) =>
-  str
-    .replace(/\n/g, `\\n`)
-    .replace(/"/g, `\\"`)
-    .replace(/\\[^n"]/g, `\\\\ `)
+const parseVariableValueInJson = (value: VariableWithValue['value']) => {
+  const stringifiedValue = JSON.stringify(value)
+  if (typeof value === 'string') return stringifiedValue.slice(1, -1)
+  return stringifiedValue
+}
+
+const parseVariableValueInHtml = (
+  value: VariableWithValue['value']
+): string => {
+  if (typeof value === 'string')
+    return value.replace(/</g, '&lt;').replace(/>/g, '&gt;')
+  return JSON.stringify(value).replace(/</g, '&lt;').replace(/>/g, '&gt;')
+}

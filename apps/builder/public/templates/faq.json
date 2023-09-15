@@ -1,5 +1,6 @@
 {
   "id": "cl96ns7zc000dky099ku4bmav",
+  "version": "4",
   "createdAt": "2022-10-13T06:07:11.976Z",
   "updatedAt": "2022-10-13T06:27:31.951Z",
   "icon": "💬",
@@ -281,7 +282,8 @@
           "type": "Typebot link",
           "options": {
             "typebotId": "current",
-            "groupId": "cl96ns9qr00043b6ii07bo25o"
+            "groupId": "cl96ns9qr00043b6ii07bo25o",
+            "mergeResults": false
           }
         }
       ]

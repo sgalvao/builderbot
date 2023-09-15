@@ -1,9 +1,7 @@
 import { Alert, AlertIcon, Button, Link, Stack, Text } from '@chakra-ui/react'
 import { ExternalLinkIcon } from '@/components/icons'
-import { useTypebot } from '@/features/editor/providers/TypebotProvider'
 import { MakeComBlock, Webhook, WebhookOptions } from '@typebot.io/schemas'
-import React, { useCallback, useEffect, useState } from 'react'
-import { byId } from '@typebot.io/lib'
+import React from 'react'
 import { WebhookAdvancedConfigForm } from '../../webhook/components/WebhookAdvancedConfigForm'
 
 type Props = {
@@ -12,41 +10,24 @@ type Props = {
 }
 
 export const MakeComSettings = ({
-  block: { webhookId, id: blockId, options },
+  block: { id: blockId, options },
   onOptionsChange,
 }: Props) => {
-  const { webhooks, updateWebhook } = useTypebot()
-  const webhook = webhooks.find(byId(webhookId))
-
-  const [localWebhook, _setLocalWebhook] = useState(webhook)
-
-  const setLocalWebhook = useCallback(
-    async (newLocalWebhook: Webhook) => {
-      _setLocalWebhook(newLocalWebhook)
-      await updateWebhook(newLocalWebhook.id, newLocalWebhook)
-    },
-    [updateWebhook]
-  )
-
-  useEffect(() => {
-    if (
-      !localWebhook ||
-      localWebhook.url ||
-      !webhook?.url ||
-      webhook.url === localWebhook.url
-    )
-      return
-    setLocalWebhook({
-      ...localWebhook,
-      url: webhook?.url,
+  const setLocalWebhook = async (newLocalWebhook: Webhook) => {
+    if (!options.webhook) return
+    onOptionsChange({
+      ...options,
+      webhook: newLocalWebhook,
     })
-  }, [webhook, localWebhook, setLocalWebhook])
+  }
+
+  const url = options.webhook?.url
 
   return (
     <Stack spacing={4}>
-      <Alert status={localWebhook?.url ? 'success' : 'info'} rounded="md">
+      <Alert status={url ? 'success' : 'info'} rounded="md">
         <AlertIcon />
-        {localWebhook?.url ? (
+        {url ? (
           <>Your scenario is correctly configured 🚀</>
         ) : (
           <Stack>
@@ -62,10 +43,10 @@ export const MakeComSettings = ({
           </Stack>
         )}
       </Alert>
-      {localWebhook && (
+      {options.webhook && (
         <WebhookAdvancedConfigForm
           blockId={blockId}
-          webhook={localWebhook}
+          webhook={options.webhook as Webhook}
           options={options}
           onWebhookChange={setLocalWebhook}
           onOptionsChange={onOptionsChange}

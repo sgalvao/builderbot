@@ -1,9 +1,10 @@
 import prisma from '@/lib/prisma'
 import { authenticatedProcedure } from '@/helpers/server/trpc'
 import { TRPCError } from '@trpc/server'
-import { WorkspaceRole } from '@typebot.io/prisma'
 import Stripe from 'stripe'
 import { z } from 'zod'
+import { isAdminWriteWorkspaceForbidden } from '@/features/workspace/helpers/isAdminWriteWorkspaceForbidden'
+import { env } from '@typebot.io/env'
 
 export const getBillingPortalUrl = authenticatedProcedure
   .meta({
@@ -26,7 +27,7 @@ export const getBillingPortalUrl = authenticatedProcedure
     })
   )
   .query(async ({ input: { workspaceId }, ctx: { user } }) => {
-    if (!process.env.STRIPE_SECRET_KEY)
+    if (!env.STRIPE_SECRET_KEY)
       throw new TRPCError({
         code: 'INTERNAL_SERVER_ERROR',
         message: 'STRIPE_SECRET_KEY var is missing',
@@ -34,18 +35,23 @@ export const getBillingPortalUrl = authenticatedProcedure
     const workspace = await prisma.workspace.findFirst({
       where: {
         id: workspaceId,
-        members: { some: { userId: user.id, role: WorkspaceRole.ADMIN } },
       },
       select: {
         stripeId: true,
+        members: {
+          select: {
+            userId: true,
+            role: true,
+          },
+        },
       },
     })
-    if (!workspace?.stripeId)
+    if (!workspace?.stripeId || isAdminWriteWorkspaceForbidden(workspace, user))
       throw new TRPCError({
         code: 'NOT_FOUND',
         message: 'Workspace not found',
       })
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+    const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
       apiVersion: '2022-11-15',
     })
     const portalSession = await stripe.billingPortal.sessions.create({

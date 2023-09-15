@@ -7,6 +7,10 @@ import { openAICredentialsSchema } from '@typebot.io/schemas/features/blocks/int
 import { smtpCredentialsSchema } from '@typebot.io/schemas/features/blocks/integrations/sendEmail'
 import { encrypt } from '@typebot.io/lib/api/encryption'
 import { z } from 'zod'
+import { whatsAppCredentialsSchema } from '@typebot.io/schemas/features/whatsapp'
+import { Credentials, zemanticAiCredentialsSchema } from '@typebot.io/schemas'
+import { isDefined } from '@typebot.io/lib/utils'
+import { isWriteWorkspaceForbidden } from '@/features/workspace/helpers/isWriteWorkspaceForbidden'
 
 const inputShape = {
   data: true,
@@ -32,6 +36,8 @@ export const createCredentials = authenticatedProcedure
         smtpCredentialsSchema.pick(inputShape),
         googleSheetsCredentialsSchema.pick(inputShape),
         openAICredentialsSchema.pick(inputShape),
+        whatsAppCredentialsSchema.pick(inputShape),
+        zemanticAiCredentialsSchema.pick(inputShape),
       ]),
     })
   )
@@ -41,14 +47,18 @@ export const createCredentials = authenticatedProcedure
     })
   )
   .mutation(async ({ input: { credentials }, ctx: { user } }) => {
+    if (await isNotAvailable(credentials.name, credentials.type))
+      throw new TRPCError({
+        code: 'CONFLICT',
+        message: 'Credentials already exist.',
+      })
     const workspace = await prisma.workspace.findFirst({
       where: {
         id: credentials.workspaceId,
-        members: { some: { userId: user.id } },
       },
-      select: { id: true },
+      select: { id: true, members: true },
     })
-    if (!workspace)
+    if (!workspace || isWriteWorkspaceForbidden(workspace, user))
       throw new TRPCError({ code: 'NOT_FOUND', message: 'Workspace not found' })
 
     const { encryptedData, iv } = await encrypt(credentials.data)
@@ -64,3 +74,14 @@ export const createCredentials = authenticatedProcedure
     })
     return { credentialsId: createdCredentials.id }
   })
+
+const isNotAvailable = async (name: string, type: Credentials['type']) => {
+  if (type !== 'whatsApp') return
+  const existingCredentials = await prisma.credentials.findFirst({
+    where: {
+      type,
+      name,
+    },
+  })
+  return isDefined(existingCredentials)
+}

@@ -11,7 +11,6 @@ import {
   deleteGroupDraft,
   createBlockDraft,
   duplicateBlockDraft,
-  WebhookCallBacks,
 } from './blocks'
 import { isEmpty, parseGroupTitle } from '@typebot.io/lib'
 import { Coordinates } from '@/features/graph/types'
@@ -31,7 +30,6 @@ export type GroupsActions = {
 
 const groupsActions = (
   setTypebot: SetTypebot,
-  { onWebhookBlockCreated, onWebhookBlockDuplicated }: WebhookCallBacks
 ): GroupsActions => ({
   createGroup: ({
     id,
@@ -52,13 +50,7 @@ const groupsActions = (
           blocks: [],
         }
         typebot.groups.push(newGroup)
-        createBlockDraft(
-          typebot,
-          block,
-          newGroup.id,
-          indices,
-          onWebhookBlockCreated
-        )
+        createBlockDraft(typebot, block, newGroup.id, indices)
       })
     ),
   updateGroup: (groupIndex: number, updates: Partial<Omit<Group, 'id'>>) =>
@@ -73,15 +65,14 @@ const groupsActions = (
       produce(typebot, (typebot) => {
         const group = typebot.groups[groupIndex]
         const id = createId()
+
         const newGroup: Group = {
           ...group,
           title: isEmpty(group.title)
             ? ''
             : `${parseGroupTitle(group.title)} copia`,
           id,
-          blocks: group.blocks.map((block) =>
-            duplicateBlockDraft(id)(block, onWebhookBlockDuplicated)
-          ),
+          blocks: group.blocks.map((block) => duplicateBlockDraft(id)(block)),
           graphCoordinates: {
             x: group.graphCoordinates.x + 200,
             y: group.graphCoordinates.y + 100,

@@ -15,13 +15,13 @@ import { GeneralSettings, rememberUserStorages } from '@typebot.io/schemas'
 import React from 'react'
 import { isDefined } from '@typebot.io/lib'
 import { SwitchWithLabel } from '@/components/inputs/SwitchWithLabel'
+import { SwitchWithRelatedSettings } from '@/components/SwitchWithRelatedSettings'
+import { DropdownList } from '@/components/DropdownList'
+import { MoreInfoTooltip } from '@/components/MoreInfoTooltip'
 import { ChangePlanModal } from '@/features/billing/components/ChangePlanModal'
 import { LockTag } from '@/features/billing/components/LockTag'
 import { isFreePlan } from '@/features/billing/helpers/isFreePlan'
 import { useI18n } from '@/locales'
-import { SwitchWithRelatedSettings } from '@/components/SwitchWithRelatedSettings'
-import { DropdownList } from '@/components/DropdownList'
-import { MoreInfoTooltip } from '@/components/MoreInfoTooltip'
 
 type Props = {
   generalSettings: GeneralSettings
@@ -32,6 +32,14 @@ export const GeneralSettingsForm = ({
   generalSettings,
   onGeneralSettingsChange,
 }: Props) => {
+  const toggleRememberUser = (isEnabled: boolean) =>
+    onGeneralSettingsChange({
+      ...generalSettings,
+      rememberUser: {
+        ...generalSettings.rememberUser,
+        isEnabled,
+      },
+    })
   const t = useI18n()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { workspace } = useWorkspace()
@@ -43,15 +51,6 @@ export const GeneralSettingsForm = ({
       isBrandingEnabled: !generalSettings?.isBrandingEnabled,
     })
   }
-
-  const toggleRememberUser = (isEnabled: boolean) =>
-    onGeneralSettingsChange({
-      ...generalSettings,
-      rememberUser: {
-        ...generalSettings.rememberUser,
-        isEnabled,
-      },
-    })
 
   const handleInputPrefillChange = (isInputPrefillEnabled: boolean) =>
     onGeneralSettingsChange({

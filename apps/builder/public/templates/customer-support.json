@@ -1,5 +1,6 @@
 {
   "id": "cl16la7p900990b1a72qjqbb3",
+  "version": "4",
   "createdAt": "2022-03-25T15:39:33.885Z",
   "updatedAt": "2022-03-25T15:42:12.544Z",
   "name": "Customer Support",
@@ -179,7 +180,8 @@
           "type": "Typebot link",
           "options": {
             "typebotId": "current",
-            "groupId": "vLUAPaxKwPF49iZhg4XZYa"
+            "groupId": "vLUAPaxKwPF49iZhg4XZYa",
+            "mergeResults": false
           }
         }
       ],
@@ -304,7 +306,8 @@
           "groupId": "1GvxCAAEysxJMxrVngud3X",
           "options": {
             "groupId": "vLUAPaxKwPF49iZhg4XZYa",
-            "typebotId": "current"
+            "typebotId": "current",
+            "mergeResults": false
           }
         }
       ],

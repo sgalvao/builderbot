@@ -15,9 +15,7 @@ import { TemplatesModal } from './TemplatesModal'
 import { useWorkspace } from '@/features/workspace/WorkspaceProvider'
 import { useUser } from '@/features/account/hooks/useUser'
 import { useToast } from '@/hooks/useToast'
-import { createTypebotQuery } from '@/features/dashboard/queries/createTypebotQuery'
-import { importTypebotQuery } from '@/features/dashboard/queries/importTypebotQuery'
-import sanitizeCSS from '@/helpers/cssSanitizer'
+import { trpc } from '@/lib/trpc'
 
 export const CreateNewTypebotButtons = () => {
   const { workspace } = useWorkspace()
@@ -29,45 +27,16 @@ export const CreateNewTypebotButtons = () => {
 
   const { showToast } = useToast()
 
-  const handleCreateSubmit = async (typebot?: Typebot) => {
-    if (!user || !workspace) return
-    setIsLoading(true)
-    const folderId = router.query.folderId?.toString() ?? null
-
-    console.log('TYPEBOT TEMA', typebot?.theme)
-    const { error, data } = typebot
-      ? await importTypebotQuery(
-          {
-            ...typebot,
-            folderId,
-            workspaceId: workspace.id,
-            theme: {
-              ...typebot.theme,
-              customCss:
-                typebot.theme.customCss &&
-                sanitizeCSS(typebot.theme.customCss, ['a#lite-badge', '#lite-badge']),
-              chat: {
-                ...typebot.theme.chat,
-                hostAvatar: {
-                  isEnabled: true,
-                  url:
-                    typebot.theme.chat.hostAvatar?.url ??
-                    user.image ??
-                    undefined,
-                },
-              },
-            },
-          },
-          workspace.plan
-        )
-      : await createTypebotQuery({
-          folderId,
-          workspaceId: workspace.id,
-        })
-    if (error) showToast({ description: error.message })
-    if (data)
+  const { mutate } = trpc.typebot.createTypebot.useMutation({
+    onMutate: () => {
+      setIsLoading(true)
+    },
+    onError: (error) => {
+      showToast({ description: error.message })
+    },
+    onSuccess: (data) => {
       router.push({
-        pathname: `/hackleads/${data.id}/edit`,
+        pathname: `/hackleads/${data.typebot.id}/edit`,
         query:
           router.query.isFirstBot === 'true'
             ? {
@@ -75,7 +44,28 @@ export const CreateNewTypebotButtons = () => {
               }
             : {},
       })
-    setIsLoading(false)
+    },
+    onSettled: () => {
+      setIsLoading(false)
+    },
+  })
+
+  const handleCreateSubmit = async (typebot?: Typebot) => {
+    if (!user || !workspace) return
+    const folderId = router.query.folderId?.toString() ?? null
+    mutate({
+      workspaceId: workspace.id,
+      typebot: {
+        ...(typebot
+          ? {
+              ...typebot,
+              publicId: undefined,
+              customDomain: undefined,
+            }
+          : {}),
+        folderId,
+      },
+    })
   }
 
   return (

@@ -1,6 +1,6 @@
 import test, { expect } from '@playwright/test'
 import { createId } from '@paralleldrive/cuid2'
-import { HttpMethod } from '@typebot.io/schemas'
+import { HttpMethod } from '@typebot.io/schemas/features/blocks/integrations/webhook/enums'
 import {
   createWebhook,
   importTypebotInDatabase,
@@ -63,5 +63,5 @@ test('should execute webhooks properly', async ({ page }) => {
   await expect(
     page.locator('text="Webhook successfuly executed." >> nth=1')
   ).toBeVisible()
-  await expect(page.locator('text="Webhook returned an error"')).toBeVisible()
+  await expect(page.locator('text="Webhook returned an error."')).toBeVisible()
 })

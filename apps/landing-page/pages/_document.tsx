@@ -21,7 +21,7 @@ class MyDocument extends Document {
             <link href="./styles/aos-noscript.css" rel="stylesheet" />
           </noscript>
           {/* eslint-disable-next-line @next/next/no-sync-scripts */}
-          <script src="/__env.js" />
+          <script src="/__ENV.js" />
         </Head>
         <body style={{ backgroundColor: '#171923' }}>
           <ColorModeScript initialColorMode={theme.config.initialColorMode} />

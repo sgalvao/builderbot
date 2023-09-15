@@ -1,7 +1,11 @@
 import { Box, Text } from '@chakra-ui/react'
 import { VideoBubbleBlock, VideoBubbleContentType } from '@typebot.io/schemas'
 
-export const VideoBubbleContent = ({ block }: { block: VideoBubbleBlock }) => {
+type Props = {
+  block: VideoBubbleBlock
+}
+
+export const VideoBubbleContent = ({ block }: Props) => {
   if (!block.content?.url || !block.content.type)
     return <Text color="gray.500">Clique para editar...</Text>
   switch (block.content.type) {

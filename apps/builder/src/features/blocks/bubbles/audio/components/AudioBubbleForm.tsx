@@ -3,21 +3,28 @@ import { AudioBubbleContent } from '@typebot.io/schemas'
 import { TextInput } from '@/components/inputs'
 import { useState } from 'react'
 import { UploadButton } from '@/components/ImageUploadContent/UploadButton'
+import { SwitchWithLabel } from '@/components/inputs/SwitchWithLabel'
+import { useScopedI18n } from '@/locales'
+import { FilePathUploadProps } from '@/features/upload/api/generateUploadUrl'
 
 type Props = {
-  fileUploadPath: string
+  uploadFileProps: FilePathUploadProps
   content: AudioBubbleContent
-  onSubmit: (content: AudioBubbleContent) => void
+  onContentChange: (content: AudioBubbleContent) => void
 }
 
 export const AudioBubbleForm = ({
-  fileUploadPath,
+  uploadFileProps,
   content,
-  onSubmit,
+  onContentChange,
 }: Props) => {
+  const scopedT = useScopedI18n('editor.blocks.bubbles.audio.settings')
   const [currentTab, setCurrentTab] = useState<'link' | 'upload'>('link')
 
-  const submit = (url: string) => onSubmit({ url })
+  const updateUrl = (url: string) => onContentChange({ ...content, url })
+
+  const updateAutoPlay = (isAutoplayEnabled: boolean) =>
+    onContentChange({ ...content, isAutoplayEnabled })
 
   return (
     <Stack>
@@ -27,41 +34,48 @@ export const AudioBubbleForm = ({
           onClick={() => setCurrentTab('upload')}
           size="sm"
         >
-          Upload
+          {scopedT('upload.label')}
         </Button>
         <Button
           variant={currentTab === 'link' ? 'solid' : 'ghost'}
           onClick={() => setCurrentTab('link')}
           size="sm"
         >
-          Embed link
+          {scopedT('embedLink.label')}
         </Button>
       </HStack>
-      <Stack p="2">
-        {currentTab === 'upload' && (
-          <Flex justify="center" py="2">
-            <UploadButton
-              fileType="audio"
-              filePath={fileUploadPath}
-              onFileUploaded={submit}
-              colorScheme="blue"
-            >
-              Choose a file
-            </UploadButton>
-          </Flex>
-        )}
-        {currentTab === 'link' && (
-          <>
-            <TextInput
-              placeholder="Paste the audio file link..."
-              defaultValue={content.url ?? ''}
-              onChange={submit}
-            />
-            <Text fontSize="sm" color="gray.400" textAlign="center">
-              Works with .MP3s and .WAVs
-            </Text>
-          </>
-        )}
+      <Stack p="2" spacing={4}>
+        <Stack>
+          {currentTab === 'upload' && (
+            <Flex justify="center" py="2">
+              <UploadButton
+                fileType="audio"
+                filePathProps={uploadFileProps}
+                onFileUploaded={updateUrl}
+                colorScheme="blue"
+              >
+                {scopedT('chooseFile.label')}
+              </UploadButton>
+            </Flex>
+          )}
+          {currentTab === 'link' && (
+            <>
+              <TextInput
+                placeholder={scopedT('worksWith.placeholder')}
+                defaultValue={content.url ?? ''}
+                onChange={updateUrl}
+              />
+              <Text fontSize="sm" color="gray.400" textAlign="center">
+                {scopedT('worksWith.text')}
+              </Text>
+            </>
+          )}
+        </Stack>
+        <SwitchWithLabel
+          label={scopedT('autoplay.label')}
+          initialValue={content.isAutoplayEnabled ?? true}
+          onCheckChange={updateAutoPlay}
+        />
       </Stack>
     </Stack>
   )

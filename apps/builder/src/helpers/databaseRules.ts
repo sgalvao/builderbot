@@ -7,14 +7,14 @@ import {
 } from '@typebot.io/prisma'
 import prisma from '@/lib/prisma'
 import { NextApiResponse } from 'next'
-import { env, isNotEmpty } from '@typebot.io/lib'
 import { forbidden } from '@typebot.io/lib/api'
+import { env } from '@typebot.io/env'
 
 export const canWriteTypebots = (
   typebotIds: string[] | string,
   user: Pick<User, 'email' | 'id'>
 ): Prisma.TypebotWhereInput =>
-  isNotEmpty(env('E2E_TEST'))
+  env.NEXT_PUBLIC_E2E_TEST
     ? { id: typeof typebotIds === 'string' ? typebotIds : { in: typebotIds } }
     : {
         id: typeof typebotIds === 'string' ? typebotIds : { in: typebotIds },
@@ -39,14 +39,13 @@ export const canReadTypebots = (
   user: Pick<User, 'email' | 'id'>
 ) => ({
   id: typeof typebotIds === 'string' ? typebotIds : { in: typebotIds },
-  workspace:
-    user.email === process.env.ADMIN_EMAIL || isNotEmpty(env('E2E_TEST'))
-      ? undefined
-      : {
-          members: {
-            some: { userId: user.id },
-          },
+  workspace: env.NEXT_PUBLIC_E2E_TEST
+    ? undefined
+    : {
+        members: {
+          some: { userId: user.id },
         },
+      },
 })
 
 export const canEditGuests = (user: User, typebotId: string) => ({

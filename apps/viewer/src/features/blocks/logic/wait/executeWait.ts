@@ -2,10 +2,11 @@ import { ExecuteLogicResponse } from '@/features/chat/types'
 import { parseVariables } from '@/features/variables/parseVariables'
 import { SessionState, WaitBlock } from '@typebot.io/schemas'
 
-export const executeWait = async (
-  { typebot: { variables } }: SessionState,
+export const executeWait = (
+  state: SessionState,
   block: WaitBlock
-): Promise<ExecuteLogicResponse> => {
+): ExecuteLogicResponse => {
+  const { variables } = state.typebotsQueue[0].typebot
   if (!block.options.secondsToWaitFor)
     return { outgoingEdgeId: block.outgoingEdgeId }
   const parsedSecondsToWaitFor = safeParseInt(
@@ -18,6 +19,7 @@ export const executeWait = async (
       ? [
           {
             wait: { secondsToWaitFor: parsedSecondsToWaitFor },
+            expectsDedicatedReply: block.options.shouldPause,
           },
         ]
       : undefined,

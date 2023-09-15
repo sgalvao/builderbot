@@ -1,9 +1,6 @@
 import { IconProps, Icon } from '@chakra-ui/react'
 
-export const TypebotLogo = ({
-  isDark,
-  ...props
-}: { isDark?: boolean } & IconProps) => (
+export const TypebotLogo = ({ ...props }: { isDark?: boolean } & IconProps) => (
   <Icon w="50px" h="50px" viewBox="0 0 800 800" {...props}>
     <svg
       width="490"

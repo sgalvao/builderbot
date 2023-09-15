@@ -14,6 +14,7 @@ import { convertInvitationsToCollaborations } from '@/features/auth/helpers/conv
 import { getNewUserInvitations } from '@/features/auth/helpers/getNewUserInvitations'
 import { joinWorkspaces } from '@/features/auth/helpers/joinWorkspaces'
 import { parseWorkspaceDefaultPlan } from '@/features/workspace/helpers/parseWorkspaceDefaultPlan'
+import { env } from '@typebot.io/env'
 
 export function customAdapter(p: PrismaClient): Adapter {
   return {
@@ -26,8 +27,7 @@ export function customAdapter(p: PrismaClient): Adapter {
         user.email
       )
       if (
-        process.env.DISABLE_SIGNUP === 'true' &&
-        process.env.ADMIN_EMAIL !== user.email &&
+        env.DISABLE_SIGNUP &&
         invitations.length === 0 &&
         workspaceInvitations.length === 0
       )
@@ -35,7 +35,7 @@ export function customAdapter(p: PrismaClient): Adapter {
 
       const newWorkspaceData = {
         name: data.name ? `${data.name}'s workspace` : `My workspace`,
-        plan: parseWorkspaceDefaultPlan(data.email),
+        plan: parseWorkspaceDefaultPlan(),
       }
       const createdUser = await p.user.create({
         data: {

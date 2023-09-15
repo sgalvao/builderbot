@@ -1,4 +1,11 @@
-import { Text, HStack, Stack, Heading } from '@chakra-ui/react'
+import {
+  Text,
+  HStack,
+  Stack,
+  Heading,
+  Alert,
+  AlertIcon,
+} from '@chakra-ui/react'
 import { Plan } from '@typebot.io/prisma'
 import React from 'react'
 import { PlanTag } from './PlanTag'
@@ -30,12 +37,26 @@ export const CurrentSubscriptionSummary = ({ workspace }: Props) => {
         <PlanTag plan={workspace.plan} />
         {data?.subscription?.cancelDate && (
           <Text fontSize="sm">
-            (Will be cancelled on {data.subscription.cancelDate.toDateString()})
+            ({scopedT('cancelDate')}{' '}
+            {data.subscription.cancelDate.toDateString()})
           </Text>
         )}
       </HStack>
+      {data?.subscription?.status === 'past_due' && (
+        <Alert fontSize="sm" status="error">
+          <AlertIcon />
+          {scopedT('pastDueAlert')}
+        </Alert>
+      )}
 
-      {isSubscribed && <BillingPortalButton workspaceId={workspace.id} />}
+      {isSubscribed && (
+        <BillingPortalButton
+          workspaceId={workspace.id}
+          colorScheme={
+            data?.subscription?.status === 'past_due' ? 'blue' : undefined
+          }
+        />
+      )}
     </Stack>
   )
 }

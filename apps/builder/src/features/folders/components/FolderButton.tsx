@@ -24,8 +24,8 @@ import { useRouter } from 'next/router'
 import React, { useMemo } from 'react'
 import { deleteFolderQuery } from '../queries/deleteFolderQuery'
 import { useToast } from '@/hooks/useToast'
-import { updateFolderQuery } from '../queries/updateFolderQuery'
 import { useI18n, useScopedI18n } from '@/locales'
+import { updateFolderQuery } from '../queries/updateFolderQuery'
 
 export const FolderButton = ({
   folder,
@@ -156,8 +156,6 @@ export const FolderButton = ({
 export const ButtonSkeleton = () => (
   <Button
     as={VStack}
-    mr={{ sm: 6 }}
-    mb={6}
     style={{ width: '225px', height: '270px' }}
     paddingX={6}
     whiteSpace={'normal'}

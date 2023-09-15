@@ -6,10 +6,11 @@ export type InputSubmitContent = {
 }
 
 export type BotContext = {
-  typebotId: string
+  typebot: InitialChatReply['typebot']
   resultId?: string
   isPreview: boolean
   apiHost?: string
+  sessionId: string
 }
 
 export type InitialChatReply = ChatReply & {
@@ -26,4 +27,11 @@ export type OutgoingLog = {
 export type ClientSideActionContext = {
   apiHost?: string
   sessionId: string
+}
+
+export type ChatChunk = Pick<
+  ChatReply,
+  'messages' | 'input' | 'clientSideActions'
+> & {
+  streamingMessageId?: string
 }
