@@ -11,7 +11,7 @@
     "dev": "pnpm docker:up && turbo build --filter=@typebot.io/nextjs... && turbo run dev --filter=builder... --filter=viewer... --parallel --no-cache",
     "build": "pnpm docker:up && turbo run build",
     "build:apps": "turbo run build --filter=builder... --filter=viewer...",
-    "build:landing-page": "turbo run build --filter=landing-page... && turbo run build:env --filter=landing-page...",
+    "build:landing-page": "turbo run build --filter=landing-page...",
     "db:migrate": "cd packages/prisma && pnpm run db:migrate",
     "generate-change-log": "git fetch --all && pnpx gitmoji-changelog"
   },
