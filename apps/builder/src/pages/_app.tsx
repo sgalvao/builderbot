@@ -19,7 +19,6 @@ import { I18nProvider } from '@/locales'
 import en from '@/locales/en'
 import { TypebotProvider } from '@/features/editor/providers/TypebotProvider'
 import { WorkspaceProvider } from '@/features/workspace/WorkspaceProvider'
-import { isCloudProdInstance } from '@/helpers/isCloudProdInstance'
 import { Analytics } from '@vercel/analytics/react'
 
 import { initPostHogIfEnabled } from '@/features/telemetry/posthog'
@@ -65,7 +64,7 @@ const App = ({ Component, pageProps }: AppProps) => {
                 <WorkspaceProvider typebotId={typebotId}>
                   <Component {...pageProps} />
                      <Analytics />
-                  {!pathname.endsWith('edit') && isCloudProdInstance() && (
+                  {!pathname.endsWith('edit') && (
                     <SupportBubble />
                   )}
                   <NewVersionPopup />
